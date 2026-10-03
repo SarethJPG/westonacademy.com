@@ -1,1 +1,86 @@
-<h1>hola mundo</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Weston Academy - Plataforma educativa">
+    <title>Weston Academy</title>
+
+    <!-- una pagina hecha por Jurado Flores Santiago @sareth.jpg -->
+
+    <!-- Fuente Montserrat (variable: permite cualquier font-weight entre 100 y 900) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- CSS global -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- =========================================
+        NAVBAR
+    ========================================= -->
+    <nav class="navbar" id="navbar">
+        <!-- Contenedor principal de la navbar -->
+        <div class="seccion-a">
+
+            <!-- Logo (izquierda) -->
+            <div class="seccion-b">
+                <a href="index.html" class="enlace-logo">
+                    <img src="imgs/logo.webp" alt="Logo Weston Academy" class="logo" loading="lazy">
+                </a>
+            </div>
+
+            <!-- Botón sándwich (solo móvil) -->
+            <button class="btn-hamburguesa" id="btn-hamburguesa" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Navegación y teléfono (derecha) -->
+            <div class="seccion-d">
+
+                <!-- Pestañas de navegación -->
+                <div class="seccion-2">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="nosotros.html" class="nav-link">Nosotros</a>
+                    <a href="pre-first.html" class="nav-link">Pre-First</a>
+                    <a href="primaria.html" class="nav-link">Primaria</a>
+                    <a href="instalaciones.html" class="nav-link">Instalaciones</a>
+                    <a href="admisiones.html" class="nav-link">Admisiones</a>
+                    <a href="contacto.html" class="nav-link">Contacto</a>
+                </div>
+
+                <!-- Teléfono de contacto -->
+                <div class="seccion-3">
+                    <img src="imgs/telefono.svg" alt="Icono Teléfono" class="icono-telefono" loading="lazy">
+                    <span class="texto-telefono">55 3973 2243</span>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Fin de la Navbar -->
+
+    <!-- Secciones de prueba (temporales) -->
+    <section class="seccion-prueba pastel-1">
+        <p>Sección de prueba 1</p>
+    </section>
+
+    <section class="seccion-prueba pastel-2">
+        <p>Sección de prueba 2</p>
+    </section>
+
+    <section class="seccion-prueba pastel-3">
+        <p>Sección de prueba 3</p>
+    </section>
+
+    <section class="seccion-prueba pastel-4">
+        <p>Sección de prueba 4</p>
+    </section>
+
+    <!-- JS global -->
+    <script src="script.js"></script>
+</body>
+</html>
