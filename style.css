@@ -9,8 +9,13 @@
     box-sizing: border-box;
 }
 
+/* ============================================= */
+/* BLOQUE: Escalado fluido global                */
+/* 1rem escala entre 9px y 16px según el ancho  */
+/* de pantalla → todo el sitio se adapta solo   */
+/* ============================================= */
 html {
-    font-size: 100%; /* 1rem = 16px, base para escalar todo el sitio */
+    font-size: clamp(9px, 0.833vw, 16px);
     scroll-behavior: smooth;
 }
 
@@ -18,17 +23,21 @@ html {
 /* BLOQUE: Variables globales                    */
 /* ============================================= */
 :root {
+    /* Familias tipográficas */
     --fuente-principal: 'Montserrat', sans-serif;
 
-    /* Colores pastel de prueba */
-    --pastel-1: #FFD1DC; /* rosa pastel */
-    --pastel-2: #AEC6CF; /* azul pastel */
-    --pastel-3: #B5EAD7; /* menta pastel */
-    --pastel-4: #FFF1B6; /* amarillo pastel */
-
     /* Colores base del sitio */
+    --color-blanco: #ffffff;
+    --color-negro: #3b3b3b;
+    --color-verde: #27a566;
     --color-texto: #000000;
-    --color-fondo: #FFFFFF;
+    --color-fondo: #ffffff;
+
+    /* Colores pastel (temporales, para secciones de prueba) */
+    --pastel-1: #FFD1DC;
+    --pastel-2: #AEC6CF;
+    --pastel-3: #B5EAD7;
+    --pastel-4: #FFF1B6;
 }
 
 /* ============================================= */
@@ -44,104 +53,34 @@ body {
 }
 
 /* ============================================= */
-/* BLOQUE: Secciones de prueba                   */
+/* BLOQUE: Secciones de prueba (temporales)      */
+/* Se eliminarán cuando armemos las reales       */
 /* ============================================= */
 .seccion-prueba {
     /* Altura fluida: entre 40vh y 80vh según pantalla */
     min-height: clamp(18rem, 60vh, 45rem);
 
-    /* Centrado total con Flexbox */
     display: flex;
     align-items: center;
     justify-content: center;
 
-    /* Tipografía fluida: entre 1.1rem y 2rem según pantalla */
+    /* Tipografía fluida entre 1.1rem y 2rem */
     font-size: clamp(1.1rem, 0.9rem + 0.6vw, 2rem);
     font-weight: 600;
     letter-spacing: 0.05em;
     text-align: center;
-
     padding: 2rem;
 }
 
-/* ============================================= */
-/* BLOQUE: Colores pastel de las secciones       */
-/* ============================================= */
+/* Colores pastel de las secciones */
 .pastel-1 { background-color: var(--pastel-1); }
 .pastel-2 { background-color: var(--pastel-2); }
 .pastel-3 { background-color: var(--pastel-3); }
 .pastel-4 { background-color: var(--pastel-4); }
 
 /* ============================================= */
-/* BLOQUE: Responsive - Tablets (≤ 1024px)       */
+/* BLOQUE: Navbar                                */
 /* ============================================= */
-@media (max-width: 1024px) {
-    .seccion-prueba {
-        min-height: clamp(14rem, 50vh, 30rem);
-        padding: 1.5rem;
-    }
-}
-
-/* ============================================= */
-/* BLOQUE: Responsive - Móviles (≤ 768px)        */
-/* ============================================= */
-@media (max-width: 768px) {
-    .seccion-prueba {
-        min-height: 50vh;
-        padding: 1.25rem;
-        font-size: clamp(1rem, 4vw, 1.35rem);
-        letter-spacing: 0.03em;
-    }
-}
-
-/* ============================================= */
-/* BLOQUE: Responsive - Móviles pequeños (≤ 480px) */
-/* ============================================= */
-@media (max-width: 480px) {
-    .seccion-prueba {
-        min-height: 40vh;
-        padding: 1rem;
-    }
-}
-
-/* =========================================
-   VARIABLES GLOBALES Y RESETEO BÁSICO
-========================================= */
-:root {
-    --color-blanco: #ffffff;
-    --color-negro: #3b3b3b;
-    --color-verde: #27a566; /* Verde Weston Academy (hover, líneas, teléfono) */
-    --fuente-principal: 'Montserrat', sans-serif;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--fuente-principal);
-}
-
-/* =========================================
-   ESCALADO 100% FLUIDO (Monitores y Laptops)
-========================================= */
-html {
-    /* Fuente base fluida: entre 9px y 16px según el ancho de pantalla */
-    font-size: clamp(9px, 0.833vw, 16px);
-}
-
-/* En móvil congelamos el tamaño base en 14px porque el diseño ya se apila */
-@media (max-width: 768px) {
-    html {
-        font-size: 14px;
-    }
-}
-
-/* =========================================
-   NAVBAR (BARRA DE NAVEGACIÓN)
-========================================= */
 .navbar {
     background-color: var(--color-blanco);
     width: 100%;
@@ -149,7 +88,7 @@ html {
     top: 0;
     left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -158,18 +97,15 @@ html {
     transform: translateY(-100%);
 }
 
-/* Contenedor principal */
+/* Contenedor principal: la altura la define el logo + el padding vertical */
 .seccion-a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5%;
-    height: 6.5rem;
+    padding: 1.2rem 5%;
 }
 
-/* =========================================
-   LADO IZQUIERDO: LOGO
-========================================= */
+/* --- Lado izquierdo: Logo --- */
 .seccion-b {
     display: flex;
     align-items: center;
@@ -180,23 +116,19 @@ html {
     width: auto;
 }
 
-/* =========================================
-   LADO DERECHO: PESTAÑAS + TELÉFONO
-========================================= */
+/* --- Lado derecho: pestañas + teléfono --- */
 .seccion-d {
     display: flex;
     align-items: center;
-    /* Reducido de 90px (Sponya) a 40px para acomodar 7 pestañas */
-    gap: 40px;
+    gap: 2.5rem;
 }
 
-/* =========================================
-   PESTAÑAS DE NAVEGACIÓN
-========================================= */
+/* ============================================= */
+/* BLOQUE: Pestañas de navegación                */
+/* ============================================= */
 .seccion-2 {
     display: flex;
-    /* Reducido de 25px (Sponya) a 20px para acomodar 7 pestañas */
-    gap: 60px;
+    gap: 3.75rem;
 }
 
 .nav-link {
@@ -208,10 +140,9 @@ html {
     position: relative;
     display: inline-block;
     transition: color 0.3s ease, transform 0.3s ease;
-    white-space: nowrap; /* Evita que las pestañas de 2 palabras se rompan en 2 líneas */
+    white-space: nowrap;
 }
 
-/* Hover: cambio a verde Weston y aumento del 5% */
 .nav-link:hover {
     color: var(--color-verde);
     transform: scale(1.05);
@@ -221,10 +152,10 @@ html {
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -0.3rem;
     left: 0;
     width: 100%;
-    height: 4px;
+    height: 0.25rem;
     background-color: var(--color-verde);
     transform: scaleX(0);
     transform-origin: center;
@@ -235,13 +166,13 @@ html {
     transform: scaleX(1);
 }
 
-/* =========================================
-   BLOQUE DE TELÉFONO
-========================================= */
+/* ============================================= */
+/* BLOQUE: Bloque de teléfono                    */
+/* ============================================= */
 .seccion-3 {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.6rem;
 }
 
 .icono-telefono {
@@ -254,73 +185,57 @@ html {
     font-weight: 700;
     color: var(--color-verde);
     font-size: 1.2rem;
-    white-space: nowrap; /* Evita que el número se corte en 2 líneas */
+    white-space: nowrap;
 }
 
-/* =========================================
-   BOTÓN HAMBURGUESA (Oculto en Desktop)
-========================================= */
+/* ============================================= */
+/* BLOQUE: Botón sándwich (oculto en desktop)    */
+/* ============================================= */
 .btn-hamburguesa {
     display: none;
 }
 
-/* =========================================
-   RESPONSIVO - LAPTOPS PEQUEÑAS (≤ 1280px)
-   Ajuste fino para que las 7 pestañas + teléfono quepan
-========================================= */
-@media (max-width: 1280px) {
-    .seccion-d {
-        gap: 25px;
-    }
-    .seccion-2 {
-        gap: 14px;
-    }
-    .nav-link,
-    .texto-telefono {
-        font-size: 1.05rem;
-    }
-}
-
-/* =========================================
-   RESPONSIVO - TABLETS / LAPTOPS (≤ 1024px)
-========================================= */
-@media (max-width: 1024px) {
-    .seccion-d {
-        gap: 18px;
-    }
-    .seccion-2 {
-        gap: 10px;
-    }
-    .nav-link,
-    .texto-telefono {
-        font-size: 0.95rem;
-    }
-    .logo {
-        height: 4.2rem;
-    }
-}
-
-/* =========================================
-   RESPONSIVO MÓVIL (≤ 768px) - MENÚ SÁNDWICH
-========================================= */
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Aquí sí hay @media porque el layout cambia    */
+/* (apilado vertical + menú sándwich)            */
+/* ============================================= */
 @media (max-width: 768px) {
-    /* Barra compacta */
+
+    /* Congelamos el tamaño base porque el layout ya se apila */
+    html {
+        font-size: 14px;
+    }
+
+    /* ------------------------------------------------- */
+    /* Ajustes de las secciones de prueba                */
+    /* ------------------------------------------------- */
+    .seccion-prueba {
+        min-height: 50vh;
+        padding: 1.25rem;
+        font-size: clamp(1rem, 4vw, 1.35rem);
+        letter-spacing: 0.03em;
+    }
+
+    /* ------------------------------------------------- */
+    /* Barra principal compacta                          */
+    /* ------------------------------------------------- */
     .seccion-a {
-        height: 5rem;
-        padding: 0 5%;
+        padding: 0.6rem 5%;
         position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    /* Logo ajustado */
     .logo {
         height: 3.5rem;
         width: auto;
     }
 
-    /* Botón sándwich visible */
+    /* ------------------------------------------------- */
+    /* Botón sándwich (3 líneas)                         */
+    /* ------------------------------------------------- */
     .btn-hamburguesa {
         display: flex;
         flex-direction: column;
@@ -337,26 +252,28 @@ html {
     .btn-hamburguesa span {
         display: block;
         width: 100%;
-        height: 3px;
+        height: 0.2rem;
         background-color: var(--color-negro);
-        border-radius: 2px;
+        border-radius: 0.125rem;
         transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
     }
 
     /* Transformación a "X" al abrir */
     .btn-hamburguesa.abierto span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(0.5rem) rotate(45deg);
         background-color: var(--color-verde);
     }
     .btn-hamburguesa.abierto span:nth-child(2) {
         opacity: 0;
     }
     .btn-hamburguesa.abierto span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-0.5rem) rotate(-45deg);
         background-color: var(--color-verde);
     }
 
-    /* Menú desplegable flotante */
+    /* ------------------------------------------------- */
+    /* Menú desplegable flotante                         */
+    /* ------------------------------------------------- */
     .seccion-d {
         position: absolute;
         top: 100%;
@@ -367,10 +284,9 @@ html {
         align-items: center;
         gap: 1.8rem;
         padding: 0 5%;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08);
-        border-top: 1px solid #f0f0f0;
+        box-shadow: 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.08);
+        border-top: 0.0625rem solid #f0f0f0;
 
-        /* Animación de apertura */
         max-height: 0;
         opacity: 0;
         overflow: hidden;
@@ -378,7 +294,6 @@ html {
         transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
     }
 
-    /* Estado abierto (lo activa JS con .menu-activo) */
     .seccion-d.menu-activo {
         max-height: 80vh;
         opacity: 1;
@@ -386,7 +301,9 @@ html {
         pointer-events: auto;
     }
 
-    /* Pestañas apiladas verticalmente */
+    /* ------------------------------------------------- */
+    /* Pestañas apiladas verticalmente                   */
+    /* ------------------------------------------------- */
     .seccion-2 {
         flex-direction: column;
         align-items: center;
@@ -400,14 +317,16 @@ html {
         padding: 0.2rem 0;
     }
 
-    /* Bloque teléfono con línea divisoria superior */
+    /* ------------------------------------------------- */
+    /* Bloque teléfono con línea divisoria superior      */
+    /* ------------------------------------------------- */
     .seccion-3 {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 0.8rem;
         padding-top: 1.4rem;
-        border-top: 1px solid #ececec;
+        border-top: 0.0625rem solid #ececec;
         width: 100%;
         max-width: 22rem;
     }
@@ -419,5 +338,15 @@ html {
 
     .icono-telefono {
         height: 1.1rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL PEQUEÑO (≤ 480px)    */
+/* ============================================= */
+@media (max-width: 480px) {
+    .seccion-prueba {
+        min-height: 40vh;
+        padding: 1rem;
     }
 }
