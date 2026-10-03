@@ -28,7 +28,7 @@ html {
 
     /* Colores base del sitio */
     --color-blanco: #ffffff;
-    --color-negro: #3b3b3b;
+    --color-negro: #000000;
     --color-verde: #27a566;
     --color-texto: #000000;
     --color-fondo: #ffffff;
@@ -38,6 +38,10 @@ html {
     --pastel-2: #AEC6CF;
     --pastel-3: #B5EAD7;
     --pastel-4: #FFF1B6;
+
+    /* Alturas de la navbar (para usar en margin-top de la primera sección) */
+    --altura-navbar: 7.4rem;
+    --altura-navbar-movil: 4.7rem;
 }
 
 /* ============================================= */
@@ -205,6 +209,13 @@ body {
     /* Congelamos el tamaño base porque el layout ya se apila */
     html {
         font-size: 14px;
+    }
+
+    /* Redefinimos la altura de la navbar para móvil
+       (así todas las secciones que usen var(--altura-navbar)
+       toman el valor correcto automáticamente) */
+    :root {
+        --altura-navbar: var(--altura-navbar-movil);
     }
 
     /* ------------------------------------------------- */
