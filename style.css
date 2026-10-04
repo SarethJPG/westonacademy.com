@@ -849,3 +849,218 @@ body {
         font-weight: 550;
     }
 }
+
+/* ============================================= */
+/* BLOQUE: Sección Programas                      */
+/* ============================================= */
+.seccion-programas {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 2rem 0 5rem 0;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --programas-margin-contenedor: 2rem 8rem;   /* Margin del contenedor (vertical | horizontal) */
+    --programas-gap-cards: 3rem;                 /* Separación horizontal entre las 2 cards */
+    --programas-gap-vertical-movil: 3rem;        /* Separación vertical entre cards apiladas (móvil) */
+    --programas-padding-contenido: 2rem 3rem;    /* Padding interno del contenido de cada card */
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                         */
+/* ============================================= */
+.programas-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal con estilos mixtos    */
+/* ============================================= */
+.programas-titulo {
+    font-family: var(--fuente-principal);
+    font-size: 4.1rem;         /* ← sin clamp */
+    line-height: 1.1;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    max-width: 90rem;
+    padding: 0 1rem;
+}
+
+/* "UNA BASE SÓLIDA" → mismo estilo que "UNA" del hero */
+.programas-titulo-normal {
+    font-weight: 400;
+    color: var(--color-texto);
+}
+
+/* "TODA LA FAMILIA" → mismo estilo que "GRAN EDUCACIÓN" del hero */
+.programas-titulo-azul {
+    font-weight: 800;
+    color: #3663a7;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor de las 2 cards              */
+/* ============================================= */
+.programas-contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--programas-gap-cards);
+    margin: var(--programas-margin-contenedor);
+    align-items: start; /* Ambas cards se alinean arriba */
+}
+
+/* ============================================= */
+/* BLOQUE: Cada card                              */
+/* ============================================= */
+.programa-card {
+    position: relative;
+}
+
+/* ============================================= */
+/* BLOQUE: Imagen de fondo (dicta la altura)      */
+/* Al estar en flujo normal, la imagen se ve      */
+/* COMPLETA, sin recortes de object-fit.          */
+/* ============================================= */
+.programa-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenido superpuesto                  */
+/* Se posiciona absoluto sobre la mitad derecha   */
+/* de la imagen.                                  */
+/* ============================================= */
+.programa-contenido {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--programas-padding-contenido);
+    gap: 1rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título de cada card                    */
+/* ============================================= */
+.programa-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: left;
+    max-width: 20rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo de cada card                   */
+/* ============================================= */
+.programa-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-align: left;
+    max-width: 15rem;
+    margin-bottom: 2.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón (link con imagen flecha)         */
+/* ============================================= */
+.programa-link {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.programa-link:hover {
+    transform: translateX(0.4rem);
+}
+
+.programa-img {
+    width: 4.5rem;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .programas-subtitulo {
+        font-size: 0.95rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .programas-titulo {
+        font-size: 1.7rem;
+        line-height: 1.2;
+        margin-bottom: 2.2rem;
+        padding: 0 1rem;
+    }
+
+    /* Cards apiladas en 1 columna con ancho reducido (85% del contenedor) */
+    .programas-contenedor {
+        grid-template-columns: 1fr;
+        row-gap: var(--programas-gap-vertical-movil);
+        margin: 1rem 6%;
+        justify-items: center; /* Centra la card reducida */
+    }
+
+    /* ⬇ Card reducida al 85% del contenedor, mantiene su proporción original */
+    .programa-card {
+        width: 85%;
+        max-width: 30rem;
+    }
+
+    /* Imagen en flujo normal (vuelve a dictar la altura como en desktop) */
+    .programa-bg {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    /* El contenido ocupa el 50% derecho (igual que en desktop) */
+    .programa-contenido {
+        left: 50%;
+        width: 50%;
+        padding: 1rem 0.8rem;
+        gap: 0.8rem;
+    }
+
+    /* Tipografía escalada proporcionalmente a la card reducida */
+    .programa-titulo {
+        font-size: 1.2rem;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .programa-parrafo {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        /* max-width reducido para que el párrafo no parta en demasiadas líneas */
+        max-width: 9rem;
+        margin-bottom: 0;
+    }
+
+    .programa-img {
+        width: 2.2rem;
+    }
+}
