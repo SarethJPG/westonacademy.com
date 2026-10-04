@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- CSS global -->
     <link rel="stylesheet" href="style.css">
@@ -62,6 +63,143 @@
         </div>
     </nav>
     <!-- Fin de la Navbar -->
+
+    <!-- =========================================
+     SECCIÓN HERO: CARRUSEL DE 3 CARDS
+========================================= -->
+<section class="hero" id="hero">
+
+    <!-- Pista del carrusel (se moverá horizontalmente con JS) -->
+    <div class="carrusel-track" id="carrusel-track">
+
+        <!-- ============================================= -->
+        <!-- CARD 1                                        -->
+        <!-- ============================================= -->
+        <div class="carrusel-slide">
+
+            <!-- Capa 1: Imagen de fondo (define la altura de la sección) -->
+            <img src="imgs/banner_1.webp" alt="Weston Academy" class="hero-img-fondo" loading="lazy">
+
+            <!-- Capa 2: Contenido superpuesto -->
+            <div class="hero-contenedor">
+
+                <!-- Mitad izquierda: textos apilados y centrados -->
+                <div class="hero-mitad-izq">
+                    <div class="hero-textos">
+
+                        <!-- Subtítulo -->
+                        <h2 class="hero-subtitulo">FORMANDO GRANDES HISTORIAS</h2>
+
+                        <!-- Título principal -->
+                        <h1 class="hero-titulo">
+                            <span class="hero-normal">UNA</span> <span class="hero-azul">GRAN</span>
+                            <br><span class="hero-azul">EDUCACIÓN</span>
+                            <br><span class="hero-normal">PARA SU</span>
+                            <br><span class="hero-verde">GRAN FUTURO</span>
+                        </h1>
+
+                        <!-- Párrafo -->
+                        <p class="hero-parrafo">
+                            Formación integral bilingüe y con valores, para que cada etapa de su desarrollo se convierta en una gran historia.
+                        </p>
+
+                        <!-- Botón -->
+                        <a href="#" class="hero-btn">Conoce más</a>
+
+                    </div>
+                </div>
+
+                <!-- Mitad derecha: vacía (deja ver la imagen del banner) -->
+                <div class="hero-mitad-der"></div>
+
+            </div>
+        </div>
+
+        <!-- ============================================= -->
+        <!-- CARD 2 (duplicada de la Card 1)               -->
+        <!-- ============================================= -->
+        <div class="carrusel-slide">
+
+            <img src="imgs/banner_1.webp" alt="Weston Academy" class="hero-img-fondo" loading="lazy">
+
+            <div class="hero-contenedor">
+
+                <div class="hero-mitad-izq">
+                    <div class="hero-textos">
+
+                        <h2 class="hero-subtitulo">FORMANDO GRANDES HISTORIAS</h2>
+
+                        <h1 class="hero-titulo">
+                            <span class="hero-normal">UNA</span> <span class="hero-azul">GRAN</span>
+                            <br><span class="hero-azul">EDUCACIÓN</span>
+                            <br><span class="hero-normal">PARA SU</span>
+                            <br><span class="hero-verde">GRAN FUTURO</span>
+                        </h1>
+
+                        <p class="hero-parrafo">
+                            Formación integral bilingüe y con valores, para que cada etapa de su desarrollo se convierta en una gran historia.
+                        </p>
+
+                        <a href="#" class="hero-btn">Conoce más</a>
+
+                    </div>
+                </div>
+
+                <div class="hero-mitad-der"></div>
+
+            </div>
+        </div>
+
+        <!-- ============================================= -->
+        <!-- CARD 3 (duplicada de la Card 1)               -->
+        <!-- ============================================= -->
+        <div class="carrusel-slide">
+
+            <img src="imgs/banner_1.webp" alt="Weston Academy" class="hero-img-fondo" loading="lazy">
+
+            <div class="hero-contenedor">
+
+                <div class="hero-mitad-izq">
+                    <div class="hero-textos">
+
+                        <h2 class="hero-subtitulo">FORMANDO GRANDES HISTORIAS</h2>
+
+                        <h1 class="hero-titulo">
+                            <span class="hero-normal">UNA</span> <span class="hero-azul">GRAN</span>
+                            <br><span class="hero-azul">EDUCACIÓN</span>
+                            <br><span class="hero-normal">PARA SU</span>
+                            <br><span class="hero-verde">GRAN FUTURO</span>
+                        </h1>
+
+                        <p class="hero-parrafo">
+                            Formación integral bilingüe y con valores, para que cada etapa de su desarrollo se convierta en una gran historia.
+                        </p>
+
+                        <a href="#" class="hero-btn">Conoce más</a>
+
+                    </div>
+                </div>
+
+                <div class="hero-mitad-der"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Flechas de navegación laterales (centradas verticalmente) -->
+    <button class="hero-flecha hero-flecha-izq" id="hero-flecha-izq" aria-label="Card anterior">&lt;</button>
+    <button class="hero-flecha hero-flecha-der" id="hero-flecha-der" aria-label="Card siguiente">&gt;</button>
+
+    <!-- Indicadores de página (puntos) -->
+    <div class="hero-puntos" id="hero-puntos">
+        <span class="hero-punto activo" data-index="0"></span>
+        <span class="hero-punto" data-index="1"></span>
+        <span class="hero-punto" data-index="2"></span>
+    </div>
+
+</section>
+<!-- Fin del Hero Carrusel -->
 
     <!-- Secciones de prueba (temporales) -->
     <section class="seccion-prueba pastel-1">
