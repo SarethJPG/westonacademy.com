@@ -1016,51 +1016,65 @@ body {
         padding: 0 1rem;
     }
 
-    /* Cards apiladas en 1 columna con ancho reducido (85% del contenedor) */
+    /* Contenedor: 1 columna, cards apiladas */
     .programas-contenedor {
         grid-template-columns: 1fr;
         row-gap: var(--programas-gap-vertical-movil);
-        margin: 1rem 6%;
-        justify-items: center; /* Centra la card reducida */
+        margin: 1rem 4%;
+        justify-items: center;
     }
 
-    /* ⬇ Card reducida al 85% del contenedor, mantiene su proporción original */
+    /* Card al 95% del contenedor → casi ancho completo pero con margen visual */
     .programa-card {
-        width: 85%;
+        width: 95%;
         max-width: 30rem;
+        position: relative;
     }
 
-    /* Imagen en flujo normal (vuelve a dictar la altura como en desktop) */
+    /* Imagen en flujo normal: dicta la altura y se ve COMPLETA, sin recortes */
     .programa-bg {
+        position: relative;
         width: 100%;
         height: auto;
-        object-fit: cover;
+        object-fit: contain;
     }
 
-    /* El contenido ocupa el 50% derecho (igual que en desktop) */
+    /* Contenido superpuesto en la mitad derecha (mismo split que desktop) */
     .programa-contenido {
+        position: absolute;
+        top: 0;
         left: 50%;
         width: 50%;
+        height: 100%;
         padding: 1rem 0.8rem;
-        gap: 0.8rem;
+        gap: 0.6rem;
+        justify-content: center;
+        align-items: flex-start;
     }
 
-    /* Tipografía escalada proporcionalmente a la card reducida */
+    /* Título compacto */
     .programa-titulo {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
+        line-height: 1.15;
         max-width: 100%;
         margin-bottom: 0;
     }
 
+    /* Párrafo: máx 3 líneas garantizadas con line-clamp */
     .programa-parrafo {
-        font-size: 0.85rem;
-        line-height: 1.4;
-        /* max-width reducido para que el párrafo no parta en demasiadas líneas */
-        max-width: 9rem;
+        font-size: 0.78rem;
+        line-height: 1.35;
+        max-width: 90%;
         margin-bottom: 0;
+        /* Recorta el texto a 3 líneas con "..." si se pasa */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
+    /* Botón flecha más chico para no robar altura */
     .programa-img {
-        width: 2.2rem;
+        width: 2rem;
     }
 }
