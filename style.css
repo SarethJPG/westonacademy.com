@@ -1255,3 +1255,318 @@ body {
         padding: 0.7rem 3rem;
     }
 }
+
+/* ============================================= */
+/* BLOQUE: Sección Nuestras Diferencias           */
+/* ============================================= */
+.seccion-diferencias {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --diferencias-split-der: 65%;           /* Ancho del tercio derecho (imagen) */
+    --diferencias-ancho-contenido: 50%;    /* Ancho del contenido (independiente del split). Si es mayor que (100% - split-der), se encima sobre la imagen */
+    --diferencias-padding-contenido: 5rem 0rem 5rem 8%;  /* Padding del wrapper (top | right | bottom | left) */
+    --diferencias-gap-vertical: 3rem;        /* Gap entre subtítulo, título y grupos */
+    --diferencias-gap-columnas: 1rem;          /* Gap entre las 4 columnas de grupos */
+    --diferencias-gap-grupo-interno: 0.7rem;   /* Gap interno de cada grupo (icono, título, párrafo) */
+    --diferencias-max-subtitulo: 70rem;        /* Ancho máx del subtítulo */
+    --diferencias-max-titulo: 80rem;           /* Ancho máx del título principal */
+    --diferencias-max-titulo-grupo: 12rem;     /* Ancho máx del título de cada grupo */
+    --diferencias-max-parrafo-grupo: 13rem;    /* Ancho máx del párrafo de cada grupo */
+    --diferencias-icono-size: 6rem;            /* Tamaño de los iconos */
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Fondo (2/3 blanco + 1/3 img) */
+/* ============================================= */
+.diferencias-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: vacío */
+.diferencias-fondo-izq {
+    width: calc(100% - var(--diferencias-split-der));
+    background-color: #ffffff;
+}
+
+/* Tercio derecho: contiene la imagen que dicta la altura */
+.diferencias-fondo-der {
+    width: var(--diferencias-split-der);
+}
+
+.diferencias-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenido superpuesto         */
+/* ============================================= */
+.diferencias-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 100%;
+    display: flex;
+    align-items: center;      /* Centrado vertical del contenido */
+    z-index: 2;
+}
+
+/* Wrapper: aquí controlas el desplazamiento del contenido hacia la izquierda */
+.diferencias-contenido-wrapper {
+    width: var(--diferencias-ancho-contenido);
+    padding: var(--diferencias-padding-contenido);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Alineación interna a la izquierda */
+    text-align: left;
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.diferencias-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--diferencias-max-subtitulo);
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.diferencias-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 4.1rem;
+    line-height: 1.15;
+    text-align: left;
+    max-width: var(--diferencias-max-titulo);
+    margin-bottom: var(--diferencias-gap-vertical);
+}
+
+/* "UNA EDUCACIÓN QUE" → weight 500 */
+.diferencias-titulo-normal {
+    font-weight: 450;
+}
+
+/* "MARCA LA DIFERENCIA" → weight 700 */
+.diferencias-titulo-azul {
+    font-weight: 6500;
+}
+
+/* ============================================= */
+/* BLOQUE: Grid de los 4 grupos (con subgrid)     */
+/* ============================================= */
+.diferencias-grupos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto; /* 3 filas: icono, título, párrafo */
+    column-gap: var(--diferencias-gap-columnas);
+    width: 110%;
+    margin-top: 1rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Cada grupo (subgrid de 3 filas)        */
+/* ============================================= */
+.diferencia-grupo {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    row-gap: var(--diferencias-gap-grupo-interno);
+    align-items: start;
+    justify-items: start;    /* Alineación interna a la izquierda */
+    text-align: left;
+}
+
+/* ============================================= */
+/* BLOQUE: Icono                                  */
+/* ============================================= */
+.diferencia-icono {
+    width: var(--diferencias-icono-size);
+    height: var(--diferencias-icono-size);
+    object-fit: contain;
+}
+
+/* ============================================= */
+/* BLOQUE: Título de cada grupo (azul del botón)  */
+/* ============================================= */
+.diferencia-titulo {
+    font-family: var(--fuente-principal);
+    color: #0284d0;
+    font-weight: 700;
+    font-size: 1.7rem;
+    line-height: 1.3;
+    text-align: left;
+    max-width: var(--diferencias-max-titulo-grupo);
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo de cada grupo                  */
+/* ============================================= */
+.diferencia-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: 1.2rem;
+    line-height: 1.45;
+    text-align: left;
+    max-width: var(--diferencias-max-parrafo-grupo);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen centrada con overlay blanco,           */
+/* subtítulo y título encima, grupos debajo       */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección pasa a flex column para apilar la imagen + el contenido debajo */
+    .seccion-diferencias {
+        display: flex;
+        flex-direction: column;
+
+        /* Ajustes para móvil */
+        --diferencias-padding-contenido: 3rem 6% 4rem 6%;
+        --diferencias-gap-columnas: 0;
+        --diferencias-gap-grupo-interno: 1rem;
+        --diferencias-max-titulo-grupo: 100%;
+        --diferencias-max-parrafo-grupo: 100%;
+        --diferencias-icono-size: 5rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 1: la imagen ocupa todo el ancho            */
+    /* ------------------------------------------------- */
+    .diferencias-fondo {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    /* Ocultamos el lado izquierdo vacío */
+    .diferencias-fondo-izq {
+        display: none;
+    }
+
+    /* La imagen ocupa todo el ancho */
+    .diferencias-fondo-der {
+        width: 100%;
+    }
+
+    .diferencias-bg {
+        width: 100%;
+        height: 55vh;
+        min-height: 22rem;
+        object-fit: cover;
+        /* Centrado: recorta simétricamente los laterales */
+        object-position: center center;
+    }
+
+    /* Overlay blanco translúcido encima de la imagen */
+    .diferencias-fondo::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.75);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 2: el contenido deja de ser absoluto para   */
+    /* que los grupos fluyan debajo de la imagen        */
+    /* ------------------------------------------------- */
+    .diferencias-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    /* Rompemos el wrapper para que sus hijos se comporten
+       como si fueran hijos directos de .diferencias-contenido */
+    .diferencias-contenido-wrapper {
+        display: contents;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subtítulo y título: sobre la imagen, centrados    */
+    /* ------------------------------------------------- */
+    .diferencias-subtitulo,
+    .diferencias-titulo {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 3;
+        padding: 0 1.5rem;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .diferencias-subtitulo {
+        /* Ajusta este valor para subir/bajar el subtítulo sobre la imagen */
+        top: 15vh;
+        font-weight: 700;
+        font-size: 2rem;
+        letter-spacing: 0.04em;
+    }
+
+    .diferencias-titulo {
+        /* Ajusta este valor para subir/bajar el título sobre la imagen */
+        top: 26vh;
+        font-size: 2rem;
+        line-height: 1.15;
+    }
+
+    /* ------------------------------------------------- */
+    /* Grupos: debajo de la imagen, apilados en columna  */
+    /* ------------------------------------------------- */
+    .diferencias-grupos {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        padding: var(--diferencias-padding-contenido);
+        background-color: #ffffff;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    /* Cada grupo: columna con elementos centrados */
+    .diferencia-grupo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+        text-align: center;
+        gap: var(--diferencias-gap-grupo-interno);
+        max-width: 100%;
+    }
+
+    .diferencia-titulo,
+    .diferencia-parrafo {
+        text-align: center;
+        max-width: 70%;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
