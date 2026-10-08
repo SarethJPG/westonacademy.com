@@ -1216,7 +1216,7 @@ body {
 
         /* ⬇ Ya no usamos --modelo-overlay-top en móvil.
            Ahora controlamos desde --modelo-overlay-bottom. */
-        --modelo-overlay-bottom: 3dvh;   /* ← Ajusta aquí para subir/bajar el texto */
+        --modelo-overlay-bottom: 1dvh;   /* ← Ajusta aquí para subir/bajar el texto */
         --modelo-parrafo-margin-top: 5rem;
         --modelo-btn-margin-top: 1.8rem;
     }
