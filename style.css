@@ -1214,30 +1214,32 @@ body {
     .seccion-modelo {
         padding-bottom: 3.5rem;
 
-        /* ⬇ Ya no usamos --modelo-overlay-top en móvil.
-           Ahora controlamos desde --modelo-overlay-bottom. */
-        --modelo-overlay-bottom: 1dvh;   /* ← Ajusta aquí para subir/bajar el texto */
+        /* ⬇ Ahora controlas la distancia desde el borde inferior de la imagen */
+        --modelo-overlay-bottom: 3rem;   /* ← Ajusta aquí para subir/bajar el texto */
         --modelo-parrafo-margin-top: 5rem;
         --modelo-btn-margin-top: 1.8rem;
     }
 
-    /* Imagen con dvh (se adapta al viewport real del celular) */
+    /* Imagen */
     .modelo-bg {
         min-height: 22rem;
-        height: 55vh;                    /* fallback navegadores viejos */
-        height: 55dvh;                   /* navegadores modernos */
+        height: 55vh;
+        height: 55dvh;
         object-fit: cover;
         object-position: center bottom;
         margin-top: 0%;
     }
 
-    /* ⬇ CAMBIO CLAVE: anclamos el contenido al fondo del wrapper */
+    /* ⬇ ANCLAJE AL FONDO: sobreescribimos por completo el overlay */
     .modelo-overlay {
-        padding-top: 0;                  /* ← Quitamos el padding-top que causaba el problema */
-        padding-bottom: var(--modelo-overlay-bottom);  /* ← Ahora anclamos desde abajo */
+        top: auto;                              /* Quitamos el anclaje al tope */
+        bottom: var(--modelo-overlay-bottom);   /* Anclamos al fondo */
+        height: auto;                           /* Sin altura fija */
+        padding-top: 0;                         /* ← CLAVE: elimina el padding-top que dominaba */
+        padding-bottom: 0;
         padding-left: 1rem;
         padding-right: 1rem;
-        justify-content: flex-end;       /* ← Empuja los hijos al fondo */
+        gap: var(--modelo-gap-sub-titulo);
     }
 
     .modelo-subtitulo {
@@ -1265,7 +1267,6 @@ body {
         padding: 0.7rem 3rem;
     }
 }
-
 
 
 /* ============================================= */
