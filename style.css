@@ -1214,7 +1214,7 @@ body {
         padding-bottom: 3.5rem;
 
         /* Ajustes para móvil */
-        --modelo-overlay-top: 35vh;          
+        --modelo-overlay-top: 39vh;          
         --modelo-parrafo-margin-top: 5rem; /* Acerca el párrafo a la imagen (antes 2rem) */
         --modelo-btn-margin-top: 1.8rem;
     }
