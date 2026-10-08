@@ -1208,63 +1208,103 @@ body {
 
 /* ============================================= */
 /* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen de fondo + capa blanca + todo centrado  */
 /* ============================================= */
 @media (max-width: 768px) {
 
     .seccion-modelo {
-        padding-bottom: 3.5rem;
-
-        /* ⬇ Ahora controlas la distancia desde el borde inferior de la imagen */
-        --modelo-overlay-bottom: 3rem;   /* ← Ajusta aquí para subir/bajar el texto */
-        --modelo-parrafo-margin-top: 5rem;
-        --modelo-btn-margin-top: 1.8rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;     /* Centra el contenido verticalmente */
+        align-items: center;         /* Centra el contenido horizontalmente */
+        min-height: 60dvh;          /* Ocupa toda la pantalla del celular */
+        padding: 3rem 1.5rem;
+        gap: 1rem;                   /* Separación entre overlay, párrafo y botón */
+        overflow: hidden;            /* Evita desbordes por la imagen absoluta */
+        --modelo-crop-y: 30%;
     }
 
-    /* Imagen */
+    /* ⬇ TRUCO CLAVE: aplanamos el wrapper.
+       Sus hijos (imagen + overlay) pasan a comportarse como
+       hijos directos de la sección para el layout flex. */
+    .modelo-imagen-wrapper {
+        display: contents;
+    }
+
+    /* Imagen cubriendo TODA la sección (fondo) */
     .modelo-bg {
-        min-height: 22rem;
-        height: 55vh;
-        height: 55dvh;
+        position: absolute;
+        top: calc(-1 * var(--modelo-crop-y));            /* Sobresale X% por arriba */
+        left: 0;
+        width: 100%;
+        height: calc(100% + (2 * var(--modelo-crop-y))); /* Compensa lo que sobresale arriba y abajo */
         object-fit: cover;
-        object-position: center bottom;
-        margin-top: 0%;
+        object-position: center;
+        margin-top: 0;
+        z-index: 0;
     }
 
-    /* ⬇ ANCLAJE AL FONDO: sobreescribimos por completo el overlay */
+    /* Capa blanca translúcida encima de la imagen */
+    .seccion-modelo::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.70);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* Todos los bloques de texto/botón quedan ENCIMA de la capa blanca */
+    .modelo-overlay,
+    .modelo-parrafo,
+    .modelo-btn {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Overlay como columna flex centrada (ya no absoluta) */
     .modelo-overlay {
-        top: auto;                              /* Quitamos el anclaje al tope */
-        bottom: var(--modelo-overlay-bottom);   /* Anclamos al fondo */
-        height: auto;                           /* Sin altura fija */
-        padding-top: 0;                         /* ← CLAVE: elimina el padding-top que dominaba */
-        padding-bottom: 0;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        gap: var(--modelo-gap-sub-titulo);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0;
+        gap: 0.8rem;
+        width: 100%;
+        height: auto;
     }
 
+    /* Subtítulo */
     .modelo-subtitulo {
         font-size: 1rem;
         letter-spacing: 0.04em;
+        font-weight: 550;
     }
 
+    /* Título */
     .modelo-titulo {
         font-size: 1.6rem;
         line-height: 1.15;
         max-width: 22rem;
+        font-weight: 650;
     }
 
+    /* Párrafo */
     .modelo-parrafo {
+        margin-top: 0;
+        max-width: 22rem;
+        padding: 0;
         font-size: 0.95rem;
         line-height: 1.45;
-        max-width: 22rem;
-        padding: 0 1rem;
         text-align: justify;
         text-align-last: center;
+        font-weight: 550;
     }
 
+    /* Botón */
     .modelo-btn {
-        font-size: 0.95rem;
-        padding: 0.7rem 3rem;
+        margin-top: 0;
     }
 }
 
