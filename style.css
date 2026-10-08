@@ -856,7 +856,7 @@ body {
 .seccion-programas {
     background-color: #ffffff;
     width: 100%;
-    padding: 2rem 0 5rem 0;
+    padding: 2rem 0 0rem 0;
 
     /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
     --programas-margin-contenedor: 2rem 8rem;   /* Margin del contenedor (vertical | horizontal) */
@@ -1164,14 +1164,14 @@ body {
 .modelo-parrafo {
     font-family: var(--fuente-principal);
     color: var(--color-texto);
-    font-weight: 450;
+    font-weight: 500;
     font-size: 1.4rem;
     line-height: 1.6;
     text-align: center;
     /* ⬇ Separación con la imagen de arriba */
     margin-top: var(--modelo-parrafo-margin-top);
     /* ⬇ Ajusta este max-width para controlar en cuántas líneas parte el párrafo */
-    max-width: 55rem;
+    max-width: 60rem;
     margin-left: auto;
     margin-right: auto;
     padding: 0 2rem;
@@ -2390,7 +2390,7 @@ body {
     background-color: #0284d0;
     border: none;
     border-radius: 50rem;
-    padding: 0.85rem 4rem;
+    padding: 0.85rem 6rem;
     margin-top: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
@@ -2471,5 +2471,260 @@ body {
         width: 100%;
         align-self: stretch;
         padding: 0.9rem 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Footer                                */
+/* ============================================= */
+.footer-weston {
+    background-color: #27a566;
+    width: 100%;
+
+    /* Padding general: separa las subsecciones de los bordes laterales */
+    padding: 0 5%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --footer-padding-vertical: 3rem;         /* Padding vertical de cada subsección */
+    --footer-gap-grupos: 2rem;                /* Separación entre los 4 grupos (desktop) */
+    --footer-gap-vertical-movil: 2.5rem;      /* Separación vertical entre grupos (móvil) */
+    --footer-icon-size: 0.7rem;               /* Tamaño de los iconos de contacto */
+    --footer-social-size: 2.5rem;             /* Tamaño de los iconos sociales */
+    --footer-font-size: 1rem;               /* Tamaño de letra del footer */
+    --footer-hr-margin-lateral: 1.5rem;       /* Mínimo margin lateral de la HR */
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 1 - Logo                    */
+/* La imagen dicta la altura de esta subsección   */
+/* ============================================= */
+.footer-logo-seccion {
+    width: 100%;
+    padding: var(--footer-padding-vertical) 0;
+    display: flex;
+    justify-content: left;    /* Centrado horizontal del logo */
+    align-items: center;
+}
+
+.footer-logo-img {
+    width: 100%;
+    max-width: 20rem;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 2 - 4 grupos proporcionales */
+/* 30% | 30% | 30% | 10%                          */
+/* ============================================= */
+.footer-grupos {
+    display: flex;
+    align-items: flex-start;     /* Alineación superior de los grupos */
+    gap: var(--footer-gap-grupos);
+    width: 100%;
+    padding: var(--footer-padding-vertical) 0;
+}
+
+
+/* --- Grupo 1: Dirección (30%) --- */
+.footer-grupo-direccion {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+
+.footer-direccion {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.5;
+    text-align: left;
+    max-width: 28rem;
+}
+
+/* --- Grupo 2: Contacto (30%) --- */
+.footer-grupo-contacto {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.footer-lista-contacto {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: left;
+}
+
+.footer-lista-contacto li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.3;
+}
+
+.footer-icono-lista {
+    width: var(--footer-icon-size);
+    height: var(--footer-icon-size);
+    object-fit: contain;
+    /* Convertimos cualquier color del SVG a blanco */
+    filter: brightness(0) invert(1);
+    flex-shrink: 0;
+}
+
+/* --- Grupo 3: Navegación (30%) --- */
+.footer-grupo-nav {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.footer-lista-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+}
+
+.footer-nav-link {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 500;
+    font-size: var(--footer-font-size);
+    line-height: 1.3;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    display: inline-block;
+}
+
+.footer-nav-link:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+}
+
+/* --- Grupo 4: Redes sociales (10%) --- */
+.footer-grupo-social {
+    flex: 0 0 10%;
+    max-width: 10%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.6rem;
+}
+
+.footer-social-link {
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer-social-link:hover {
+    transform: scale(1.15);
+    opacity: 0.85;
+}
+
+.footer-social-link img {
+    width: var(--footer-social-size);
+    height: var(--footer-social-size);
+    object-fit: contain;
+    display: block;
+    /* Convertimos los SVG a blanco puro */
+    filter: brightness(0) invert(1);
+}
+
+/* ============================================= */
+/* BLOQUE: Línea divisoria (HR)                   */
+/* ============================================= */
+.footer-hr {
+    width: calc(100% - (var(--footer-hr-margin-lateral) * 2));
+    margin: 1rem var(--footer-hr-margin-lateral);
+    height: 3px;
+    background-color: var(--color-blanco);
+    border: none;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 3 - Copyright               */
+/* ============================================= */
+.footer-copyright-seccion {
+    width: 100%;
+    padding: 1.5rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-copyright {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.4;
+}
+
+/* ============================================= */
+/* BLOQUE: Scroll-margin para que la navbar fija  */
+/* no tape las secciones al hacer autoscroll      */
+/* desde los enlaces del footer                   */
+/* ============================================= */
+#hero,
+#nosotros,
+#programas,
+#instalaciones,
+#admisiones {
+    scroll-margin-top: var(--altura-navbar);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Grupos apilados en columna                     */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .footer-weston {
+        padding: 0 6%;
+        --footer-padding-vertical: 2rem;
+        --footer-icon-size: 0.85rem;
+        --footer-social-size: 1.3rem;
+    }
+
+    /* Subsección 1: logo más chico */
+    .footer-logo-img {
+        max-width: 14rem;
+    }
+
+    /* Subsección 2: los 4 grupos se apilan verticalmente */
+    .footer-grupos {
+        flex-direction: column;
+        gap: var(--footer-gap-vertical-movil);
+    }
+
+    /* Todos los grupos pasan a 100% de ancho */
+    .footer-grupo-direccion,
+    .footer-grupo-contacto,
+    .footer-grupo-nav,
+    .footer-grupo-social {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* Los iconos sociales ahora se alinean a la izquierda */
+    .footer-grupo-social {
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    /* HR */
+    .footer-hr {
+        margin: 3rem var(--footer-hr-margin-lateral);
+    }
+
+    /* Copyright */
+    .footer-copyright-seccion {
+        padding: 1.5rem 0;
     }
 }
