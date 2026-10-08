@@ -1205,6 +1205,7 @@ body {
     background-color: #026aa8;
     transform: scale(1.03);
 }
+
 /* ============================================= */
 /* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
 /* ============================================= */
@@ -1213,25 +1214,30 @@ body {
     .seccion-modelo {
         padding-bottom: 3.5rem;
 
-        /* Ajustes para móvil */
-        --modelo-overlay-top: 39vh;          
-        --modelo-parrafo-margin-top: 5rem; /* Acerca el párrafo a la imagen (antes 2rem) */
+        /* ⬇ Ya no usamos --modelo-overlay-top en móvil.
+           Ahora controlamos desde --modelo-overlay-bottom. */
+        --modelo-overlay-bottom: 8dvh;   /* ← Ajusta aquí para subir/bajar el texto */
+        --modelo-parrafo-margin-top: 5rem;
         --modelo-btn-margin-top: 1.8rem;
     }
 
-    /* La imagen se recorta por los laterales, manteniéndose centrada */
+    /* Imagen con dvh (se adapta al viewport real del celular) */
     .modelo-bg {
-        min-height: 18rem;
-        height: 50vh;
-        height: 50dvh; 
+        min-height: 22rem;
+        height: 55vh;                    /* fallback navegadores viejos */
+        height: 55dvh;                   /* navegadores modernos */
         object-fit: cover;
         object-position: center bottom;
         margin-top: 0%;
     }
 
+    /* ⬇ CAMBIO CLAVE: anclamos el contenido al fondo del wrapper */
     .modelo-overlay {
+        padding-top: 0;                  /* ← Quitamos el padding-top que causaba el problema */
+        padding-bottom: var(--modelo-overlay-bottom);  /* ← Ahora anclamos desde abajo */
         padding-left: 1rem;
         padding-right: 1rem;
+        justify-content: flex-end;       /* ← Empuja los hijos al fondo */
     }
 
     .modelo-subtitulo {
@@ -1259,6 +1265,8 @@ body {
         padding: 0.7rem 3rem;
     }
 }
+
+
 
 /* ============================================= */
 /* BLOQUE: Sección Nuestras Diferencias           */
