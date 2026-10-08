@@ -1214,7 +1214,7 @@ body {
         padding-bottom: 3.5rem;
 
         /* Ajustes para móvil */
-        --modelo-overlay-top:90%;            /* Baja el texto sobre la imagen (antes 12%) */
+        --modelo-overlay-top: 30vh;          
         --modelo-parrafo-margin-top: 5rem; /* Acerca el párrafo a la imagen (antes 2rem) */
         --modelo-btn-margin-top: 1.8rem;
     }
@@ -1223,6 +1223,7 @@ body {
     .modelo-bg {
         min-height: 18rem;
         height: 50vh;
+        height: 50dvh; 
         object-fit: cover;
         object-position: center bottom;
         margin-top: 0%;
