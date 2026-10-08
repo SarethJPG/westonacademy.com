@@ -2021,3 +2021,455 @@ body {
         padding: 0.7rem 2rem;
     }
 }
+
+/* ============================================= */
+/* BLOQUE: Sección Admisiones                     */
+/* (espejo de Nuestro Campus: imagen a la izq.)   */
+/* ============================================= */
+.seccion-admisiones {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --admisiones-split-izq: 100%;                    /* Ancho de la imagen (pegada a la izquierda) */
+    --admisiones-ancho-contenido: 65%;              /* Ancho del contenedor de contenido (independiente del split) */
+    --admisiones-padding-contenido: 5rem 8% 5rem 0; /* Padding del wrapper (top | right | bottom | left) */
+    --admisiones-gap-vertical: 1.5rem;              /* Gap vertical entre subtítulo, título, párrafo y botón */
+    --admisiones-max-subtitulo: 30rem;              /* Ancho máx del subtítulo */
+    --admisiones-max-titulo: 55rem;                 /* Ancho máx del título principal */
+    --admisiones-max-parrafo: 55rem;                /* Ancho máx del párrafo */
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Fondo dividido                */
+/* (izquierda imagen + derecha blanca vacía)      */
+/* ============================================= */
+.admisiones-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: contiene la imagen que dicta la altura */
+.admisiones-fondo-izq {
+    width: var(--admisiones-split-izq);
+}
+
+.admisiones-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Lado derecho: vacío */
+.admisiones-fondo-der {
+    width: calc(100% - var(--admisiones-split-izq));
+    background-color: #ffffff;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenido superpuesto         */
+/* ============================================= */
+.admisiones-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;          /* Centrado vertical del contenido */
+    justify-content: flex-end;    /* Empuja el contenido a la derecha */
+    z-index: 2;
+}
+
+/* Wrapper: alineado a la derecha */
+.admisiones-contenido-wrapper {
+    width: var(--admisiones-ancho-contenido);
+    padding: var(--admisiones-padding-contenido);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;        /* Alineación interna a la derecha */
+    text-align: right;
+    gap: var(--admisiones-gap-vertical);
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.admisiones-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.7rem;
+    letter-spacing: 0.05em;
+    text-align: right;
+    max-width: var(--admisiones-max-subtitulo);
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.admisiones-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 4.5rem;
+    line-height: 1;
+    text-align: right;
+    max-width: var(--admisiones-max-titulo);
+}
+
+/* "INICIEMOS JUNTOS ESTA" → weight 450 */
+.admisiones-titulo-normal {
+    font-weight: 450;
+}
+
+/* "GRAN HISTORIA" → weight 750 */
+.admisiones-titulo-azul {
+    font-weight: 750;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.admisiones-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: right;
+    max-width: var(--admisiones-max-parrafo);
+    margin-bottom: 2rem;
+    letter-spacing: -0.02rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón verde "Solicita información"     */
+/* ============================================= */
+.admisiones-btn {
+    display: inline-block;
+    background-color: #27a566;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.admisiones-btn:hover {
+    background-color: #1f8a54;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen arriba centrada + contenido debajo,     */
+/* todo con alineación centrada                   */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección pasa a flex column para apilar la imagen + el contenido debajo */
+    .seccion-admisiones {
+        display: flex;
+        flex-direction: column;
+
+        /* Ajustes para móvil */
+        --admisiones-padding-contenido: 3rem 6% 4rem 6%;
+        --admisiones-gap-vertical: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 1: la imagen ocupa todo el ancho, arriba     */
+    /* ------------------------------------------------- */
+    .admisiones-fondo {
+        position: relative;
+        display: block;
+        width: 220%;
+    }
+
+    /* La imagen ocupa todo el ancho */
+    .admisiones-fondo-izq {
+        width: 100%;
+    }
+
+    .admisiones-bg {
+        width: 100%;
+        height: 55vh;
+        min-height: 22rem;
+        object-fit: cover;
+        /* Centrado: recorta simétricamente los laterales */
+        object-position: center center;
+    }
+
+    /* Ocultamos el lado derecho vacío */
+    .admisiones-fondo-der {
+        display: none;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 2: el contenido deja de ser absoluto para   */
+    /* que fluya debajo de la imagen                    */
+    /* ------------------------------------------------- */
+    .admisiones-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    /* El wrapper ocupa el 100% y centra su contenido */
+    .admisiones-contenido-wrapper {
+        width: 100%;
+        align-items: center;   /* Centrado horizontal de hijos */
+        text-align: center;    /* Alineación interna centrada */
+        gap: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Jerarquía tipográfica ajustada a pantalla chica    */
+    /* ------------------------------------------------- */
+    .admisiones-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .admisiones-titulo {
+        font-size: 1.7rem;
+        line-height: 1.15;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .admisiones-parrafo {
+        font-size: 1.5rem;
+        line-height: 1.45;
+        text-align: center;
+        text-align-last: center;
+        max-width: 22rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .admisiones-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Contacto (Formulario + Mapa)   */
+/* ============================================= */
+.seccion-contacto {
+    background-color: #f0f0f0;
+    width: 100%;
+    padding: 0;                       /* Los márgenes internos de cada hijo dan el espaciado */
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --contacto-mapa-ancho: 38%;       /* Ancho del mapa (más pequeño) */
+    --contacto-margin: 1rem;          /* X → margin común (top, bottom, izquierda del mapa, izquierda del form... ver detalle) */
+    --contacto-margin-doble: 2rem;    /* 2X → margin derecho del mapa e izquierdo del form */
+    --contacto-padding-form: 0rem 3rem; /* Padding interno del formulario */
+    --contacto-max-form: 45rem;       /* Ancho máximo del formulario */
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor principal                   */
+/* ============================================= */
+.contacto-contenedor {
+    display: flex;
+    align-items: stretch;             /* Ambas columnas a la MISMA ALTURA */
+    width: 100%;
+    padding: 0;                       /* Sin padding: los márgenes de los hijos lo controlan */
+    gap: 10rem;                           /* Sin gap: la separación la da el margin del mapa */
+    justify-content: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Formulario (izquierda)                 */
+/* Margin: X | 0 | X | 2X  (top | right | bottom | left) */
+/* → Simétrico con el margin-right del mapa        */
+/* ============================================= */
+.contacto-form-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--contacto-padding-form);
+    margin: var(--contacto-margin) 0 var(--contacto-margin) var(--contacto-margin-doble);
+    max-width: var(--contacto-max-form);
+}
+
+/* ============================================= */
+/* BLOQUE: Formulario                             */
+/* ============================================= */
+.form-weston {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+}
+
+.form-fila-doble {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.form-fila-doble .form-grupo {
+    flex: 1;
+}
+
+/* ============================================= */
+/* BLOQUE: Labels e inputs (SIN bordes)           */
+/* ============================================= */
+.form-label {
+    font-family: var(--fuente-principal);
+    color: #000000;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    color: #000000;
+    padding: 0.7rem 1rem;
+    background-color: var(--color-blanco);
+    border: none;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    box-shadow: 0 0.125rem 0.75rem rgba(2, 132, 208, 0.35);
+}
+
+.form-textarea {
+    resize: vertical;
+}
+
+/* ============================================= */
+/* BLOQUE: Mensajes de error                      */
+/* ============================================= */
+.error-msg {
+    color: red;
+    font-family: var(--fuente-principal);
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-top: 0.3rem;
+    margin-left: 0.5rem;
+    display: none;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón Enviar (azul de la marca)        */
+/* ============================================= */
+.btn-enviar-form {
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-blanco);
+    background-color: #0284d0;
+    border: none;
+    border-radius: 50rem;
+    padding: 0.85rem 4rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    align-self: flex-start;
+}
+
+.btn-enviar-form:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: Mapa (derecha)                         */
+/* Margin: X | 2X | X | X  (top | right | bottom | left) */
+/* El margin-left del mapa (X) crea la separación */
+/* respecto al formulario.                         */
+/* ============================================= */
+.contacto-mapa-wrapper {
+    width: var(--contacto-mapa-ancho);
+    aspect-ratio: 1 / 1;              /* Cuadrado perfecto */
+    margin: var(--contacto-margin) var(--contacto-margin-doble) var(--contacto-margin) var(--contacto-margin);
+    display: flex;
+    flex-shrink: 0;
+}
+
+.contacto-mapa-iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Formulario arriba, mapa abajo                  */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-contacto {
+        padding: 2rem 0;
+        --contacto-margin: 0;
+        --contacto-margin-doble: 0;
+        --contacto-padding-form: 0 6% 2rem 6%;
+    }
+
+    /* Contenedor: columna apilada */
+    .contacto-contenedor {
+        flex-direction: column;
+        padding: 0 6%;
+        gap: 2rem;
+        align-items: stretch;
+    }
+
+    /* Formulario: sin max-width, sin márgenes */
+    .contacto-form-wrapper {
+        max-width: 100%;
+        margin: 0;
+        padding: var(--contacto-padding-form);
+    }
+
+    /* Mapa: ocupa el 100% de ancho, más panorámico */
+    .contacto-mapa-wrapper {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        margin: 0;
+    }
+
+    /* Fila doble se apila en columna */
+    .form-fila-doble {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* Botón ancho completo para mejor pulsación táctil */
+    .btn-enviar-form {
+        width: 100%;
+        align-self: stretch;
+        padding: 0.9rem 2rem;
+    }
+}

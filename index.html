@@ -14,6 +14,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@100..900&display=swap" rel="stylesheet">
 
+    <!-- SDK de EmailJS para el formulario de contacto -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init({
+                publicKey: "TU_PUBLIC_KEY_AQUI",  /* ← Reemplaza con tu clave pública de EmailJS */
+            });
+        })();
+    </script>
+
     <!-- CSS global -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -488,6 +498,125 @@
 
     </section>
     <!-- Fin de la Sección Nuestro Campus -->
+
+    <!-- =========================================
+         SECCIÓN ADMISIONES (imagen a la izquierda)
+    ========================================= -->
+    <section class="seccion-admisiones">
+
+        <!-- Capa 1: Fondo dividido (izquierda imagen + derecha vacía) -->
+        <div class="admisiones-fondo">
+
+            <!-- Lado izquierdo: imagen que dicta la altura -->
+            <div class="admisiones-fondo-izq">
+                <img src="imgs/admisiones.webp" alt="Admisiones Weston Academy" class="admisiones-bg" loading="lazy">
+            </div>
+
+            <!-- Lado derecho: vacío (fondo blanco) -->
+            <div class="admisiones-fondo-der"></div>
+
+        </div>
+
+        <!-- Capa 2: Contenido superpuesto -->
+        <div class="admisiones-contenido">
+            <div class="admisiones-contenido-wrapper">
+
+                <!-- Subtítulo -->
+                <h2 class="admisiones-subtitulo">ADMISIONES</h2>
+
+                <!-- Título con dos pesos -->
+                <h2 class="admisiones-titulo">
+                    <span class="admisiones-titulo-normal">INICIEMOS JUNTOS ESTA</span>
+                    <span class="admisiones-titulo-azul">GRAN HISTORIA</span>
+                </h2>
+
+                <!-- Párrafo -->
+                <p class="admisiones-parrafo">
+                    Conoce el proceso de admisión y forma parte de una comunidad que inspira, acompaña y cree en el potencial de cada niño
+                </p>
+
+                <!-- Botón verde -->
+                <a href="#" class="admisiones-btn">Solicita información</a>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- Fin de la Sección Admisiones -->
+
+    <!-- =========================================
+         SECCIÓN CONTACTO (Formulario + Mapa)
+    ========================================= -->
+    <section class="seccion-contacto">
+    
+        <div class="contacto-contenedor">
+        
+            <!-- ============================================= -->
+            <!-- Lado Izquierdo: Formulario de Contacto        -->
+            <!-- ============================================= -->
+            <div class="contacto-form-wrapper">
+            
+                <form id="form-contacto" class="form-weston" novalidate>
+                
+                    <!-- Nombre -->
+                    <div class="form-grupo">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" class="form-input" required>
+                        <span class="error-msg">Por favor ingresa un nombre válido (mín. 2 letras, sin números).</span>
+                    </div>
+                
+                    <!-- Ciudad + Teléfono (fila doble) -->
+                    <div class="form-fila-doble">
+                        <div class="form-grupo">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <input type="text" id="ciudad" name="ciudad" class="form-input" maxlength="50" required>
+                            <span class="error-msg">Máximo 50 caracteres.</span>
+                        </div>
+                        <div class="form-grupo">
+                            <label for="telefono" class="form-label">Tels.</label>
+                            <input type="tel" id="telefono" name="telefono" class="form-input" required>
+                            <span class="error-msg">Solo se permiten números.</span>
+                        </div>
+                    </div>
+                
+                    <!-- Correo -->
+                    <div class="form-grupo">
+                        <label for="correo" class="form-label">Correo electrónico</label>
+                        <input type="email" id="correo" name="correo" class="form-input" required>
+                        <span class="error-msg">Por favor ingresa un correo válido (con "@" y extensión).</span>
+                    </div>
+                
+                    <!-- Mensaje -->
+                    <div class="form-grupo">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" class="form-textarea" rows="5" maxlength="500" required></textarea>
+                        <span class="error-msg">Máximo 500 caracteres.</span>
+                    </div>
+                
+                    <!-- Botón Enviar -->
+                    <button type="submit" class="btn-enviar-form">Enviar</button>
+                
+                </form>
+            
+            </div>
+        
+            <!-- ============================================= -->
+            <!-- Lado Derecho: Mapa de Google Maps             -->
+            <!-- ============================================= -->
+            <div class="contacto-mapa-wrapper">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.19061002777!2d-99.22941432392157!3d19.53342858176761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d21d9a6b47d611%3A0xab8dc670c589f47a!2sWeston%20International%20Academy!5e0!3m2!1ses!2smx!4v1791431881738!5m2!1ses!2smx" 
+                    class="contacto-mapa-iframe"
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="strict-origin-when-cross-origin">
+                </iframe>
+            </div>
+        
+        </div>
+    
+    </section>
+    <!-- Fin de la Sección Contacto -->
 
     <!-- Secciones de prueba (temporales) -->
     <section class="seccion-prueba pastel-1">
