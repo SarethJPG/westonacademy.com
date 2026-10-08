@@ -1224,7 +1224,8 @@ body {
         min-height: 18rem;
         height: 50vh;
         object-fit: cover;
-        object-position: center center;
+        object-position: center bottom;
+        margin-top: 0%;
     }
 
     .modelo-overlay {
@@ -2530,8 +2531,8 @@ body {
 
 /* --- Grupo 1: Dirección (30%) --- */
 .footer-grupo-direccion {
-    flex: 0 0 20%;
-    max-width: 20%;
+    flex: 0 0 25%;
+    max-width: 25%;
 }
 
 .footer-direccion {
@@ -2556,6 +2557,7 @@ body {
     flex-direction: column;
     gap: 0.6rem;
     text-align: left;
+    padding-left: 6rem;
 }
 
 .footer-lista-contacto li {
@@ -2580,8 +2582,8 @@ body {
 
 /* --- Grupo 3: Navegación (30%) --- */
 .footer-grupo-nav {
-    flex: 0 0 30%;
-    max-width: 30%;
+    flex: 0 0 25%;
+    max-width: 25%;
 }
 
 .footer-lista-nav {
