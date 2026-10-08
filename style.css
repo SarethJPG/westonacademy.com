@@ -1089,9 +1089,9 @@ body {
     padding-bottom: 5rem;
 
     /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
-    --modelo-overlay-top: 78%;          /* Posición vertical del subtítulo sobre la imagen (15% = 15% desde arriba) */
+    --modelo-overlay-top: 59%;          /* Posición vertical del subtítulo sobre la imagen (15% = 15% desde arriba) */
     --modelo-gap-sub-titulo: 1.5rem;    /* Separación entre subtítulo y título */
-    --modelo-parrafo-margin-top: -5rem;  /* Separación del párrafo con la imagen */
+    --modelo-parrafo-margin-top: -7rem;  /* Separación del párrafo con la imagen */
     --modelo-btn-margin-top: 2.5rem;    /* Separación del botón con el párrafo */
 }
 
@@ -1101,6 +1101,7 @@ body {
 .modelo-imagen-wrapper {
     position: relative;
     width: 100%;
+    overflow: hidden;
 }
 
 /* Imagen de fondo (dicta la altura) */
@@ -1109,6 +1110,7 @@ body {
     height: auto;
     display: block;
     object-fit: cover;
+    margin-top: -18%;
 }
 
 /* ============================================= */
@@ -1149,7 +1151,7 @@ body {
 .modelo-titulo {
     font-family: var(--fuente-principal);
     color: #3663a7;
-    font-weight: 550;
+    font-weight: 500;
     font-size: 3.2rem;
     line-height: 1.1;
     text-align: center;
@@ -1165,13 +1167,13 @@ body {
     font-family: var(--fuente-principal);
     color: var(--color-texto);
     font-weight: 500;
-    font-size: 1.4rem;
-    line-height: 1.6;
+    font-size: 1.5rem;
+    line-height: 1.4;
     text-align: center;
     /* ⬇ Separación con la imagen de arriba */
     margin-top: var(--modelo-parrafo-margin-top);
     /* ⬇ Ajusta este max-width para controlar en cuántas líneas parte el párrafo */
-    max-width: 60rem;
+    max-width: 68rem;
     margin-left: auto;
     margin-right: auto;
     padding: 0 2rem;
