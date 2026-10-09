@@ -58,6 +58,49 @@ body {
 }
 
 /* ============================================= */
+/* BLOQUE: Animaciones al scroll (sistema base)  */
+/* Se aplican agregando la clase ".anim"          */
+/* + una variante (.anim-fade-up, etc.) al HTML  */
+/* ============================================= */
+.anim {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+/* --- Variantes de dirección --- */
+.anim-fade-up    { transform: translateY(30px); }
+.anim-fade-down  { transform: translateY(-30px); }
+.anim-fade-left  { transform: translateX(-40px); }
+.anim-fade-right { transform: translateX(40px); }
+.anim-fade-in    { transform: none; }
+.anim-zoom       { transform: scale(0.94); }
+
+/* --- Estado activo (lo aplica JS al entrar al viewport) --- */
+.anim.visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+/* --- Stagger: retardos escalonados para grupos de elementos --- */
+.anim-delay-1 { transition-delay: 0.10s; }
+.anim-delay-2 { transition-delay: 0.20s; }
+.anim-delay-3 { transition-delay: 0.30s; }
+.anim-delay-4 { transition-delay: 0.40s; }
+.anim-delay-5 { transition-delay: 0.50s; }
+.anim-delay-6 { transition-delay: 0.60s; }
+
+/* --- Accesibilidad: respeta la preferencia "reducir movimiento" --- */
+@media (prefers-reduced-motion: reduce) {
+    .anim {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ============================================= */
 /* BLOQUE: Secciones de prueba (temporales)      */
 /* Se eliminarán cuando armemos las reales       */
 /* ============================================= */
@@ -1454,6 +1497,7 @@ body {
     width: var(--diferencias-icono-size);
     height: var(--diferencias-icono-size);
     object-fit: contain;
+    
 }
 
 /* ============================================= */
@@ -2784,3 +2828,4 @@ body {
         padding: 1.5rem 0;
     }
 }
+

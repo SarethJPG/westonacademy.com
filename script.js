@@ -368,3 +368,37 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+// =========================================
+// ANIMACIONES AL SCROLL (IntersectionObserver)
+// Detecta cuando un elemento con clase ".anim"
+// entra al viewport y le agrega la clase ".visible"
+// =========================================
+document.addEventListener("DOMContentLoaded", function () {
+
+    const elementos = document.querySelectorAll(".anim");
+
+    // Si la página no tiene elementos animables, no hacer nada
+    if (!elementos.length) return;
+
+    // Respetar la preferencia "reducir movimiento" del usuario
+    const prefiereReducir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefiereReducir) {
+        elementos.forEach(el => el.classList.add("visible"));
+        return;
+    }
+
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);   // Solo anima la primera vez
+            }
+        });
+    }, {
+        threshold: 0.15,                        // Se activa al 15% visible
+        rootMargin: "0px 0px -50px 0px"         // Un poco antes del borde inferior
+    });
+
+    elementos.forEach(el => observer.observe(el));
+});

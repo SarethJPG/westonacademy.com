@@ -15,8 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@100..900&display=swap" rel="stylesheet">
 
-    
-
     <!-- CSS global -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -69,6 +67,7 @@
 
     <!-- =========================================
      SECCIÓN HERO: CARRUSEL DE 3 CARDS
+     (sin animaciones porque el JS clona los slides)
     ========================================= -->
     <section class="hero" id="hero">
 
@@ -203,6 +202,7 @@
 
     </section>
     <!-- Fin del Hero Carrusel -->
+
     <!-- =========================================
          SECCIÓN VALORES (4 grupos con iconos)
     ========================================= -->
@@ -212,25 +212,25 @@
        <div class="valores-contenedor">
 
            <!-- Grupo 1 -->
-           <div class="valores-grupo">
+           <div class="valores-grupo anim anim-fade-up anim-delay-1">
                <img src="imgs/mundo.svg" alt="Formación internacional" class="valores-icono" loading="lazy">
                <p class="valores-texto">FORMACIÓN INTERNACIONAL</p>
            </div>
 
            <!-- Grupo 2 -->
-           <div class="valores-grupo">
+           <div class="valores-grupo anim anim-fade-up anim-delay-2">
                <img src="imgs/cerebro.svg" alt="Desarrollo integral" class="valores-icono" loading="lazy">
                <p class="valores-texto">DESARROLLO INTEGRAL</p>
            </div>
 
            <!-- Grupo 3 -->
-           <div class="valores-grupo">
+           <div class="valores-grupo anim anim-fade-up anim-delay-3">
                <img src="imgs/gente.svg" alt="Aprendizaje significativo" class="valores-icono" loading="lazy">
                <p class="valores-texto">APRENDIZAJE SIGNIFICATIVO</p>
            </div>
 
            <!-- Grupo 4 -->
-           <div class="valores-grupo">
+           <div class="valores-grupo anim anim-fade-up anim-delay-4">
                <img src="imgs/escudo.svg" alt="Ambiente seguro y de confianza" class="valores-icono" loading="lazy">
                <p class="valores-texto">AMBIENTE SEGURO Y DE CONFIANZA</p>
            </div>
@@ -239,28 +239,29 @@
 
     </section>
     <!-- Fin de la Sección Valores -->
+
     <!-- =========================================
          SECCIÓN PROGRAMAS (2 cards con imagen)
     ========================================= -->
     <section class="seccion-programas" id="programas">
-    
+
         <!-- Subtítulo -->
-        <h2 class="programas-subtitulo">NUESTROS PROGRAMAS</h2>
-    
+        <h2 class="programas-subtitulo anim anim-fade-up">NUESTROS PROGRAMAS</h2>
+
         <!-- Título principal con estilos mixtos -->
-        <h2 class="programas-titulo">
+        <h2 class="programas-titulo anim anim-fade-up anim-delay-1">
             <span class="programas-titulo-normal">UNA BASE SÓLIDA</span>
             <span class="programas-titulo-azul">TODA LA FAMILIA</span>
         </h2>
-    
+
         <!-- Contenedor de las 2 cards -->
         <div class="programas-contenedor">
-        
+
             <!-- Card 1: Pre-First -->
-            <div class="programa-card">
+            <div class="programa-card anim anim-fade-up anim-delay-2">
                 <!-- Imagen de fondo (en flujo normal, define la altura de la card) -->
                 <img src="imgs/pre_first.webp" alt="Pre-First" class="programa-bg" loading="lazy">
-            
+
                 <!-- Contenido superpuesto en la mitad derecha -->
                 <div class="programa-contenido">
                     <h3 class="programa-titulo">Pre-First</h3>
@@ -270,12 +271,12 @@
                     </a>
                 </div>
             </div>
-        
+
             <!-- Card 2: Primaria -->
-            <div class="programa-card">
+            <div class="programa-card anim anim-fade-up anim-delay-3">
                 <!-- Imagen de fondo (en flujo normal, define la altura de la card) -->
                 <img src="imgs/primaria.webp" alt="Primaria" class="programa-bg" loading="lazy">
-            
+
                 <!-- Contenido superpuesto en la mitad derecha -->
                 <div class="programa-contenido">
                     <h3 class="programa-titulo">Primaria</h3>
@@ -285,11 +286,12 @@
                     </a>
                 </div>
             </div>
-        
+
         </div>
-    
+
     </section>
     <!-- Fin de la Sección Programas -->
+
     <!-- =========================================
          SECCIÓN MODELO EDUCATIVO
     ========================================= -->
@@ -303,19 +305,19 @@
 
             <!-- Contenido superpuesto sobre la imagen (subtítulo + título) -->
             <div class="modelo-overlay">
-                <h2 class="modelo-subtitulo">MODELO EDUCATIVO</h2>
-                <h2 class="modelo-titulo">APRENDER A SER, CONOCER, HACER Y CONVIVIR</h2>
+                <h2 class="modelo-subtitulo anim anim-fade-up">MODELO EDUCATIVO</h2>
+                <h2 class="modelo-titulo anim anim-fade-up anim-delay-1">APRENDER A SER, CONOCER, HACER Y CONVIVIR</h2>
             </div>
 
         </div>
 
         <!-- Párrafo descriptivo (fuera de la imagen, parte de la sección) -->
-        <p class="modelo-parrafo">
+        <p class="modelo-parrafo anim anim-fade-up anim-delay-2">
             Basados en los cuatro principios pedagógicos de la UNESCO, formamos niños seguros de si mismos, curiosos, empáticos y preparados para un mundo en constante cambio.
         </p>
 
         <!-- Botón (azul, centrado) -->
-        <a href="#" class="modelo-btn">Conoce más</a>
+        <a href="#" class="modelo-btn anim anim-fade-up anim-delay-3">Conoce más</a>
 
     </section>
     <!-- Fin de la Sección Modelo Educativo -->
@@ -324,69 +326,69 @@
          SECCIÓN NUESTRAS DIFERENCIAS
     ========================================= -->
     <section class="seccion-diferencias" id="nosotros">
-    
+
         <!-- Capa 1: Fondo dividido 2/3 - 1/3 -->
         <div class="diferencias-fondo">
-        
+
             <!-- Mitad izquierda: vacía (fondo blanco) -->
             <div class="diferencias-fondo-izq"></div>
-        
+
             <!-- Tercio derecho: imagen que dicta la altura -->
             <div class="diferencias-fondo-der">
                 <img src="imgs/salon.webp" alt="Salón de clases Weston Academy" class="diferencias-bg" loading="lazy">
             </div>
-        
+
         </div>
-    
+
         <!-- Capa 2: Contenido superpuesto -->
         <div class="diferencias-contenido">
             <div class="diferencias-contenido-wrapper">
-            
+
                 <!-- Subtítulo -->
-                <h2 class="diferencias-subtitulo">NUESTRAS DIFERENCIAS</h2>
-            
+                <h2 class="diferencias-subtitulo anim anim-fade-up">NUESTRAS DIFERENCIAS</h2>
+
                 <!-- Título con dos estilos -->
-                <h2 class="diferencias-titulo">
+                <h2 class="diferencias-titulo anim anim-fade-up anim-delay-1">
                     <span class="diferencias-titulo-normal">UNA EDUCACIÓN QUE</span>
                     <span class="diferencias-titulo-azul">MARCA LA DIFERENCIA</span>
                 </h2>
-            
+
                 <!-- Grupos de elementos -->
                 <div class="diferencias-grupos">
-                
+
                     <!-- Grupo 1 -->
-                    <div class="diferencia-grupo">
+                    <div class="diferencia-grupo anim anim-fade-up anim-delay-1">
                         <img src="imgs/birrete.svg" alt="Enfoque internacional" class="diferencia-icono" loading="lazy">
                         <h3 class="diferencia-titulo">Enfoque internacional</h3>
                         <p class="diferencia-parrafo">Bilingüe con estándares globales</p>
                     </div>
-                
+
                     <!-- Grupo 2 -->
-                    <div class="diferencia-grupo">
+                    <div class="diferencia-grupo anim anim-fade-up anim-delay-2">
                         <img src="imgs/corazon.svg" alt="Formación en valores" class="diferencia-icono" loading="lazy">
                         <h3 class="diferencia-titulo">Formación en valores</h3>
                         <p class="diferencia-parrafo">Respeto, empatía y liderazgo.</p>
                     </div>
-                
+
                     <!-- Grupo 3 -->
-                    <div class="diferencia-grupo">
+                    <div class="diferencia-grupo anim anim-fade-up anim-delay-3">
                         <img src="imgs/aprendizaje.svg" alt="Aprendizaje significativo" class="diferencia-icono" loading="lazy">
                         <h3 class="diferencia-titulo">Aprendizaje significativo</h3>
                         <p class="diferencia-parrafo">Metodologías activas y personalizadas.</p>
                     </div>
-                
+
                     <!-- Grupo 4 -->
-                    <div class="diferencia-grupo">
+                    <div class="diferencia-grupo anim anim-fade-up anim-delay-4">
                         <img src="imgs/grafico.svg" alt="Desarrollo integral" class="diferencia-icono" loading="lazy">
                         <h3 class="diferencia-titulo">Desarrollo integral</h3>
                         <p class="diferencia-parrafo">Académico, artístico, deportivo y socioemocional.</p>
                     </div>
-                
+
                 </div>
-            
+
             </div>
         </div>
-    
+
     </section>
     <!-- Fin de la Sección Nuestras Diferencias -->
 
@@ -396,16 +398,16 @@
     <section class="seccion-actividades">
 
         <!-- Subtítulo verde -->
-        <h2 class="actividades-subtitulo">ACTIVIDADES COMPLEMENTARIAS</h2>
+        <h2 class="actividades-subtitulo anim anim-fade-up">ACTIVIDADES COMPLEMENTARIAS</h2>
 
         <!-- Título con dos pesos -->
-        <h2 class="actividades-titulo">
+        <h2 class="actividades-titulo anim anim-fade-up anim-delay-1">
             <span class="actividades-titulo-normal">DESCUBRIR TALENTOS</span>
             <span class="actividades-titulo-azul">TAMBIÉN ES APRENDER</span>
         </h2>
 
         <!-- Párrafo descriptivo -->
-        <p class="actividades-parrafo">
+        <p class="actividades-parrafo anim anim-fade-up anim-delay-2">
             Fomentamos el talento, la creatividad y la pasión a través de actividades artísticas, deportivas y culturales que enriquece su experiencia escolar.
         </p>
 
@@ -413,25 +415,25 @@
         <div class="actividades-cards">
 
             <!-- Card 1: Taekwondo -->
-            <div class="actividad-card">
+            <div class="actividad-card anim anim-fade-up anim-delay-1">
                 <img src="imgs/taekwondo.webp" alt="Taekwondo" class="actividad-img" loading="lazy">
                 <h3 class="actividad-titulo">Taekwondo</h3>
             </div>
 
             <!-- Card 2: Salsa Cubana -->
-            <div class="actividad-card">
+            <div class="actividad-card anim anim-fade-up anim-delay-2">
                 <img src="imgs/salsa_cubana.webp" alt="Salsa Cubana" class="actividad-img" loading="lazy">
                 <h3 class="actividad-titulo">Salsa Cubana</h3>
             </div>
 
             <!-- Card 3: Tahitiano -->
-            <div class="actividad-card">
+            <div class="actividad-card anim anim-fade-up anim-delay-3">
                 <img src="imgs/tahitiano.webp" alt="Tahitiano" class="actividad-img" loading="lazy">
                 <h3 class="actividad-titulo">Tahitiano</h3>
             </div>
 
             <!-- Card 4: Fútbol -->
-            <div class="actividad-card">
+            <div class="actividad-card anim anim-fade-up anim-delay-4">
                 <img src="imgs/futbol.webp" alt="Fútbol" class="actividad-img" loading="lazy">
                 <h3 class="actividad-titulo">Fútbol</h3>
             </div>
@@ -439,11 +441,11 @@
         </div>
 
         <!-- Botón "Conoce más" -->
-        <a href="#" class="actividades-btn">Conoce más</a>
+        <a href="#" class="actividades-btn anim anim-fade-up anim-delay-5">Conoce más</a>
 
     </section>
     <!-- Fin de la Sección Actividades Complementarias -->
-    
+
     <!-- =========================================
          SECCIÓN NUESTRO CAMPUS
     ========================================= -->
@@ -467,10 +469,10 @@
             <div class="campus-contenido-wrapper">
 
                 <!-- Subtítulo -->
-                <h2 class="campus-subtitulo">NUESTRO CAMPUS</h2>
+                <h2 class="campus-subtitulo anim anim-fade-up">NUESTRO CAMPUS</h2>
 
                 <!-- Título con dos pesos -->
-                <h2 class="campus-titulo">
+                <h2 class="campus-titulo anim anim-fade-up anim-delay-1">
                     <span class="campus-titulo-normal">UN AMBIENTE</span>
                     <br>
                     <span class="campus-titulo-normal">EXCEPCIONAL PARA</span>
@@ -479,12 +481,12 @@
                 </h2>
 
                 <!-- Párrafo -->
-                <p class="campus-parrafo">
+                <p class="campus-parrafo anim anim-fade-up anim-delay-2">
                     Instalaciones modernas, seguras y diseñadas para inspirar el aprendizaje, la creatividad y la convivencia.
                 </p>
 
                 <!-- Botón -->
-                <a href="#" class="campus-btn">Conoce nuestro campus</a>
+                <a href="#" class="campus-btn anim anim-fade-up anim-delay-3">Conoce nuestro campus</a>
 
             </div>
         </div>
@@ -515,21 +517,21 @@
             <div class="admisiones-contenido-wrapper">
 
                 <!-- Subtítulo -->
-                <h2 class="admisiones-subtitulo">ADMISIONES</h2>
+                <h2 class="admisiones-subtitulo anim anim-fade-up">ADMISIONES</h2>
 
                 <!-- Título con dos pesos -->
-                <h2 class="admisiones-titulo">
+                <h2 class="admisiones-titulo anim anim-fade-up anim-delay-1">
                     <span class="admisiones-titulo-normal">INICIEMOS JUNTOS ESTA</span>
                     <span class="admisiones-titulo-azul">GRAN HISTORIA</span>
                 </h2>
 
                 <!-- Párrafo -->
-                <p class="admisiones-parrafo">
+                <p class="admisiones-parrafo anim anim-fade-up anim-delay-2">
                     Conoce el proceso de admisión y forma parte de una comunidad que inspira, acompaña y cree en el potencial de cada niño
                 </p>
 
                 <!-- Botón verde -->
-                <a href="#" class="admisiones-btn">Solicita información</a>
+                <a href="#" class="admisiones-btn anim anim-fade-up anim-delay-3">Solicita información</a>
 
             </div>
         </div>
@@ -541,23 +543,23 @@
          SECCIÓN CONTACTO (Formulario + Mapa)
     ========================================= -->
     <section class="seccion-contacto">
-    
+
         <div class="contacto-contenedor">
-        
+
             <!-- ============================================= -->
             <!-- Lado Izquierdo: Formulario de Contacto        -->
             <!-- ============================================= -->
-            <div class="contacto-form-wrapper">
-            
+            <div class="contacto-form-wrapper anim anim-fade-right">
+
                 <form id="form-contacto" class="form-weston" novalidate>
-                
+
                     <!-- Nombre -->
                     <div class="form-grupo">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" id="nombre" name="nombre" class="form-input" required>
                         <span class="error-msg">Por favor ingresa un nombre válido (mín. 2 letras, sin números).</span>
                     </div>
-                
+
                     <!-- Ciudad + Teléfono (fila doble) -->
                     <div class="form-fila-doble">
                         <div class="form-grupo">
@@ -571,43 +573,43 @@
                             <span class="error-msg">Solo se permiten números.</span>
                         </div>
                     </div>
-                
+
                     <!-- Correo -->
                     <div class="form-grupo">
                         <label for="correo" class="form-label">Correo electrónico</label>
                         <input type="email" id="correo" name="correo" class="form-input" required>
                         <span class="error-msg">Por favor ingresa un correo válido (con "@" y extensión).</span>
                     </div>
-                
+
                     <!-- Mensaje -->
                     <div class="form-grupo">
                         <label for="mensaje" class="form-label">Mensaje</label>
                         <textarea id="mensaje" name="mensaje" class="form-textarea" rows="5" maxlength="500" required></textarea>
                         <span class="error-msg">Máximo 500 caracteres.</span>
                     </div>
-                
+
                     <!-- Botón Enviar -->
                     <button type="submit" class="btn-enviar-form">Enviar</button>
-                
+
                 </form>
-            
+
             </div>
-        
+
             <!-- ============================================= -->
             <!-- Lado Derecho: Mapa de Google Maps             -->
             <!-- ============================================= -->
-            <div class="contacto-mapa-wrapper">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.19061002777!2d-99.22941432392157!3d19.53342858176761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d21d9a6b47d611%3A0xab8dc670c589f47a!2sWeston%20International%20Academy!5e0!3m2!1ses!2smx!4v1791431881738!5m2!1ses!2smx" 
+            <div class="contacto-mapa-wrapper anim anim-fade-left anim-delay-2">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.19061002777!2d-99.22941432392157!3d19.53342858176761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d21d9a6b47d611%3A0xab8dc670c589f47a!2sWeston%20International%20Academy!5e0!3m2!1ses!2smx!4v1791431881738!5m2!1ses!2smx"
                     class="contacto-mapa-iframe"
-                    allowfullscreen="" 
-                    loading="lazy" 
+                    allowfullscreen=""
+                    loading="lazy"
                     referrerpolicy="strict-origin-when-cross-origin">
                 </iframe>
             </div>
-        
+
         </div>
-    
+
     </section>
     <!-- Fin de la Sección Contacto -->
 
@@ -621,7 +623,7 @@
         <!-- Subsección 1: Logo                             -->
         <!-- La imagen dicta la altura de esta subsección   -->
         <!-- ============================================= -->
-        <div class="footer-logo-seccion">
+        <div class="footer-logo-seccion anim anim-fade-up">
             <img src="imgs/weston_logo_blanco.webp" alt="Weston International Academy" class="footer-logo-img" loading="lazy">
         </div>
 
@@ -629,7 +631,7 @@
         <!-- Subsección 2: 4 grupos proporcionales          -->
         <!-- 30% | 30% | 30% | 10%                          -->
         <!-- ============================================= -->
-        <div class="footer-grupos">
+        <div class="footer-grupos anim anim-fade-up anim-delay-1">
 
             <!-- Grupo 1: Dirección -->
             <div class="footer-grupo footer-grupo-direccion">
@@ -687,14 +689,14 @@
         <!-- Línea divisoria (HR)                           -->
         <!-- ============================================= -->
         <br>
-        <hr class="footer-hr">
+        <hr class="footer-hr anim anim-fade-in anim-delay-2">
         <br>
         <br>
 
         <!-- ============================================= -->
         <!-- Subsección 3: Copyright                        -->
         <!-- ============================================= -->
-        <div class="footer-copyright-seccion">
+        <div class="footer-copyright-seccion anim anim-fade-up anim-delay-3">
             <p class="footer-copyright">Copyright © 2026 Weston International Academy todos los derechos reservados</p>
         </div>
         <br>
