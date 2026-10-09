@@ -1316,6 +1316,7 @@ body {
     position: relative;
     background-color: #ffffff;
     width: 100%;
+    overflow: hidden;
 
     /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
     --diferencias-split-der: 65%;           /* Ancho del tercio derecho (imagen) */
@@ -2083,6 +2084,7 @@ body {
     position: relative;
     background-color: #ffffff;
     width: 100%;
+    overflow: hidden;
 
     /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
     --admisiones-split-izq: 100%;                    /* Ancho de la imagen (pegada a la izquierda) */
