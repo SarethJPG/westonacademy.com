@@ -1,0 +1,13 @@
+# Credenciales y archivos sensibles
+enviar.php
+
+# Librerías descargadas (se suben por FTP/cPanel, no al repo)
+PHPMailer/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Configuración del editor
+.vscode/
+.idea/

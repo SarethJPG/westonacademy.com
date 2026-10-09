@@ -204,7 +204,7 @@ if (track) {
 }
 
 // =========================================
-// FORMULARIO DE CONTACTO: VALIDACIONES + EMAILJS
+// FORMULARIO DE CONTACTO: VALIDACIONES
 // =========================================
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -331,10 +331,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!mensajeValido) formValido = false;
 
         // -----------------------------------------
-        // Si TODO es válido → Enviar por EmailJS
+        // Si TODO es válido → Enviar al servidor PHP
         // -----------------------------------------
         if (formValido) {
-            const templateParams = {
+            const datosFormulario = {
                 nombre: document.getElementById("nombre").value,
                 ciudad: document.getElementById("ciudad").value,
                 telefono: document.getElementById("telefono").value,
@@ -342,20 +342,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 mensaje: document.getElementById("mensaje").value
             };
 
-            // ⚠️ Reemplaza estos valores con los tuyos de EmailJS
-            // (los creas en https://dashboard.emailjs.com/)
-            const SERVICE_ID  = "TU_SERVICE_ID";
-            const TEMPLATE_ID = "TU_TEMPLATE_ID";
-
-            emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
-                .then(function (response) {
+            fetch('enviar.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datosFormulario)
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.success) {
                     alert("¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.");
                     form.reset();
-                })
-                .catch(function (error) {
-                    alert("Ocurrió un error al enviar el mensaje. Inténtalo de nuevo.");
-                    console.error("FAILED...", error);
-                });
+                } else {
+                    alert("Ocurrió un error: " + (data.error || "Inténtalo de nuevo."));
+                    console.error("Error del servidor:", data);
+                }
+            })
+            .catch(function (error) {
+                alert("Ocurrió un error al enviar el mensaje. Inténtalo de nuevo.");
+                console.error("FAILED...", error);
+            });
         }
     });
 });
