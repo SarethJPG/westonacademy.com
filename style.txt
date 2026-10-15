@@ -1,0 +1,2831 @@
+/* ============================================= */
+/* BLOQUE: Reset y normalización                 */
+/* ============================================= */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================= */
+/* BLOQUE: Escalado fluido global                */
+/* 1rem escala entre 9px y 16px según el ancho  */
+/* de pantalla → todo el sitio se adapta solo   */
+/* ============================================= */
+html {
+    font-size: clamp(9px, 0.833vw, 16px);
+    scroll-behavior: smooth;
+}
+
+/* ============================================= */
+/* BLOQUE: Variables globales                    */
+/* ============================================= */
+:root {
+    /* Familias tipográficas */
+    --fuente-principal: 'Montserrat', sans-serif;
+
+    /* Colores base del sitio */
+    --color-blanco: #ffffff;
+    --color-negro: #000000;
+    --color-verde: #27a566;
+    --color-texto: #3b3b3b;
+    --color-fondo: #ffffff;
+
+    /* Colores pastel (temporales, para secciones de prueba) */
+    --pastel-1: #FFD1DC;
+    --pastel-2: #AEC6CF;
+    --pastel-3: #B5EAD7;
+    --pastel-4: #FFF1B6;
+
+    /* Alturas de la navbar (para usar en margin-top de la primera sección) */
+    --altura-navbar: 7.4rem;
+    --altura-navbar-movil: 4.7rem;
+    --fuente-flecha: 'Oswald', sans-serif;
+}
+
+/* ============================================= */
+/* BLOQUE: Estilos base del body                 */
+/* ============================================= */
+body {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================= */
+/* BLOQUE: Animaciones al scroll (sistema base)  */
+/* Se aplican agregando la clase ".anim"          */
+/* + una variante (.anim-fade-up, etc.) al HTML  */
+/* ============================================= */
+.anim {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+/* --- Variantes de dirección --- */
+.anim-fade-up    { transform: translateY(30px); }
+.anim-fade-down  { transform: translateY(-30px); }
+.anim-fade-left  { transform: translateX(-40px); }
+.anim-fade-right { transform: translateX(40px); }
+.anim-fade-in    { transform: none; }
+.anim-zoom       { transform: scale(0.94); }
+
+/* --- Estado activo (lo aplica JS al entrar al viewport) --- */
+.anim.visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+/* --- Stagger: retardos escalonados para grupos de elementos --- */
+.anim-delay-1 { transition-delay: 0.10s; }
+.anim-delay-2 { transition-delay: 0.20s; }
+.anim-delay-3 { transition-delay: 0.30s; }
+.anim-delay-4 { transition-delay: 0.40s; }
+.anim-delay-5 { transition-delay: 0.50s; }
+.anim-delay-6 { transition-delay: 0.60s; }
+
+/* --- Accesibilidad: respeta la preferencia "reducir movimiento" --- */
+@media (prefers-reduced-motion: reduce) {
+    .anim {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Secciones de prueba (temporales)      */
+/* Se eliminarán cuando armemos las reales       */
+/* ============================================= */
+.seccion-prueba {
+    /* Altura fluida: entre 40vh y 80vh según pantalla */
+    min-height: clamp(18rem, 60vh, 45rem);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Tipografía fluida entre 1.1rem y 2rem */
+    font-size: clamp(1.1rem, 0.9rem + 0.6vw, 2rem);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Colores pastel de las secciones */
+.pastel-1 { background-color: var(--pastel-1); }
+.pastel-2 { background-color: var(--pastel-2); }
+.pastel-3 { background-color: var(--pastel-3); }
+.pastel-4 { background-color: var(--pastel-4); }
+
+/* ============================================= */
+/* BLOQUE: Navbar                                */
+/* ============================================= */
+.navbar {
+    background-color: var(--color-blanco);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Clase dinámica (JS) que oculta la navbar al hacer scroll hacia abajo */
+.navbar-oculta {
+    transform: translateY(-100%);
+}
+
+/* Contenedor principal: la altura la define el logo + el padding vertical */
+.seccion-a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5%;
+}
+
+/* --- Lado izquierdo: Logo --- */
+.seccion-b {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 5rem;
+    width: auto;
+}
+
+/* --- Lado derecho: pestañas + teléfono --- */
+.seccion-d {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Pestañas de navegación                */
+/* ============================================= */
+.seccion-2 {
+    display: flex;
+    gap: 3.75rem;
+}
+
+.nav-link {
+    font-family: var(--fuente-principal);
+    font-weight: 550;
+    color: var(--color-negro);
+    text-decoration: none;
+    font-size: 1.2rem;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    color: var(--color-verde);
+    transform: scale(1.05);
+}
+
+/* Línea verde inferior animada desde el centro */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.3rem;
+    left: 0;
+    width: 100%;
+    height: 0.25rem;
+    background-color: var(--color-verde);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* ============================================= */
+/* BLOQUE: Bloque de teléfono                    */
+/* ============================================= */
+.seccion-3 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.icono-telefono {
+    height: 1.2em;
+    width: auto;
+}
+
+.texto-telefono {
+    font-family: var(--fuente-principal);
+    font-weight: 700;
+    color: var(--color-verde);
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón sándwich (oculto en desktop)    */
+/* ============================================= */
+.btn-hamburguesa {
+    display: none;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Aquí sí hay @media porque el layout cambia    */
+/* (apilado vertical + menú sándwich)            */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* Congelamos el tamaño base porque el layout ya se apila */
+    html {
+        font-size: 14px;
+    }
+
+    /* Redefinimos la altura de la navbar para móvil
+       (así todas las secciones que usen var(--altura-navbar)
+       toman el valor correcto automáticamente) */
+    :root {
+        --altura-navbar: var(--altura-navbar-movil);
+    }
+
+    /* ------------------------------------------------- */
+    /* Ajustes de las secciones de prueba                */
+    /* ------------------------------------------------- */
+    .seccion-prueba {
+        min-height: 50vh;
+        padding: 1.25rem;
+        font-size: clamp(1rem, 4vw, 1.35rem);
+        letter-spacing: 0.03em;
+    }
+
+    /* ------------------------------------------------- */
+    /* Barra principal compacta                          */
+    /* ------------------------------------------------- */
+    .seccion-a {
+        padding: 0.6rem 5%;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        height: 3.5rem;
+        width: auto;
+    }
+
+    /* ------------------------------------------------- */
+    /* Botón sándwich (3 líneas)                         */
+    /* ------------------------------------------------- */
+    .btn-hamburguesa {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 2rem;
+        height: 1.4rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1001;
+    }
+
+    .btn-hamburguesa span {
+        display: block;
+        width: 100%;
+        height: 0.2rem;
+        background-color: var(--color-negro);
+        border-radius: 0.125rem;
+        transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Transformación a "X" al abrir */
+    .btn-hamburguesa.abierto span:nth-child(1) {
+        transform: translateY(0.5rem) rotate(45deg);
+        background-color: var(--color-verde);
+    }
+    .btn-hamburguesa.abierto span:nth-child(2) {
+        opacity: 0;
+    }
+    .btn-hamburguesa.abierto span:nth-child(3) {
+        transform: translateY(-0.5rem) rotate(-45deg);
+        background-color: var(--color-verde);
+    }
+
+    /* ------------------------------------------------- */
+    /* Menú desplegable flotante                         */
+    /* ------------------------------------------------- */
+    .seccion-d {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-blanco);
+        flex-direction: column;
+        align-items: center;
+        gap: 1.8rem;
+        padding: 0 5%;
+        box-shadow: 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.08);
+        border-top: 0.0625rem solid #f0f0f0;
+
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
+    }
+
+    .seccion-d.menu-activo {
+        max-height: 80vh;
+        opacity: 1;
+        padding: 2.2rem 5% 2rem 5%;
+        pointer-events: auto;
+    }
+
+    /* ------------------------------------------------- */
+    /* Pestañas apiladas verticalmente                   */
+    /* ------------------------------------------------- */
+    .seccion-2 {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.4rem;
+        width: 100%;
+    }
+
+    .nav-link {
+        font-size: 1.25rem;
+        text-align: center;
+        padding: 0.2rem 0;
+    }
+
+    /* ------------------------------------------------- */
+    /* Bloque teléfono con línea divisoria superior      */
+    /* ------------------------------------------------- */
+    .seccion-3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.8rem;
+        padding-top: 1.4rem;
+        border-top: 0.0625rem solid #ececec;
+        width: 100%;
+        max-width: 22rem;
+    }
+
+    .texto-telefono {
+        font-size: 0.95rem;
+        text-align: center;
+    }
+
+    .icono-telefono {
+        height: 1.1rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL PEQUEÑO (≤ 480px)    */
+/* ============================================= */
+@media (max-width: 480px) {
+    .seccion-prueba {
+        min-height: 40vh;
+        padding: 1rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Hero (Carrusel de 3 cards)    */
+/* ============================================= */
+.hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+}
+
+/* Pista que contiene las 3 cards (se mueve con JS) */
+.carrusel-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Cada card del carrusel */
+.carrusel-slide {
+    min-width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Imagen de fondo              */
+/* (Define la altura de toda la sección)         */
+/* ============================================= */
+.hero-img-fondo {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenedor superpuesto       */
+/* Dividido en 50% izquierda / 50% derecha       */
+/* ============================================= */
+.hero-contenedor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+/* Mitad izquierda: contiene los textos centrados verticalmente */
+.hero-mitad-izq {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4rem;
+}
+
+/* Mitad derecha: vacía (deja ver la imagen del banner) */
+.hero-mitad-der {
+    width: 50%;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor de los 5 textos apilados   */
+/* (Gap vertical ajustable desde aquí)           */
+/* ============================================= */
+.hero-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    /* ⬇ Ajusta este gap para cambiar la distancia vertical entre elementos */
+    gap: 1.3rem;
+    max-width: 42rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo                              */
+/* ============================================= */
+.hero-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 600;
+    font-size: 1.45rem;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (4 líneas)            */
+/* ============================================= */
+.hero-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-size: clamp(2.5rem, 3.8vw, 4.5rem);
+    line-height: 1.05;
+    margin: 0;
+}
+
+/* Variantes de color y peso dentro del título */
+.hero-normal {
+    font-weight: 400;
+    color: var(--color-texto);
+}
+
+.hero-azul {
+    font-weight: 800;
+    color: #3663a7;
+}
+
+.hero-verde {
+    font-weight: 800;
+    color: #27a566;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.hero-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.9rem;
+    line-height: 1.5;
+    max-width: 35rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón "Conoce más"                    */
+/* ============================================= */
+.hero-btn {
+    display: inline-block;
+    background-color: #27a566;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 5rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 4rem;
+}
+
+.hero-btn:hover {
+    background-color: #1f8a54;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: Flechas laterales del carrusel        */
+/* ============================================= */
+.hero-flecha {
+    position: absolute;
+    top: 50%;
+    /* Comprimimos horizontalmente al 65% (ajusta a tu gusto) */
+    transform: translateY(-100%) scaleX(0.65);
+    background-color: transparent;
+    color: #27a566;
+    border: none;
+    font-family: var(--fuente-flecha);
+    font-weight: 200;
+    font-size: 5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    user-select: none;
+}
+
+.hero-flecha:hover {
+    color: #1f8a54;
+    /* En hover mantenemos la compresión y añadimos un poco de escala */
+    transform: translateY(-100%) scaleX(0.65) scale(1.15);
+}
+
+.hero-flecha-izq {
+    left: 1.5rem;
+}
+
+.hero-flecha-der {
+    right: 1.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Puntos indicadores del carrusel       */
+/* ============================================= */
+.hero-puntos {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.hero-punto {
+    width: 0.9rem;
+    height: 0.9rem;
+    background-color: #c4c4c4;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-punto:hover {
+    transform: scale(1.15);
+}
+
+/* Estado activo (card actual visible) */
+.hero-punto.activo {
+    background-color: #27a566;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Centra la mitad derecha de la imagen +         */
+/* overlay blanco + textos centrados              */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección mantiene su margen superior con la navbar */
+    .hero {
+        margin-top: var(--altura-navbar);
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 1. La imagen pasa a cubrir la sección completa con encuadre derecho */
+    /* ------------------------------------------------------------------ */
+    .hero-img-fondo {
+        min-height: 32rem;
+        height: 70vh;
+        object-fit: cover;
+        /* Centra la mitad derecha de la imagen (65% hacia la derecha) */
+        object-position: 95% center;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 2. Overlay blanco translúcido encima de la imagen                   */
+    /* ------------------------------------------------------------------ */
+    .carrusel-slide::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.85);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 3. El contenedor superpuesto pasa a ser una sola columna centrada   */
+    /* ------------------------------------------------------------------ */
+    .hero-contenedor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+    }
+
+    /* Ocultamos la mitad derecha vacía en móvil */
+    .hero-mitad-der {
+        display: none;
+    }
+
+    /* La mitad izquierda pasa a ser el 100% y centra su contenido */
+    .hero-mitad-izq {
+        width: 100%;
+        padding: 0 6%;
+        justify-content: center;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 4. Bloque de textos centrado con espaciado más compacto             */
+    /* ------------------------------------------------------------------ */
+    .hero-textos {
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        max-width: 100%;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 5. Jerarquía tipográfica ajustada a pantalla chica                  */
+    /* ------------------------------------------------------------------ */
+    .hero-subtitulo {
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+        /* Subtítulo justificado con última línea centrada */
+        text-align: justify;
+        text-align-last: center;
+    }
+
+    .hero-titulo {
+        font-size: 2.2rem;
+        line-height: 1.1;
+        text-align: center;
+    }
+
+    .hero-parrafo {
+        font-size: 0.95rem;
+        line-height: 1.45;
+        max-width: 70%;
+        /* Párrafo justificado con última línea centrada */
+        text-align: justify;
+        text-align-last: center;
+        font-weight: 550;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 6. Botón adaptado a móvil con buen área táctil                      */
+    /* ------------------------------------------------------------------ */
+    .hero-btn {
+        font-size: 1rem;
+        padding: 0.8rem 2.8rem;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 7. Flechas laterales visibles, bien ubicadas y con fondo discreto   */
+    /* ------------------------------------------------------------------ */
+    .hero-flecha {
+        font-size: 2.8rem;
+        padding: 0.4rem 0.6rem;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 20;
+    }
+    .hero-flecha-izq {
+        left: 0.8rem;
+    }
+    .hero-flecha-der {
+        right: 0.8rem;
+    }
+    /* ------------------------------------------------------------------ */
+    /* 8. Puntos indicadores: un poco más arriba para dar aire al borde    */
+    /* ------------------------------------------------------------------ */
+    .hero-puntos {
+        bottom: 1rem;
+        gap: 0.8rem;
+        z-index: 20;
+    }
+    .hero-punto {
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Valores (4 grupos con iconos) */
+/* ============================================= */
+.seccion-valores {
+    background-color: #ffffff;
+    width: 100%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --valores-gap-lateral: 2rem;        /* Separación horizontal entre grupos (desktop) */
+    --valores-gap-imagen-texto: 2.5rem; /* Separación vertical entre imagen y texto dentro de cada grupo */
+    --valores-gap-vertical: 3rem;       /* Separación vertical entre filas/grupos (tablet y móvil) */
+}
+
+/* Contenedor con margin de 2 argumentos: vertical | horizontal */
+.valores-contenedor {
+    margin: 8rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: var(--valores-gap-lateral);
+}
+
+/* ============================================= */
+/* BLOQUE: Cada grupo (imagen arriba + texto)     */
+/* ============================================= */
+.valores-grupo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* Centrado horizontal de hijos */
+    justify-content: flex-start;
+    text-align: center;
+    gap: var(--valores-gap-imagen-texto);
+    position: relative;
+    padding: 0 1rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Separadores verticales grises         */
+/* Se generan solo a partir del grupo 2            */
+/* ============================================= */
+.valores-grupo:not(:first-child)::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--valores-gap-lateral) / 2); /* Centrado en el gap */
+    height: 100%;   
+    width: 3px;
+    background-color: #e1e1e1;
+}
+
+/* ============================================= */
+/* BLOQUE: Icono e imagen                         */
+/* ============================================= */
+.valores-icono {
+    width: 7rem;
+    height: 7rem;
+    object-fit: contain;
+}
+
+/* ============================================= */
+/* BLOQUE: Texto                                  */
+/* ============================================= */
+.valores-texto {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    /* Ancho máximo común para que los 4 textos tengan el mismo ancho visual */
+    max-width: 17rem;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE TABLET (≤ 1024px)          */
+/* Cambia el layout a matriz 2×2                  */
+/* ============================================= */
+@media (max-width: 1024px) {
+
+    .valores-contenedor {
+        margin: 3rem 5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* gap vertical | horizontal */
+        gap: var(--valores-gap-vertical) var(--valores-gap-lateral);
+    }
+
+    /* Cada grupo ocupa el 50% menos la mitad del gap */
+    .valores-grupo {
+        flex: 0 0 calc(50% - (var(--valores-gap-lateral) / 2));
+        padding: 0;
+    }
+
+    /* Apagamos los separadores verticales en este layout */
+    .valores-grupo:not(:first-child)::before {
+        display: none;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Grupos apilados en 1 columna, sin líneas       */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .valores-contenedor {
+        margin: 3rem 6%;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--valores-gap-vertical);
+    }
+
+    .valores-grupo {
+        flex: 0 0 auto;
+        width: 100%;
+        padding: 0;
+    }
+
+    .valores-icono {
+        width: 7rem;
+        height: 7rem;
+    }
+
+    .valores-texto {
+        font-size: 1.2rem;
+        max-width: 80%;
+        font-weight: 550;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Programas                      */
+/* ============================================= */
+.seccion-programas {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 2rem 0 0rem 0;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --programas-margin-contenedor: 2rem 8rem;   /* Margin del contenedor (vertical | horizontal) */
+    --programas-gap-cards: 3rem;                 /* Separación horizontal entre las 2 cards */
+    --programas-gap-vertical-movil: 3rem;        /* Separación vertical entre cards apiladas (móvil) */
+    --programas-padding-contenido: 2rem 3rem;    /* Padding interno del contenido de cada card */
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                         */
+/* ============================================= */
+.programas-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal con estilos mixtos    */
+/* ============================================= */
+.programas-titulo {
+    font-family: var(--fuente-principal);
+    font-size: 4.1rem;         /* ← sin clamp */
+    line-height: 1.1;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    max-width: 90rem;
+    padding: 0 1rem;
+}
+
+/* "UNA BASE SÓLIDA" → mismo estilo que "UNA" del hero */
+.programas-titulo-normal {
+    font-weight: 400;
+    color: var(--color-texto);
+}
+
+/* "TODA LA FAMILIA" → mismo estilo que "GRAN EDUCACIÓN" del hero */
+.programas-titulo-azul {
+    font-weight: 800;
+    color: #3663a7;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor de las 2 cards              */
+/* ============================================= */
+.programas-contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--programas-gap-cards);
+    margin: var(--programas-margin-contenedor);
+    align-items: start; /* Ambas cards se alinean arriba */
+}
+
+/* ============================================= */
+/* BLOQUE: Cada card                              */
+/* ============================================= */
+.programa-card {
+    position: relative;
+}
+
+/* ============================================= */
+/* BLOQUE: Imagen de fondo (dicta la altura)      */
+/* Al estar en flujo normal, la imagen se ve      */
+/* COMPLETA, sin recortes de object-fit.          */
+/* ============================================= */
+.programa-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenido superpuesto                  */
+/* Se posiciona absoluto sobre la mitad derecha   */
+/* de la imagen.                                  */
+/* ============================================= */
+.programa-contenido {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--programas-padding-contenido);
+    gap: 1rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título de cada card                    */
+/* ============================================= */
+.programa-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: left;
+    max-width: 20rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo de cada card                   */
+/* ============================================= */
+.programa-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-align: left;
+    max-width: 15rem;
+    margin-bottom: 2.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón (link con imagen flecha)         */
+/* ============================================= */
+.programa-link {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.programa-link:hover {
+    transform: translateX(0.4rem);
+}
+
+.programa-img {
+    width: 4.5rem;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .programas-subtitulo {
+        font-size: 0.95rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .programas-titulo {
+        font-size: 1.7rem;
+        line-height: 1.2;
+        margin-bottom: 2.2rem;
+        padding: 0 1rem;
+    }
+
+    /* Contenedor: 1 columna, cards apiladas */
+    .programas-contenedor {
+        grid-template-columns: 1fr;
+        row-gap: var(--programas-gap-vertical-movil);
+        margin: 1rem 4%;
+        justify-items: center;
+    }
+
+    /* Card al 95% del contenedor → casi ancho completo pero con margen visual */
+    .programa-card {
+        width: 95%;
+        max-width: 30rem;
+        position: relative;
+    }
+
+    /* Imagen en flujo normal: dicta la altura y se ve COMPLETA, sin recortes */
+    .programa-bg {
+        position: relative;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* Contenido superpuesto en la mitad derecha (mismo split que desktop) */
+    .programa-contenido {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        padding: 1rem 0.8rem;
+        gap: 0.6rem;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    /* Título compacto */
+    .programa-titulo {
+        font-size: 1.15rem;
+        line-height: 1.15;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    /* Párrafo: máx 3 líneas garantizadas con line-clamp */
+    .programa-parrafo {
+        font-size: 0.78rem;
+        line-height: 1.35;
+        max-width: 90%;
+        margin-bottom: 0;
+        /* Recorta el texto a 3 líneas con "..." si se pasa */
+        display: -webkit-box;
+        line-clamp: 3;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Botón flecha más chico para no robar altura */
+    .programa-img {
+        width: 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Modelo Educativo               */
+/* ============================================= */
+.seccion-modelo {
+    background-color: #ffffff;
+    width: 100%;
+    padding-bottom: 5rem;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --modelo-overlay-top: 59%;          /* Posición vertical del subtítulo sobre la imagen (15% = 15% desde arriba) */
+    --modelo-gap-sub-titulo: 1.5rem;    /* Separación entre subtítulo y título */
+    --modelo-parrafo-margin-top: -7rem;  /* Separación del párrafo con la imagen */
+    --modelo-btn-margin-top: 2.5rem;    /* Separación del botón con el párrafo */
+}
+
+/* ============================================= */
+/* BLOQUE: Wrapper de la imagen + overlay         */
+/* ============================================= */
+.modelo-imagen-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Imagen de fondo (dicta la altura) */
+.modelo-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    margin-top: -18%;
+}
+
+/* ============================================= */
+/* BLOQUE: Overlay superpuesto (subtítulo+título) */
+/* ============================================= */
+.modelo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* ⬇ AQUÍ se controla la posición vertical del contenido sobre la imagen */
+    padding-top: var(--modelo-overlay-top);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    gap: var(--modelo-gap-sub-titulo);
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.modelo-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Título azul centrado                   */
+/* ============================================= */
+.modelo-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 500;
+    font-size: 3.2rem;
+    line-height: 1.1;
+    text-align: center;
+    /* ⬇ Ajusta este max-width para controlar en cuántas líneas parte el título */
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo (debajo de la imagen)          */
+/* ============================================= */
+.modelo-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    text-align: center;
+    /* ⬇ Separación con la imagen de arriba */
+    margin-top: var(--modelo-parrafo-margin-top);
+    /* ⬇ Ajusta este max-width para controlar en cuántas líneas parte el párrafo */
+    max-width: 68rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón azul (basado en hero-btn)        */
+/* ============================================= */
+.modelo-btn {
+    display: table;
+    background-color: #0284d0;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 5rem;
+    border-radius: 50rem;
+    text-align: center;
+    /* ⬇ Separación con el párrafo */
+    margin-top: var(--modelo-btn-margin-top);
+    /* display: table + margin auto = centrado horizontal */
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.modelo-btn:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen de fondo + capa blanca + todo centrado  */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-modelo {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;     /* Centra el contenido verticalmente */
+        align-items: center;         /* Centra el contenido horizontalmente */
+        min-height: 60dvh;          /* Ocupa toda la pantalla del celular */
+        padding: 3rem 1.5rem;
+        gap: 1rem;                   /* Separación entre overlay, párrafo y botón */
+        overflow: hidden;            /* Evita desbordes por la imagen absoluta */
+        --modelo-crop-y: 30%;
+    }
+
+    /* ⬇ TRUCO CLAVE: aplanamos el wrapper.
+       Sus hijos (imagen + overlay) pasan a comportarse como
+       hijos directos de la sección para el layout flex. */
+    .modelo-imagen-wrapper {
+        display: contents;
+    }
+
+    /* Imagen cubriendo TODA la sección (fondo) */
+    .modelo-bg {
+        position: absolute;
+        top: calc(-1 * var(--modelo-crop-y));            /* Sobresale X% por arriba */
+        left: 0;
+        width: 100%;
+        height: calc(100% + (2 * var(--modelo-crop-y))); /* Compensa lo que sobresale arriba y abajo */
+        object-fit: cover;
+        object-position: center;
+        margin-top: 0;
+        z-index: 0;
+    }
+
+    /* Capa blanca translúcida encima de la imagen */
+    .seccion-modelo::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.70);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* Todos los bloques de texto/botón quedan ENCIMA de la capa blanca */
+    .modelo-overlay,
+    .modelo-parrafo,
+    .modelo-btn {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Overlay como columna flex centrada (ya no absoluta) */
+    .modelo-overlay {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0;
+        gap: 0.8rem;
+        width: 100%;
+        height: auto;
+    }
+
+    /* Subtítulo */
+    .modelo-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        font-weight: 550;
+    }
+
+    /* Título */
+    .modelo-titulo {
+        font-size: 1.6rem;
+        line-height: 1.15;
+        max-width: 22rem;
+        font-weight: 650;
+    }
+
+    /* Párrafo */
+    .modelo-parrafo {
+        margin-top: 0;
+        max-width: 22rem;
+        padding: 0;
+        font-size: 0.95rem;
+        line-height: 1.45;
+        text-align: justify;
+        text-align-last: center;
+        font-weight: 550;
+    }
+
+    /* Botón */
+    .modelo-btn {
+        margin-top: 0;
+    }
+}
+
+
+/* ============================================= */
+/* BLOQUE: Sección Nuestras Diferencias           */
+/* ============================================= */
+.seccion-diferencias {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --diferencias-split-der: 65%;           /* Ancho del tercio derecho (imagen) */
+    --diferencias-ancho-contenido: 50%;    /* Ancho del contenido (independiente del split). Si es mayor que (100% - split-der), se encima sobre la imagen */
+    --diferencias-padding-contenido: 5rem 0rem 5rem 8%;  /* Padding del wrapper (top | right | bottom | left) */
+    --diferencias-gap-vertical: 3rem;        /* Gap entre subtítulo, título y grupos */
+    --diferencias-gap-columnas: 1rem;          /* Gap entre las 4 columnas de grupos */
+    --diferencias-gap-grupo-interno: 0.7rem;   /* Gap interno de cada grupo (icono, título, párrafo) */
+    --diferencias-max-subtitulo: 70rem;        /* Ancho máx del subtítulo */
+    --diferencias-max-titulo: 80rem;           /* Ancho máx del título principal */
+    --diferencias-max-titulo-grupo: 12rem;     /* Ancho máx del título de cada grupo */
+    --diferencias-max-parrafo-grupo: 13rem;    /* Ancho máx del párrafo de cada grupo */
+    --diferencias-icono-size: 6rem;            /* Tamaño de los iconos */
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Fondo (2/3 blanco + 1/3 img) */
+/* ============================================= */
+.diferencias-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: vacío */
+.diferencias-fondo-izq {
+    width: calc(100% - var(--diferencias-split-der));
+    background-color: #ffffff;
+}
+
+/* Tercio derecho: contiene la imagen que dicta la altura */
+.diferencias-fondo-der {
+    width: var(--diferencias-split-der);
+}
+
+.diferencias-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenido superpuesto         */
+/* ============================================= */
+.diferencias-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 100%;
+    display: flex;
+    align-items: center;      /* Centrado vertical del contenido */
+    z-index: 2;
+}
+
+/* Wrapper: aquí controlas el desplazamiento del contenido hacia la izquierda */
+.diferencias-contenido-wrapper {
+    width: var(--diferencias-ancho-contenido);
+    padding: var(--diferencias-padding-contenido);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Alineación interna a la izquierda */
+    text-align: left;
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.diferencias-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--diferencias-max-subtitulo);
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.diferencias-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 4.1rem;
+    line-height: 1.15;
+    text-align: left;
+    max-width: var(--diferencias-max-titulo);
+    margin-bottom: var(--diferencias-gap-vertical);
+}
+
+/* "UNA EDUCACIÓN QUE" → weight 500 */
+.diferencias-titulo-normal {
+    font-weight: 450;
+}
+
+/* "MARCA LA DIFERENCIA" → weight 700 */
+.diferencias-titulo-azul {
+    font-weight: 650;
+}
+
+/* ============================================= */
+/* BLOQUE: Grid de los 4 grupos (con subgrid)     */
+/* ============================================= */
+.diferencias-grupos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto; /* 3 filas: icono, título, párrafo */
+    column-gap: var(--diferencias-gap-columnas);
+    width: 110%;
+    margin-top: 1rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Cada grupo (subgrid de 3 filas)        */
+/* ============================================= */
+.diferencia-grupo {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    row-gap: var(--diferencias-gap-grupo-interno);
+    align-items: start;
+    justify-items: start;    /* Alineación interna a la izquierda */
+    text-align: left;
+}
+
+/* ============================================= */
+/* BLOQUE: Icono                                  */
+/* ============================================= */
+.diferencia-icono {
+    width: var(--diferencias-icono-size);
+    height: var(--diferencias-icono-size);
+    object-fit: contain;
+    
+}
+
+/* ============================================= */
+/* BLOQUE: Título de cada grupo (azul del botón)  */
+/* ============================================= */
+.diferencia-titulo {
+    font-family: var(--fuente-principal);
+    color: #0284d0;
+    font-weight: 700;
+    font-size: 1.7rem;
+    line-height: 1.3;
+    text-align: left;
+    max-width: var(--diferencias-max-titulo-grupo);
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo de cada grupo                  */
+/* ============================================= */
+.diferencia-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: 1.2rem;
+    line-height: 1.45;
+    text-align: left;
+    max-width: var(--diferencias-max-parrafo-grupo);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen centrada con overlay blanco,           */
+/* subtítulo y título encima, grupos debajo       */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección pasa a flex column para apilar la imagen + el contenido debajo */
+    .seccion-diferencias {
+        display: flex;
+        flex-direction: column;
+
+        /* Ajustes para móvil */
+        --diferencias-padding-contenido: 3rem 6% 4rem 6%;
+        --diferencias-gap-columnas: 0;
+        --diferencias-gap-grupo-interno: 1rem;
+        --diferencias-max-titulo-grupo: 100%;
+        --diferencias-max-parrafo-grupo: 100%;
+        --diferencias-icono-size: 5rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 1: la imagen ocupa todo el ancho            */
+    /* ------------------------------------------------- */
+    .diferencias-fondo {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    /* Ocultamos el lado izquierdo vacío */
+    .diferencias-fondo-izq {
+        display: none;
+    }
+
+    /* La imagen ocupa todo el ancho */
+    .diferencias-fondo-der {
+        width: 100%;
+    }
+
+    .diferencias-bg {
+        width: 100%;
+        height: 55vh;
+        min-height: 22rem;
+        object-fit: cover;
+        /* Centrado: recorta simétricamente los laterales */
+        object-position: center center;
+    }
+
+    /* Overlay blanco translúcido encima de la imagen */
+    .diferencias-fondo::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.75);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 2: el contenido deja de ser absoluto para   */
+    /* que los grupos fluyan debajo de la imagen        */
+    /* ------------------------------------------------- */
+    .diferencias-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    /* Rompemos el wrapper para que sus hijos se comporten
+       como si fueran hijos directos de .diferencias-contenido */
+    .diferencias-contenido-wrapper {
+        display: contents;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subtítulo y título: sobre la imagen, centrados    */
+    /* ------------------------------------------------- */
+    .diferencias-subtitulo,
+    .diferencias-titulo {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 3;
+        padding: 0 1.5rem;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .diferencias-subtitulo {
+        /* Ajusta este valor para subir/bajar el subtítulo sobre la imagen */
+        top: 15vh;
+        font-weight: 700;
+        font-size: 2rem;
+        letter-spacing: 0.04em;
+    }
+
+    .diferencias-titulo {
+        /* Ajusta este valor para subir/bajar el título sobre la imagen */
+        top: 26vh;
+        font-size: 2rem;
+        line-height: 1.15;
+    }
+
+    /* ------------------------------------------------- */
+    /* Grupos: debajo de la imagen, apilados en columna  */
+    /* ------------------------------------------------- */
+    .diferencias-grupos {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        padding: var(--diferencias-padding-contenido);
+        background-color: #ffffff;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    /* Cada grupo: columna con elementos centrados */
+    .diferencia-grupo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+        text-align: center;
+        gap: var(--diferencias-gap-grupo-interno);
+        max-width: 100%;
+    }
+
+    .diferencia-titulo,
+    .diferencia-parrafo {
+        text-align: center;
+        max-width: 70%;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Actividades Complementarias    */
+/* ============================================= */
+.seccion-actividades {
+    background-color: #ffffff;
+    width: 100%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --actividades-subtitulo-margin-top: 5rem;      /* Separación con la sección de arriba */
+    --actividades-subtitulo-margin-bottom: 1.5rem;     /* Separación subtítulo ↔ título */
+    --actividades-titulo-margin-bottom: 1.5rem;      /* Separación título ↔ párrafo */
+    --actividades-parrafo-margin-bottom: 4rem;       /* Separación párrafo ↔ cards */
+    --actividades-cards-margin-bottom: 4rem;         /* Separación cards ↔ botón */
+    --actividades-cards-gap: 2.5rem;                 /* Gap horizontal entre cards */
+    --actividades-card-gap-interno: 1.2rem;          /* Gap interno de cada card (imagen ↔ título) */
+    --actividades-cards-margin-lateral: 8%;          /* Margin lateral del contenedor de cards */
+    --actividades-max-titulo: 60rem;                 /* Ancho máx del título principal */
+    --actividades-max-parrafo: 55rem;                /* Ancho máx del párrafo */
+    --actividades-max-titulo-card: 15rem;            /* Ancho máx del título de cada card */
+    --actividades-gap-vertical-movil: 2rem;          /* Separación vertical entre cards (móvil) */
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.actividades-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.7rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin-top: var(--actividades-subtitulo-margin-top);
+    margin-bottom: var(--actividades-subtitulo-margin-bottom);
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.actividades-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 3.8rem;
+    line-height: 1.15;
+    text-align: center;
+    max-width: var(--actividades-max-titulo);
+    margin: 0 auto var(--actividades-titulo-margin-bottom) auto;
+    padding: 0 1rem;
+}
+
+/* Los dos spans se apilan uno debajo del otro */
+.actividades-titulo-normal,
+.actividades-titulo-azul {
+    display: block;
+}
+
+/* "DESCUBRIR TALENTOS" → weight 450 */
+.actividades-titulo-normal {
+    font-weight: 450;
+}
+
+/* "TAMBIÉN ES APRENDER" → weight 650 */
+.actividades-titulo-azul {
+    font-weight: 650;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.actividades-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.7rem;
+    line-height: 1.3;
+    text-align: center;
+    max-width: var(--actividades-max-parrafo);
+    margin: 0 auto var(--actividades-parrafo-margin-bottom) auto;
+    padding: 0 2rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor de las 4 cards              */
+/* ============================================= */
+.actividades-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: var(--actividades-cards-gap);
+    margin: 0 var(--actividades-cards-margin-lateral) var(--actividades-cards-margin-bottom) var(--actividades-cards-margin-lateral);
+}
+
+/* ============================================= */
+/* BLOQUE: Cada card                              */
+/* ============================================= */
+.actividad-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--actividades-card-gap-interno);
+}
+
+/* Imagen de la card */
+.actividad-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Título debajo de la imagen */
+.actividad-titulo {
+    font-family: var(--fuente-principal);
+    color: #0284d0;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    text-align: center;
+    max-width: var(--actividades-max-titulo-card);
+}
+
+/* ============================================= */
+/* BLOQUE: Botón "Conoce más"                     */
+/* (Mismo estilo del botón de Modelo Educativo)   */
+/* ============================================= */
+.actividades-btn {
+    display: table;
+    background-color: #0284d0;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 5rem;
+    border-radius: 50rem;
+    text-align: center;
+    margin: 0 auto;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-bottom: 6rem;
+}
+
+.actividades-btn:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Cards apiladas en 1 columna con gap reducido   */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-actividades {
+        /* Ajustes para móvil */
+        --actividades-parrafo-margin-bottom: 2.5rem;
+        --actividades-cards-margin-bottom: 2.5rem;
+        --actividades-cards-margin-lateral: 8%;
+        --actividades-gap-vertical-movil: 2rem;
+        --actividades-card-gap-interno: 0.8rem;
+    }
+
+    .actividades-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .actividades-titulo {
+        font-size: 1.8rem;
+        line-height: 1.15;
+        max-width: 100%;
+    }
+
+    .actividades-parrafo {
+        font-size: 1.2rem;
+        line-height: 1.45;
+        max-width: 90%;
+        padding: 0 6%;
+        text-align: center;
+        text-align-last: center;
+    }
+
+    /* Contenedor de cards: 1 columna, gap vertical */
+    .actividades-cards {
+        grid-template-columns: 1fr;
+        row-gap: var(--actividades-gap-vertical-movil);
+        column-gap: 0;
+        margin-bottom: 5rem;
+    }
+
+    /* Cada card limitada al ancho que quieras para que no sea gigante */
+    .actividad-card {
+        max-width: 22rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .actividad-titulo {
+        font-size: 1.15rem;
+        max-width: 100%;
+    }
+
+    .actividades-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem 5rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Nuestro Campus                 */
+/* ============================================= */
+.seccion-campus {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --campus-split-der: 67%;                    /* Ancho de la imagen (pegada a la derecha). Ajusta para agrandar/achicar la imagen */
+    --campus-ancho-contenido: 65%;              /* Ancho del contenedor de contenido (independiente del split) */
+    --campus-padding-contenido: 5rem 0 5rem 8%; /* Padding del wrapper (top | right | bottom | left) */
+    --campus-gap-vertical: 1.5rem;              /* Gap vertical entre subtítulo, título, párrafo y botón */
+    --campus-max-subtitulo: 30rem;              /* Ancho máx del subtítulo */
+    --campus-max-titulo: 90rem;                 /* Ancho máx del título principal */
+    --campus-max-parrafo: 58rem;                /* Ancho máx del párrafo */
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Fondo dividido                */
+/* (izquierda blanca vacía + derecha imagen)      */
+/* ============================================= */
+.campus-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: vacío */
+.campus-fondo-izq {
+    width: calc(100% - var(--campus-split-der));
+    background-color: #ffffff;
+}
+
+/* Lado derecho: contiene la imagen que dicta la altura */
+.campus-fondo-der {
+    width: var(--campus-split-der);
+}
+
+.campus-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenido superpuesto         */
+/* ============================================= */
+.campus-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;      /* Centrado vertical del contenido */
+    z-index: 2;
+}
+
+/* Wrapper: aquí controlas el ancho del contenido y su desplazamiento */
+.campus-contenido-wrapper {
+    width: var(--campus-ancho-contenido);
+    padding: var(--campus-padding-contenido);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Alineación interna a la izquierda */
+    text-align: left;
+    gap: var(--campus-gap-vertical);
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.campus-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.7rem;
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--campus-max-subtitulo);
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.campus-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 4.5rem;
+    line-height: 1;
+    text-align: left;
+    max-width: var(--campus-max-titulo);
+}
+
+/* "UN AMBIENTE EXCEPCIONAL PARA" → weight 450 */
+.campus-titulo-normal {
+    font-weight: 450;
+}
+
+/* "GRANDES PERSONAS" → weight 650 */
+.campus-titulo-azul {
+    font-weight: 750;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.campus-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: left;
+    max-width: var(--campus-max-parrafo);
+    margin-bottom: 2rem;
+    letter-spacing: -0.02rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón "Conoce nuestro campus"          */
+/* ============================================= */
+.campus-btn {
+    display: inline-block;
+    background-color: #0284d0;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.campus-btn:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen arriba centrada + contenido debajo,     */
+/* todo con alineación centrada                   */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección pasa a flex column para apilar la imagen + el contenido debajo */
+    .seccion-campus {
+        display: flex;
+        flex-direction: column;
+
+        /* Ajustes para móvil */
+        --campus-padding-contenido: 3rem 6% 4rem 6%;
+        --campus-gap-vertical: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 1: la imagen ocupa todo el ancho, arriba     */
+    /* ------------------------------------------------- */
+    .campus-fondo {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    /* Ocultamos el lado izquierdo vacío */
+    .campus-fondo-izq {
+        display: none;
+    }
+
+    /* La imagen ocupa todo el ancho */
+    .campus-fondo-der {
+        width: 100%;
+    }
+
+    .campus-bg {
+        width: 100%;
+        height: 55vh;
+        min-height: 22rem;
+        object-fit: cover;
+        /* Centrado: recorta simétricamente los laterales */
+        object-position: center center;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 2: el contenido deja de ser absoluto para   */
+    /* que fluya debajo de la imagen                    */
+    /* ------------------------------------------------- */
+    .campus-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    /* El wrapper ocupa el 100% y centra su contenido */
+    .campus-contenido-wrapper {
+        width: 100%;
+        align-items: center;   /* Centrado horizontal de hijos */
+        text-align: center;    /* Alineación interna centrada */
+        gap: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Jerarquía tipográfica ajustada a pantalla chica    */
+    /* ------------------------------------------------- */
+    .campus-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .campus-titulo {
+        font-size: 1.7rem;
+        line-height: 1.15;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .campus-parrafo {
+        font-size: 1.5rem;
+        line-height: 1.45;
+        text-align: center;
+        text-align-last: center;
+        max-width: 22rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .campus-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Admisiones                     */
+/* (espejo de Nuestro Campus: imagen a la izq.)   */
+/* ============================================= */
+.seccion-admisiones {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --admisiones-split-izq: 100%;                    /* Ancho de la imagen (pegada a la izquierda) */
+    --admisiones-ancho-contenido: 65%;              /* Ancho del contenedor de contenido (independiente del split) */
+    --admisiones-padding-contenido: 5rem 8% 5rem 0; /* Padding del wrapper (top | right | bottom | left) */
+    --admisiones-gap-vertical: 1.5rem;              /* Gap vertical entre subtítulo, título, párrafo y botón */
+    --admisiones-max-subtitulo: 30rem;              /* Ancho máx del subtítulo */
+    --admisiones-max-titulo: 55rem;                 /* Ancho máx del título principal */
+    --admisiones-max-parrafo: 55rem;                /* Ancho máx del párrafo */
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Fondo dividido                */
+/* (izquierda imagen + derecha blanca vacía)      */
+/* ============================================= */
+.admisiones-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: contiene la imagen que dicta la altura */
+.admisiones-fondo-izq {
+    width: var(--admisiones-split-izq);
+}
+
+.admisiones-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Lado derecho: vacío */
+.admisiones-fondo-der {
+    width: calc(100% - var(--admisiones-split-izq));
+    background-color: #ffffff;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenido superpuesto         */
+/* ============================================= */
+.admisiones-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;          /* Centrado vertical del contenido */
+    justify-content: flex-end;    /* Empuja el contenido a la derecha */
+    z-index: 2;
+}
+
+/* Wrapper: alineado a la derecha */
+.admisiones-contenido-wrapper {
+    width: var(--admisiones-ancho-contenido);
+    padding: var(--admisiones-padding-contenido);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;        /* Alineación interna a la derecha */
+    text-align: right;
+    gap: var(--admisiones-gap-vertical);
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.admisiones-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.7rem;
+    letter-spacing: 0.05em;
+    text-align: right;
+    max-width: var(--admisiones-max-subtitulo);
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.admisiones-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 4.5rem;
+    line-height: 1;
+    text-align: right;
+    max-width: var(--admisiones-max-titulo);
+}
+
+/* "INICIEMOS JUNTOS ESTA" → weight 450 */
+.admisiones-titulo-normal {
+    font-weight: 450;
+}
+
+/* "GRAN HISTORIA" → weight 750 */
+.admisiones-titulo-azul {
+    font-weight: 750;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.admisiones-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: right;
+    max-width: var(--admisiones-max-parrafo);
+    margin-bottom: 2rem;
+    letter-spacing: -0.02rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón verde "Solicita información"     */
+/* ============================================= */
+.admisiones-btn {
+    display: inline-block;
+    background-color: #27a566;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.admisiones-btn:hover {
+    background-color: #1f8a54;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen arriba centrada + contenido debajo,     */
+/* todo con alineación centrada                   */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección pasa a flex column para apilar la imagen + el contenido debajo */
+    .seccion-admisiones {
+        display: flex;
+        flex-direction: column;
+
+        /* Ajustes para móvil */
+        --admisiones-padding-contenido: 3rem 6% 4rem 6%;
+        --admisiones-gap-vertical: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 1: la imagen ocupa todo el ancho, arriba     */
+    /* ------------------------------------------------- */
+    .admisiones-fondo {
+        position: relative;
+        display: block;
+        width: 220%;
+    }
+
+    /* La imagen ocupa todo el ancho */
+    .admisiones-fondo-izq {
+        width: 100%;
+    }
+
+    .admisiones-bg {
+        width: 100%;
+        height: 55vh;
+        min-height: 22rem;
+        object-fit: cover;
+        /* Centrado: recorta simétricamente los laterales */
+        object-position: center center;
+    }
+
+    /* Ocultamos el lado derecho vacío */
+    .admisiones-fondo-der {
+        display: none;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 2: el contenido deja de ser absoluto para   */
+    /* que fluya debajo de la imagen                    */
+    /* ------------------------------------------------- */
+    .admisiones-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    /* El wrapper ocupa el 100% y centra su contenido */
+    .admisiones-contenido-wrapper {
+        width: 100%;
+        align-items: center;   /* Centrado horizontal de hijos */
+        text-align: center;    /* Alineación interna centrada */
+        gap: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Jerarquía tipográfica ajustada a pantalla chica    */
+    /* ------------------------------------------------- */
+    .admisiones-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .admisiones-titulo {
+        font-size: 1.7rem;
+        line-height: 1.15;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .admisiones-parrafo {
+        font-size: 1.5rem;
+        line-height: 1.45;
+        text-align: center;
+        text-align-last: center;
+        max-width: 22rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .admisiones-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Contacto (Formulario + Mapa)   */
+/* ============================================= */
+.seccion-contacto {
+    background-color: #f0f0f0;
+    width: 100%;
+    padding: 0;                       /* Los márgenes internos de cada hijo dan el espaciado */
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --contacto-mapa-ancho: 38%;       /* Ancho del mapa (más pequeño) */
+    --contacto-margin: 1rem;          /* X → margin común (top, bottom, izquierda del mapa, izquierda del form... ver detalle) */
+    --contacto-margin-doble: 2rem;    /* 2X → margin derecho del mapa e izquierdo del form */
+    --contacto-padding-form: 0rem 3rem; /* Padding interno del formulario */
+    --contacto-max-form: 45rem;       /* Ancho máximo del formulario */
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor principal                   */
+/* ============================================= */
+.contacto-contenedor {
+    display: flex;
+    align-items: stretch;             /* Ambas columnas a la MISMA ALTURA */
+    width: 100%;
+    padding: 0;                       /* Sin padding: los márgenes de los hijos lo controlan */
+    gap: 10rem;                           /* Sin gap: la separación la da el margin del mapa */
+    justify-content: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Formulario (izquierda)                 */
+/* Margin: X | 0 | X | 2X  (top | right | bottom | left) */
+/* → Simétrico con el margin-right del mapa        */
+/* ============================================= */
+.contacto-form-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--contacto-padding-form);
+    margin: var(--contacto-margin) 0 var(--contacto-margin) var(--contacto-margin-doble);
+    max-width: var(--contacto-max-form);
+}
+
+/* ============================================= */
+/* BLOQUE: Formulario                             */
+/* ============================================= */
+.form-weston {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+}
+
+.form-fila-doble {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.form-fila-doble .form-grupo {
+    flex: 1;
+}
+
+/* ============================================= */
+/* BLOQUE: Labels e inputs (SIN bordes)           */
+/* ============================================= */
+.form-label {
+    font-family: var(--fuente-principal);
+    color: #000000;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    color: #000000;
+    padding: 0.7rem 1rem;
+    background-color: var(--color-blanco);
+    border: none;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    box-shadow: 0 0.125rem 0.75rem rgba(2, 132, 208, 0.35);
+}
+
+.form-textarea {
+    resize: vertical;
+}
+
+/* ============================================= */
+/* BLOQUE: Mensajes de error                      */
+/* ============================================= */
+.error-msg {
+    color: red;
+    font-family: var(--fuente-principal);
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-top: 0.3rem;
+    margin-left: 0.5rem;
+    display: none;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón Enviar (azul de la marca)        */
+/* ============================================= */
+.btn-enviar-form {
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-blanco);
+    background-color: #0284d0;
+    border: none;
+    border-radius: 50rem;
+    padding: 0.85rem 6rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    align-self: flex-start;
+}
+
+.btn-enviar-form:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: Mapa (derecha)                         */
+/* Margin: X | 2X | X | X  (top | right | bottom | left) */
+/* El margin-left del mapa (X) crea la separación */
+/* respecto al formulario.                         */
+/* ============================================= */
+.contacto-mapa-wrapper {
+    width: var(--contacto-mapa-ancho);
+    aspect-ratio: 1 / 1;              /* Cuadrado perfecto */
+    margin: var(--contacto-margin) var(--contacto-margin-doble) var(--contacto-margin) var(--contacto-margin);
+    display: flex;
+    flex-shrink: 0;
+}
+
+.contacto-mapa-iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Formulario arriba, mapa abajo                  */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-contacto {
+        padding: 2rem 0;
+        --contacto-margin: 0;
+        --contacto-margin-doble: 0;
+        --contacto-padding-form: 0 6% 2rem 6%;
+    }
+
+    /* Contenedor: columna apilada */
+    .contacto-contenedor {
+        flex-direction: column;
+        padding: 0 6%;
+        gap: 2rem;
+        align-items: stretch;
+    }
+
+    /* Formulario: sin max-width, sin márgenes */
+    .contacto-form-wrapper {
+        max-width: 100%;
+        margin: 0;
+        padding: var(--contacto-padding-form);
+    }
+
+    /* Mapa: ocupa el 100% de ancho, más panorámico */
+    .contacto-mapa-wrapper {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        margin: 0;
+    }
+
+    /* Fila doble se apila en columna */
+    .form-fila-doble {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* Botón ancho completo para mejor pulsación táctil */
+    .btn-enviar-form {
+        width: 100%;
+        align-self: stretch;
+        padding: 0.9rem 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Footer                                */
+/* ============================================= */
+.footer-weston {
+    background-color: #27a566;
+    width: 100%;
+
+    /* Padding general: separa las subsecciones de los bordes laterales */
+    padding: 0 5%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --footer-padding-vertical: 3rem;         /* Padding vertical de cada subsección */
+    --footer-gap-grupos: 2rem;                /* Separación entre los 4 grupos (desktop) */
+    --footer-gap-vertical-movil: 2.5rem;      /* Separación vertical entre grupos (móvil) */
+    --footer-icon-size: 0.7rem;               /* Tamaño de los iconos de contacto */
+    --footer-social-size: 2.5rem;             /* Tamaño de los iconos sociales */
+    --footer-font-size: 1rem;               /* Tamaño de letra del footer */
+    --footer-hr-margin-lateral: 1.5rem;       /* Mínimo margin lateral de la HR */
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 1 - Logo                    */
+/* La imagen dicta la altura de esta subsección   */
+/* ============================================= */
+.footer-logo-seccion {
+    width: 100%;
+    padding: var(--footer-padding-vertical) 0;
+    display: flex;
+    justify-content: left;    /* Centrado horizontal del logo */
+    align-items: center;
+}
+
+.footer-logo-img {
+    width: 100%;
+    max-width: 20rem;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 2 - 4 grupos proporcionales */
+/* 30% | 30% | 30% | 10%                          */
+/* ============================================= */
+.footer-grupos {
+    display: flex;
+    align-items: flex-start;     /* Alineación superior de los grupos */
+    gap: var(--footer-gap-grupos);
+    width: 100%;
+    padding: var(--footer-padding-vertical) 0;
+}
+
+
+/* --- Grupo 1: Dirección (30%) --- */
+.footer-grupo-direccion {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.footer-direccion {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.5;
+    text-align: left;
+    max-width: 28rem;
+}
+
+/* --- Grupo 2: Contacto (30%) --- */
+.footer-grupo-contacto {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.footer-lista-contacto {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: left;
+    padding-left: 6rem;
+}
+
+.footer-lista-contacto li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.3;
+}
+
+.footer-icono-lista {
+    width: var(--footer-icon-size);
+    height: var(--footer-icon-size);
+    object-fit: contain;
+    /* Convertimos cualquier color del SVG a blanco */
+    filter: brightness(0) invert(1);
+    flex-shrink: 0;
+}
+
+/* --- Grupo 3: Navegación (30%) --- */
+.footer-grupo-nav {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.footer-lista-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+}
+
+.footer-nav-link {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 500;
+    font-size: var(--footer-font-size);
+    line-height: 1.3;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    display: inline-block;
+}
+
+.footer-nav-link:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+}
+
+/* --- Grupo 4: Redes sociales (10%) --- */
+.footer-grupo-social {
+    flex: 0 0 10%;
+    max-width: 10%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.6rem;
+}
+
+.footer-social-link {
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer-social-link:hover {
+    transform: scale(1.15);
+    opacity: 0.85;
+}
+
+.footer-social-link img {
+    width: var(--footer-social-size);
+    height: var(--footer-social-size);
+    object-fit: contain;
+    display: block;
+    /* Convertimos los SVG a blanco puro */
+    filter: brightness(0) invert(1);
+}
+
+/* ============================================= */
+/* BLOQUE: Línea divisoria (HR)                   */
+/* ============================================= */
+.footer-hr {
+    width: calc(100% - (var(--footer-hr-margin-lateral) * 2));
+    margin: 1rem var(--footer-hr-margin-lateral);
+    height: 3px;
+    background-color: var(--color-blanco);
+    border: none;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 3 - Copyright               */
+/* ============================================= */
+.footer-copyright-seccion {
+    width: 100%;
+    padding: 1.5rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-copyright {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.4;
+}
+
+/* ============================================= */
+/* BLOQUE: Scroll-margin para que la navbar fija  */
+/* no tape las secciones al hacer autoscroll      */
+/* desde los enlaces del footer                   */
+/* ============================================= */
+#hero,
+#nosotros,
+#programas,
+#instalaciones,
+#admisiones {
+    scroll-margin-top: var(--altura-navbar);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Grupos apilados en columna                     */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .footer-weston {
+        padding: 0 6%;
+        --footer-padding-vertical: 2rem;
+        --footer-icon-size: 0.85rem;
+        --footer-social-size: 1.3rem;
+    }
+
+    /* Subsección 1: logo más chico */
+    .footer-logo-img {
+        max-width: 14rem;
+    }
+
+    /* Subsección 2: los 4 grupos se apilan verticalmente */
+    .footer-grupos {
+        flex-direction: column;
+        gap: var(--footer-gap-vertical-movil);
+    }
+
+    /* Todos los grupos pasan a 100% de ancho */
+    .footer-grupo-direccion,
+    .footer-grupo-contacto,
+    .footer-grupo-nav,
+    .footer-grupo-social {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* Los iconos sociales ahora se alinean a la izquierda */
+    .footer-grupo-social {
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    /* HR */
+    .footer-hr {
+        margin: 3rem var(--footer-hr-margin-lateral);
+    }
+
+    /* Copyright */
+    .footer-copyright-seccion {
+        padding: 1.5rem 0;
+    }
+}
+

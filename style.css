@@ -2829,3 +2829,588 @@ body {
     }
 }
 
+/* =============================================
+   BLOQUE: Sección Hero 1 - Modelo Educativo
+   ============================================= */
+.hero-me {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --hero-me-ancho-contenedor: 35%;         /* Ancho del contenedor izquierdo (deja ver el resto de la imagen) */
+    --hero-me-margin-left: 5%;               /* Separación izquierda para que nunca toque el borde */
+    
+    /* Gaps verticales individuales entre los 3 elementos */
+    --hero-me-gap-sub-titulo: 1.2rem;        /* Separación vertical entre subtítulo y título */
+    --hero-me-gap-titulo-parrafo: 1.8rem;    /* Separación vertical entre título y párrafo */
+
+    /* Tamaños de fuente (rem se adapta solo con el clamp global del html) */
+    --hero-me-fs-subtitulo: 1.7rem;          /* Font-size del subtítulo */
+    --hero-me-fs-titulo: 4.2rem;             /* Font-size del título */
+    --hero-me-fs-parrafo: 1.6rem;            /* Font-size del párrafo */
+
+    /* Anchos máximos individuales (controlan los saltos de línea) */
+    --hero-me-max-subtitulo: 30rem;          /* Max-width del subtítulo */
+    --hero-me-max-titulo: 38rem;             /* Max-width del título */
+    --hero-me-max-parrafo: 37rem;            /* Max-width del párrafo */
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   (En flujo normal: define la altura de la sección)
+   ============================================= */
+.hero-me-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Overlay y Contenedor (35%)
+   ============================================= */
+.hero-me-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;       /* Centra verticalmente el contenedor */
+    justify-content: flex-start;
+    z-index: 2;
+}
+
+.hero-me-contenedor {
+    width: var(--hero-me-ancho-contenedor);
+    margin-left: var(--hero-me-margin-left);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Los 3 elementos alineados a la izquierda dentro del contenedor */
+    text-align: left;          /* Alineación interna a la izquierda */
+}
+
+/* =============================================
+   BLOQUE: Subtítulo verde
+   ============================================= */
+.hero-me-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--hero-me-fs-subtitulo);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--hero-me-max-subtitulo);
+    margin-bottom: var(--hero-me-gap-sub-titulo);
+}
+
+/* =============================================
+   BLOQUE: Título blanco con "TRANSFORMAR" bold
+   ============================================= */
+.hero-me-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 500;
+    font-size: var(--hero-me-fs-titulo);
+    line-height: 1;
+    text-align: left;
+    max-width: var(--hero-me-max-titulo);
+    margin-bottom: var(--hero-me-gap-titulo-parrafo);
+}
+
+.hero-me-bold {
+    font-weight: 700;
+}
+
+/* =============================================
+   BLOQUE: Párrafo blanco
+   ============================================= */
+.hero-me-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--hero-me-fs-parrafo);
+    line-height: 1.3;
+    text-align: left;
+    max-width: var(--hero-me-max-parrafo);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Mitad derecha de la imagen centrada + capa
+   blanca + contenedor y textos centrados
+   ============================================= */
+@media (max-width: 768px) {
+
+    .hero-me {
+        margin-top: var(--altura-navbar);
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --hero-me-pos-x-movil: 60%;              /* Mueve la imagen en el eje X para centrar la mitad derecha a ojo (0% izq - 100% der) */
+        --hero-me-altura-movil: 70vh;            /* Altura de la sección en móvil */
+        --hero-me-opacidad-capa: 0.7;           /* Opacidad de la capa blanca (0 a 1) */
+        --hero-me-color-texto-movil: var(--color-texto); /* Color para título y párrafo sobre la capa blanca (usa #ffffff si los prefieres blancos) */
+
+        /* Gaps verticales en móvil */
+        --hero-me-gap-sub-titulo: 0.8rem;
+        --hero-me-gap-titulo-parrafo: 1.2rem;
+
+        /* Tamaños de fuente en móvil */
+        --hero-me-fs-subtitulo: 1rem;
+        --hero-me-fs-titulo: 2.2rem;
+        --hero-me-fs-parrafo: 1.05rem;
+
+        /* Anchos máximos en móvil */
+        --hero-me-max-subtitulo: 100%;
+        --hero-me-max-titulo: 100%;
+        --hero-me-max-parrafo: 85%;
+    }
+
+    /* ------------------------------------------------- */
+    /* 1. Imagen centrada en la parte derecha y recortada */
+    /* ------------------------------------------------- */
+    .hero-me-bg {
+        min-height: 30rem;
+        height: var(--hero-me-altura-movil);
+        object-fit: cover;
+        object-position: var(--hero-me-pos-x-movil) center;
+    }
+
+    /* ------------------------------------------------- */
+    /* 2. Capa blanca translúcida encima de la imagen     */
+    /* ------------------------------------------------- */
+    .hero-me::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(54, 99, 167, var(--hero-me-opacidad-capa));
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------- */
+    /* 3. Contenedor centrado horizontal y verticalmente  */
+    /* ------------------------------------------------- */
+    .hero-me-overlay {
+        justify-content: center;
+        z-index: 2;
+    }
+
+    .hero-me-contenedor {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 6%;
+        align-items: center;   /* Elementos centrados dentro del contenedor */
+        text-align: center;
+    }
+
+    /* ------------------------------------------------- */
+    /* 4. Alineación interna justificada-centrada         */
+    /* ------------------------------------------------- */
+    .hero-me-subtitulo {
+        text-align: justify;
+        text-align-last: center;
+        font-weight: 600;
+        font-size: 2rem;
+    }
+
+    .hero-me-titulo {
+        text-align: center;
+        font-size: 3rem;
+    }
+
+    .hero-me-parrafo {
+        text-align: justify;
+        text-align-last: center;
+        font-weight: 550;
+        font-size: 1.5rem;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 2 - Nuestro Modelo Educativo (UNESCO)
+   ============================================= */
+.seccion-unesco {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --unesco-altura-arriba: 60%;                /* Porcentaje de altura de la mitad 1 (arriba) */
+    --unesco-altura-abajo: calc(100% - var(--unesco-altura-arriba)); /* La mitad 2 toma el resto automáticamente */
+    
+    /* --- Mitad 1 (Arriba - Derecha) --- */
+    --unesco-ancho-derecha: 58%;                /* Ancho que ocupa el contenedor derecho en la mitad 1 */
+    --unesco-padding-derecha: 0 4% 0 4rem;      /* Padding del contenedor derecho (top | right | bottom | left) */
+    
+    /* Variables propias de subtítulo, título y párrafo (Mitad 1) */
+    --unesco-subtitulo-color: var(--color-verde);
+    --unesco-subtitulo-peso: 500;
+    --unesco-subtitulo-fs: 2rem;
+    --unesco-subtitulo-max: 30rem;
+
+    --unesco-titulo-color: #3663a7;
+    --unesco-titulo-peso: 800;
+    --unesco-titulo-fs: 4.3rem;
+    --unesco-titulo-max: 55rem;
+
+    --unesco-parrafo-color: var(--color-texto);
+    --unesco-parrafo-peso: 530;
+    --unesco-parrafo-fs: 1.9rem;
+    --unesco-parrafo-max: 55rem;                /* Controla los saltos de línea del párrafo */
+
+    /* Gaps verticales individuales (Mitad 1) */
+    --unesco-gap-sub-titulo: 0.5rem;            /* Distancia subtítulo ↔ título */
+    --unesco-gap-titulo-parrafo: 3rem;          /* Distancia título ↔ párrafo */
+
+    /* --- Mitad 2 (Abajo - 5 Grupos) --- */
+    --unesco-grupos-margin-lateral: 8%;         /* Margen izquierdo y derecho del arreglo de 5 grupos */
+    --unesco-grupos-gap-horizontal: 7rem;     /* Gap horizontal igual entre los 5 grupos */
+    
+    /* Gaps verticales internos de los grupos */
+    --unesco-gap-icono-titulo: 1rem;            /* Gap vertical entre icono y título del grupo */
+    --unesco-gap-titulo-parrafo-grupo: 1.2rem;  /* Gap vertical entre título y párrafo del grupo */
+    
+    /* Tamaños comunales de icono y fuentes */
+    --unesco-icono-size: 7.5rem;                /* Tamaño comunal de los 5 iconos SVG */
+    --unesco-grupo-titulo-fs: 1.7rem;             /* Font-size comunal de los títulos de grupo */
+    --unesco-grupo-parrafo-fs: 1.2rem;          /* Font-size comunal de los párrafos de grupo */
+
+    /* Max-width INDEPENDIENTE para cada uno de los 5 grupos
+       (El max-width del párrafo determina el ancho total de su grupo) */
+    /* Grupo 1: Aprende a ser */
+    --unesco-g1-titulo-max: 13rem;
+    --unesco-g1-parrafo-max: 13rem;
+
+    /* Grupo 2: Aprender a conocer */
+    --unesco-g2-titulo-max: 13rem;
+    --unesco-g2-parrafo-max: 15rem;
+
+    /* Grupo 3: Aprender a hacer */
+    --unesco-g3-titulo-max: 13rem;
+    --unesco-g3-parrafo-max: 15rem;
+
+    /* Grupo 4: Aprender a vivir juntos */
+    --unesco-g4-titulo-max: 13rem;
+    --unesco-g4-parrafo-max: 12.5rem;
+
+    /* Grupo 5: Transformarse y transformar */
+    --unesco-g5-titulo-max: 13rem;
+    --unesco-g5-parrafo-max: 18rem;
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   (Define la altura en desktop y es la Subsección 1 en móvil)
+   ============================================= */
+.unesco-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Overlay dividido (Arriba / Abajo)
+   ============================================= */
+.unesco-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+/* =============================================
+   BLOQUE: Mitad 1 (Arriba - 60% ajustable)
+   ============================================= */
+.unesco-mitad-arriba {
+    width: 100%;
+    height: var(--unesco-altura-arriba);
+    display: flex;
+    justify-content: flex-end;   /* Empuja el contenedor hacia la derecha */
+    align-items: center;         /* Centra verticalmente dentro de la mitad superior */
+}
+
+.unesco-caja-derecha {
+    width: var(--unesco-ancho-derecha);
+    padding: var(--unesco-padding-derecha);
+    display: flex;
+    align-items: center;
+}
+
+.unesco-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Los 3 elementos alineados a la izquierda a la misma altura */
+    text-align: left;
+}
+
+/* Subtítulo "NUESTRO" */
+.unesco-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--unesco-subtitulo-color);
+    font-weight: var(--unesco-subtitulo-peso);
+    font-size: var(--unesco-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--unesco-subtitulo-max);
+    margin-bottom: var(--unesco-gap-sub-titulo);
+}
+
+/* Título "MODELO EDUCATIVO" (sin saltos de línea) */
+.unesco-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--unesco-titulo-color);
+    font-weight: var(--unesco-titulo-peso);
+    font-size: var(--unesco-titulo-fs);
+    line-height: 1.1;
+    white-space: nowrap;
+    text-align: left;
+    max-width: var(--unesco-titulo-max);
+    margin-bottom: var(--unesco-gap-titulo-parrafo);
+}
+
+/* Párrafo descriptivo */
+.unesco-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--unesco-parrafo-color);
+    font-weight: var(--unesco-parrafo-peso);
+    font-size: var(--unesco-parrafo-fs);
+    line-height: 1.2;
+    text-align: left;
+    max-width: var(--unesco-parrafo-max);
+}
+
+/* =============================================
+   BLOQUE: Mitad 2 (Abajo - 40% ajustable)
+   ============================================= */
+.unesco-mitad-abajo {
+    width: 100%;
+    height: var(--unesco-altura-abajo);
+    display: flex;
+    align-items: center;         /* Centra verticalmente la fila de 5 grupos en la mitad inferior */
+    justify-content: center;
+}
+
+/* =============================================
+   BLOQUE: Arreglo de 5 grupos con Subgrid
+   (Cada columna toma el ancho del max-width de su párrafo)
+   ============================================= */
+.unesco-grupos {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: auto auto auto; /* Fila 1: imagen | Fila 2: título | Fila 3: párrafo */
+    justify-content: center;
+    column-gap: var(--unesco-grupos-gap-horizontal);
+    width: 100%;
+    margin: 0 var(--unesco-grupos-margin-lateral);
+}
+
+.unesco-grupo {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    justify-items: center;       /* Elementos centrados horizontalmente dentro del grupo */
+    align-items: start;          /* Alineados al tope de su respectiva fila vecina */
+    text-align: center;
+}
+
+/* Imagen comunal de cada grupo */
+.unesco-icono {
+    width: var(--unesco-icono-size);
+    height: var(--unesco-icono-size);
+    object-fit: contain;
+    display: block;
+    margin-bottom: var(--unesco-gap-icono-titulo);
+}
+
+/* Título comunal de cada grupo (verde, weight 700) */
+.unesco-grupo-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 700;
+    font-size: var(--unesco-grupo-titulo-fs);
+    line-height: 1.25;
+    text-align: center;
+    width: 100%;
+    margin-bottom: var(--unesco-gap-titulo-parrafo-grupo);
+}
+
+/* Párrafo comunal de cada grupo (color texto, weight 400) */
+.unesco-grupo-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 400;
+    font-size: var(--unesco-grupo-parrafo-fs);
+    line-height: 1.4;
+    text-align: center;
+    width: 100%;
+}
+
+/* --- El max-width del párrafo determina el max-width de su grupo --- */
+.unesco-grupo:nth-child(1) { width: var(--unesco-g1-parrafo-max); max-width: var(--unesco-g1-parrafo-max); }
+.unesco-grupo:nth-child(1) .unesco-grupo-titulo  { max-width: var(--unesco-g1-titulo-max); }
+.unesco-grupo:nth-child(1) .unesco-grupo-parrafo { max-width: var(--unesco-g1-parrafo-max); }
+
+.unesco-grupo:nth-child(2) { width: var(--unesco-g2-parrafo-max); max-width: var(--unesco-g2-parrafo-max); }
+.unesco-grupo:nth-child(2) .unesco-grupo-titulo  { max-width: var(--unesco-g2-titulo-max); }
+.unesco-grupo:nth-child(2) .unesco-grupo-parrafo { max-width: var(--unesco-g2-parrafo-max); }
+
+.unesco-grupo:nth-child(3) { width: var(--unesco-g3-parrafo-max); max-width: var(--unesco-g3-parrafo-max); }
+.unesco-grupo:nth-child(3) .unesco-grupo-titulo  { max-width: var(--unesco-g3-titulo-max); }
+.unesco-grupo:nth-child(3) .unesco-grupo-parrafo { max-width: var(--unesco-g3-parrafo-max); }
+
+.unesco-grupo:nth-child(4) { width: var(--unesco-g4-parrafo-max); max-width: var(--unesco-g4-parrafo-max); }
+.unesco-grupo:nth-child(4) .unesco-grupo-titulo  { max-width: var(--unesco-g4-titulo-max); }
+.unesco-grupo:nth-child(4) .unesco-grupo-parrafo { max-width: var(--unesco-g4-parrafo-max); }
+
+.unesco-grupo:nth-child(5) { width: var(--unesco-g5-parrafo-max); max-width: var(--unesco-g5-parrafo-max); }
+.unesco-grupo:nth-child(5) .unesco-grupo-titulo  { max-width: var(--unesco-g5-titulo-max); }
+.unesco-grupo:nth-child(5) .unesco-grupo-parrafo { max-width: var(--unesco-g5-parrafo-max); }
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   3 subsecciones apiladas:
+   1. Esquina superior derecha de la imagen
+   2. Textos centrados sobre fondo #f4f4f4
+   3. 5 grupos en pila sobre fondo #f4f4f4
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-unesco {
+        display: flex;
+        flex-direction: column;
+        background-color: #f4f4f4;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL (dentro de .seccion-unesco) */
+        --unesco-img-altura-movil: 42vh;          /* Altura visible de la subsección 1 (imagen) */
+        --unesco-img-pos-x-movil: 5%;           /* 100% = derecha | 50% = centro | 0% = izquierda */
+        --unesco-img-pos-y-movil: 0%;             /* 0% = anclada arriba para que solo corte lo de abajo */
+        --unesco-img-zoom-movil: 1.8;             /* Zoom del 50% (usa 2 si quieres el doble exacto para que 50% superior = 42vh) */
+        
+        --unesco-gap-entre-grupos-movil: 2.8rem;  /* Gap vertical entre los 5 grupos apilados */
+        --unesco-gap-icono-titulo: 0.7rem;        /* Gap icono ↔ título en móvil */
+        --unesco-gap-titulo-parrafo-grupo: 0.5rem;/* Gap título ↔ párrafo en móvil */
+
+        /* Ajustes tipográficos en móvil */
+        --unesco-subtitulo-fs: 1rem;
+        --unesco-titulo-fs: 1.8rem;
+        --unesco-parrafo-fs: 1rem;
+        --unesco-parrafo-max: 90%;
+
+        --unesco-gap-sub-titulo: 0.5rem;
+        --unesco-gap-titulo-parrafo: 1.2rem;
+
+        --unesco-icono-size: 5rem;
+        --unesco-grupo-titulo-fs: 1.3rem;
+        --unesco-grupo-parrafo-fs: 1.05rem;
+
+        /* Max-width independientes en móvil (el del párrafo sigue dictando el ancho de cada grupo) */
+        --unesco-g1-titulo-max: 16rem;
+        --unesco-g1-parrafo-max: 17rem;
+        --unesco-g2-titulo-max: 16rem;
+        --unesco-g2-parrafo-max: 17rem;
+        --unesco-g3-titulo-max: 16rem;
+        --unesco-g3-parrafo-max: 17rem;
+        --unesco-g4-titulo-max: 16rem;
+        --unesco-g4-parrafo-max: 17rem;
+        --unesco-g5-titulo-max: 16rem;
+        --unesco-g5-parrafo-max: 17rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1: Mitad superior con zoom + corte inf */
+    /* ------------------------------------------------- */
+    .unesco-bg {
+        width: 100%;
+        height: var(--unesco-img-altura-movil);
+        min-height: 18rem;
+        object-fit: cover;
+        object-position: var(--unesco-img-pos-x-movil) var(--unesco-img-pos-y-movil);
+        /* Ancla el zoom arriba para que todo el excedente crezca hacia abajo y se recorte */
+        transform-origin: var(--unesco-img-pos-x-movil) top;
+        transform: scale(var(--unesco-img-zoom-movil));
+        clip-path: inset(0);
+    }
+
+    /* Asegura que las subsecciones 2 y 3 queden siempre por encima del recorte */
+    .unesco-overlay {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2: Mitad 1 con fondo #f4f4f4           */
+    /* ------------------------------------------------- */
+    .unesco-mitad-arriba {
+        height: auto;
+        background-color: #f4f4f4;
+        padding: 3rem 6% 1.5rem 6%;
+        justify-content: center;
+    }
+
+    .unesco-caja-derecha {
+        width: 100%;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .unesco-textos {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .unesco-subtitulo {
+        text-align: center;
+        max-width: 100%;
+        font-weight: 600;
+    }
+
+    .unesco-titulo {
+        text-align: center;
+        white-space: normal; /* Permite partir línea si la pantalla es muy angosta */
+        max-width: 100%;
+    }
+
+    .unesco-parrafo {
+        text-align: justify;
+        text-align-last: center; /* Centrado justificado */
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 3: Mitad 2 con fondo #f4f4f4 y pila    */
+    /* ------------------------------------------------- */
+    .unesco-mitad-abajo {
+        height: auto;
+        background-color: #f4f4f4;
+        padding: 2rem 6% 4rem 6%;
+    }
+
+    .unesco-grupos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--unesco-gap-entre-grupos-movil);
+        margin: 0;
+        width: 100%;
+    }
+
+    .unesco-grupo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!-- una pagina hecha por Jurado Flores Santiago @sareth.jpg -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo Educativo | Weston Academy</title>
+
+    <!-- Fuente Montserrat y Oswald (variables: permiten cualquier font-weight entre 100 y 900) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- CSS global -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+<nav class="navbar" id="navbar">
+    <div class="seccion-a">
+
+        <!-- Logo (izquierda) -->
+        <div class="seccion-b">
+            <a href="index.html" class="enlace-logo">
+                <img src="imgs/logo.webp" alt="Logo Weston Academy" class="logo" loading="lazy">
+            </a>
+        </div>
+
+        <!-- Botón sándwich (solo móvil) -->
+        <button class="btn-hamburguesa" id="btn-hamburguesa" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Navegación y teléfono (derecha) -->
+        <div class="seccion-d">
+
+            <!-- Pestañas de navegación -->
+            <div class="seccion-2">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="nosotros.html" class="nav-link">Nosotros</a>
+                <a href="pre-first.html" class="nav-link">Pre-First</a>
+                <a href="primaria.html" class="nav-link">Primaria</a>
+                <a href="instalaciones.html" class="nav-link">Instalaciones</a>
+                <a href="admisiones.html" class="nav-link">Admisiones</a>
+                <a href="contacto.html" class="nav-link">Contacto</a>
+            </div>
+
+            <!-- Teléfono de contacto -->
+            <div class="seccion-3">
+                <img src="imgs/telefono_verde.svg" alt="Icono Teléfono" class="icono-telefono" loading="lazy">
+                <span class="texto-telefono">55 3973 2243</span>
+            </div>
+
+        </div>
+    </div>
+</nav>
+<!-- Fin de la Navbar -->
+
+<!-- =========================================
+     SECCIÓN HERO 1: MODELO EDUCATIVO
+========================================= -->
+<section class="hero-me" id="hero">
+
+    <!-- Capa 1: Imagen de fondo (define la altura de la sección en desktop) -->
+    <img src="imgs/banner_me_1.webp" alt="Modelo Educativo Weston Academy" class="hero-me-bg" loading="lazy">
+
+    <!-- Capa 2: Contenido superpuesto -->
+    <div class="hero-me-overlay">
+
+        <!-- Contenedor de los 3 elementos (ocupa el 35% izquierdo ajustable) -->
+        <div class="hero-me-contenedor">
+
+            <!-- Subtítulo verde -->
+            <h2 class="hero-me-subtitulo anim anim-fade-up">FORMAMOS ALUMNOS</h2>
+
+            <!-- Título blanco con saltos de línea forzados y "TRANSFORMAR" en negritas -->
+            <h1 class="hero-me-titulo anim anim-fade-up anim-delay-1">
+                PARA<br><span class="hero-me-bold">TRANSFORMAR</span><br>SU MUNDO
+            </h1>
+
+            <!-- Párrafo blanco -->
+            <p class="hero-me-parrafo anim anim-fade-up anim-delay-2">
+                Una educación integral que desarrolla habilidades, valores y la pasión por aprender para ser agentes de cambio en la sociedad.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Fin del Hero 1: Modelo Educativo -->
+
+<!-- =========================================
+     SECCIÓN 2: NUESTRO MODELO EDUCATIVO (UNESCO)
+========================================= -->
+<section class="seccion-unesco" id="nuestro-modelo">
+
+    <!-- Capa 1: Imagen de fondo (dicta la altura en desktop y pasa a ser la subsección 1 en móvil) -->
+    <img src="imgs/banner_me_2.webp" alt="Nuestro Modelo Educativo Weston Academy" class="unesco-bg" loading="lazy">
+
+    <!-- Capa 2: Contenedor general superpuesto (dividido en mitad superior y mitad inferior) -->
+    <div class="unesco-overlay">
+
+        <!-- ============================================= -->
+        <!-- Mitad 1 (Arriba - 50% ajustable)              -->
+        <!-- Subsección 2 en móvil (fondo #f4f4f4)         -->
+        <!-- ============================================= -->
+        <div class="unesco-mitad-arriba">
+
+            <!-- Contenedor del lado derecho (ocupa el 60% derecho ajustable) -->
+            <div class="unesco-caja-derecha">
+
+                <!-- Bloque de 3 elementos apilados y alineados a la izquierda -->
+                <div class="unesco-textos">
+                    <h2 class="unesco-subtitulo anim anim-fade-up">NUESTRO</h2>
+                    <h2 class="unesco-titulo anim anim-fade-up anim-delay-1">MODELO EDUCATIVO</h2>
+                    <p class="unesco-parrafo anim anim-fade-up anim-delay-2">
+                        Nuestro modelo educativo parte de la interacción constructivista y del aprendizaje significativo basado en los principios de la educación de la UNESCO, que guían la formación de alumnos íntegros y capaces de transformar su entorno
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============================================= -->
+        <!-- Mitad 2 (Abajo - 50% ajustable)               -->
+        <!-- Subsección 3 en móvil (fondo #f4f4f4)         -->
+        <!-- ============================================= -->
+        <div class="unesco-mitad-abajo">
+
+            <!-- Arreglo de 5 grupos -->
+            <div class="unesco-grupos">
+
+                <!-- Grupo 1 -->
+                <div class="unesco-grupo anim anim-fade-up anim-delay-1">
+                    <img src="imgs/planta.svg" alt="Aprende a ser" class="unesco-icono" loading="lazy">
+                    <h3 class="unesco-grupo-titulo">Aprender a ser</h3>
+                    <p class="unesco-grupo-parrafo">Desarrollar su identidad y valores</p>
+                </div>
+
+                <!-- Grupo 2 -->
+                <div class="unesco-grupo anim anim-fade-up anim-delay-2">
+                    <img src="imgs/celular.svg" alt="Aprender a conocer" class="unesco-icono" loading="lazy">
+                    <h3 class="unesco-grupo-titulo">Aprender a conocer</h3>
+                    <p class="unesco-grupo-parrafo">Adquirir conocimientos para comprender el mundo</p>
+                </div>
+
+                <!-- Grupo 3 -->
+                <div class="unesco-grupo anim anim-fade-up anim-delay-3">
+                    <img src="imgs/engranaje.svg" alt="Aprender a hacer" class="unesco-icono" loading="lazy">
+                    <h3 class="unesco-grupo-titulo">Aprender a hacer</h3>
+                    <p class="unesco-grupo-parrafo">Aplicar lo aprendido en la vida real</p>
+                </div>
+
+                <!-- Grupo 4 -->
+                <div class="unesco-grupo anim anim-fade-up anim-delay-4">
+                    <img src="imgs/grupo.svg" alt="Aprender a vivir juntos" class="unesco-icono" loading="lazy">
+                    <h3 class="unesco-grupo-titulo">Aprender a vivir juntos</h3>
+                    <p class="unesco-grupo-parrafo">Convivir en armonía y respeto</p>
+                </div>
+
+                <!-- Grupo 5 -->
+                <div class="unesco-grupo anim anim-fade-up anim-delay-5">
+                    <img src="imgs/planeta.svg" alt="Transformarse y transformar" class="unesco-icono" loading="lazy">
+                    <h3 class="unesco-grupo-titulo">Transformarse y transformar</h3>
+                    <p class="unesco-grupo-parrafo">Generar un impacto positivo en la sociedad</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Fin de la Sección 2: Nuestro Modelo Educativo -->
+
+<!-- =========================================
+     SECCIÓN CONTACTO (Formulario + Mapa)
+========================================= -->
+<section class="seccion-contacto" id="contacto">
+
+    <div class="contacto-contenedor">
+
+        <!-- ============================================= -->
+        <!-- Lado Izquierdo: Formulario de Contacto        -->
+        <!-- ============================================= -->
+        <div class="contacto-form-wrapper anim anim-fade-right">
+
+            <form id="form-contacto" class="form-weston" novalidate>
+
+                <!-- Nombre -->
+                <div class="form-grupo">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" class="form-input" required>
+                    <span class="error-msg">Por favor ingresa un nombre válido (mín. 2 letras, sin números).</span>
+                </div>
+
+                <!-- Ciudad + Teléfono (fila doble) -->
+                <div class="form-fila-doble">
+                    <div class="form-grupo">
+                        <label for="ciudad" class="form-label">Ciudad</label>
+                        <input type="text" id="ciudad" name="ciudad" class="form-input" maxlength="50" required>
+                        <span class="error-msg">Máximo 50 caracteres.</span>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="telefono" class="form-label">Tels.</label>
+                        <input type="tel" id="telefono" name="telefono" class="form-input" required>
+                        <span class="error-msg">Solo se permiten números.</span>
+                    </div>
+                </div>
+
+                <!-- Correo -->
+                <div class="form-grupo">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" class="form-input" required>
+                    <span class="error-msg">Por favor ingresa un correo válido (con "@" y extensión).</span>
+                </div>
+
+                <!-- Mensaje -->
+                <div class="form-grupo">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" class="form-textarea" rows="5" maxlength="500" required></textarea>
+                    <span class="error-msg">Máximo 500 caracteres.</span>
+                </div>
+
+                <!-- Botón Enviar -->
+                <button type="submit" class="btn-enviar-form">Enviar</button>
+
+            </form>
+
+        </div>
+
+        <!-- ============================================= -->
+        <!-- Lado Derecho: Mapa de Google Maps             -->
+        <!-- ============================================= -->
+        <div class="contacto-mapa-wrapper anim anim-fade-left anim-delay-2">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.19061002777!2d-99.22941432392157!3d19.53342858176761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d21d9a6b47d611%3A0xab8dc670c589f47a!2sWeston%20International%20Academy!5e0!3m2!1ses!2smx!4v1791431881738!5m2!1ses!2smx"
+                class="contacto-mapa-iframe"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+        </div>
+
+    </div>
+
+</section>
+<!-- Fin de la Sección Contacto -->
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+<footer class="footer-weston">
+
+    <!-- ============================================= -->
+    <!-- Subsección 1: Logo                             -->
+    <!-- La imagen dicta la altura de esta subsección   -->
+    <!-- ============================================= -->
+    <div class="footer-logo-seccion anim anim-fade-up">
+        <img src="imgs/weston_logo_blanco.webp" alt="Weston International Academy" class="footer-logo-img" loading="lazy">
+    </div>
+
+    <!-- ============================================= -->
+    <!-- Subsección 2: 4 grupos proporcionales          -->
+    <!-- 30% | 30% | 30% | 10%                          -->
+    <!-- ============================================= -->
+    <div class="footer-grupos anim anim-fade-up anim-delay-1">
+
+        <!-- Grupo 1: Dirección -->
+        <div class="footer-grupo footer-grupo-direccion">
+            <p class="footer-direccion">
+                Esquina con San Bernardo Convento de Acolman 23, Hab Jardines de Santa Mónica, 54050 Tlalnepantla, Méx.
+            </p>
+        </div>
+
+        <!-- Grupo 2: Contacto (lista con iconos como viñetas) -->
+        <div class="footer-grupo footer-grupo-contacto">
+            <ul class="footer-lista-contacto">
+                <li>
+                    <img src="imgs/telefono.svg" alt="Teléfono" class="footer-icono-lista" loading="lazy">
+                    <span>56 3973 2243</span>
+                </li>
+                <li>
+                    <img src="imgs/whatsapp.svg" alt="WhatsApp" class="footer-icono-lista" loading="lazy">
+                    <span>56 3973 2243</span>
+                </li>
+                <li>
+                    <img src="imgs/correo.svg" alt="Correo" class="footer-icono-lista" loading="lazy">
+                    <span>info@westonacademy.education</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Grupo 3: Navegación (hipervínculos hacia las secciones del index) -->
+        <div class="footer-grupo footer-grupo-nav">
+            <ul class="footer-lista-nav">
+                <li><a href="index.html#hero" class="footer-nav-link">Inicio</a></li>
+                <li><a href="index.html#nosotros" class="footer-nav-link">Nosotros</a></li>
+                <li><a href="index.html#programas" class="footer-nav-link">Pre-First</a></li>
+                <li><a href="index.html#programas" class="footer-nav-link">Primaria</a></li>
+                <li><a href="index.html#instalaciones" class="footer-nav-link">Instalaciones</a></li>
+                <li><a href="index.html#admisiones" class="footer-nav-link">Admisiones</a></li>
+            </ul>
+        </div>
+
+        <!-- Grupo 4: Redes sociales (3 iconos) -->
+        <div class="footer-grupo footer-grupo-social">
+            <a href="#" class="footer-social-link" aria-label="Facebook">
+                <img src="imgs/facebook_logo.svg" alt="Facebook" loading="lazy">
+            </a>
+            <a href="#" class="footer-social-link" aria-label="Instagram">
+                <img src="imgs/instagram_logo.svg" alt="Instagram" loading="lazy">
+            </a>
+            <a href="#" class="footer-social-link" aria-label="WhatsApp">
+                <img src="imgs/whatsapp_logo.svg" alt="WhatsApp" loading="lazy">
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- Línea divisoria (HR)                           -->
+    <!-- ============================================= -->
+    <br>
+    <hr class="footer-hr anim anim-fade-in anim-delay-2">
+    <br>
+    <br>
+
+    <!-- ============================================= -->
+    <!-- Subsección 3: Copyright                        -->
+    <!-- ============================================= -->
+    <div class="footer-copyright-seccion anim anim-fade-up anim-delay-3">
+        <p class="footer-copyright">Copyright © 2026 Weston International Academy todos los derechos reservados</p>
+    </div>
+    <br>
+    <br>
+
+</footer>
+<!-- Fin del Footer -->
+
+<!-- JS global -->
+<script src="script.js"></script>
+</body>
+</html>
