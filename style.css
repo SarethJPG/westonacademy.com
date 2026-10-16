@@ -2844,11 +2844,11 @@ body {
     --hero-me-margin-left: 5%;               /* Separación izquierda para que nunca toque el borde */
     
     /* Gaps verticales individuales entre los 3 elementos */
-    --hero-me-gap-sub-titulo: 1.2rem;        /* Separación vertical entre subtítulo y título */
+    --hero-me-gap-sub-titulo: 0.5rem;        /* Separación vertical entre subtítulo y título */
     --hero-me-gap-titulo-parrafo: 1.8rem;    /* Separación vertical entre título y párrafo */
 
     /* Tamaños de fuente (rem se adapta solo con el clamp global del html) */
-    --hero-me-fs-subtitulo: 1.7rem;          /* Font-size del subtítulo */
+    --hero-me-fs-subtitulo: 2rem;          /* Font-size del subtítulo */
     --hero-me-fs-titulo: 4.2rem;             /* Font-size del título */
     --hero-me-fs-parrafo: 1.6rem;            /* Font-size del párrafo */
 
@@ -3090,8 +3090,8 @@ body {
     --unesco-g2-parrafo-max: 15rem;
 
     /* Grupo 3: Aprender a hacer */
-    --unesco-g3-titulo-max: 13rem;
-    --unesco-g3-parrafo-max: 15rem;
+    --unesco-g3-titulo-max: 9rem;
+    --unesco-g3-parrafo-max: 13rem;
 
     /* Grupo 4: Aprender a vivir juntos */
     --unesco-g4-titulo-max: 13rem;
@@ -3413,4 +3413,251 @@ body {
         align-items: center;
         text-align: center;
     }
+}
+
+/* =============================================
+   BLOQUE: Sección 3 - Desarrolla al Alumno Inteligente (Habilidades)
+   ============================================= */
+.seccion-habilidades {
+    background-color: #ffffff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 10rem 0;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --habilidades-padding-seccion: 6rem 0;      /* Padding vertical de toda la sección */
+    --habilidades-ancho-izq: 55%;               /* Porcentaje de ancho de la mitad izquierda */
+    --habilidades-ancho-der: calc(100% - var(--habilidades-ancho-izq)); /* La mitad derecha toma el resto */
+
+    /* --- Mitad Izquierda (Textos en pila) --- */
+    --habilidades-padding-izq: 0 2rem 0 7rem;     /* Padding de la mitad izquierda (top | right | bottom | left) */
+    
+    /* Gaps verticales individuales (Mitad Izquierda) */
+    --habilidades-gap-sub-titulo: 0.8rem;       /* Distancia subtítulo ↔ título */
+    --habilidades-gap-titulo-parrafo: 2.2rem;   /* Distancia título ↔ párrafo */
+
+    /* Tamaños y anchos máximos independientes (Mitad Izquierda) */
+    --habilidades-subtitulo-fs: 2.1rem;
+    --habilidades-subtitulo-max: 45rem;
+
+    --habilidades-titulo-fs: 3.6rem;
+    --habilidades-inteligente-fs: 4.7rem;
+    --habilidades-titulo-max: 65rem;
+
+    --habilidades-parrafo-fs: 2.05rem;
+    --habilidades-parrafo-max: 65rem;
+
+    /* --- Mitad Derecha (Matriz 2x3 con variables comunales) --- */
+    --habilidades-padding-der: 0 8% 0 2rem;     /* Padding de la mitad derecha */
+    --habilidades-matriz-gap-col: 3.5rem;         /* Gap horizontal entre las 3 columnas de la matriz */
+    --habilidades-matriz-gap-row: 3rem;       /* Gap vertical entre las 2 filas de la matriz */
+    
+    --habilidades-item-ancho: 12rem;            /* Ancho comunal de los 6 elementos de la matriz */
+    --habilidades-item-gap-vertical: 0.5rem;    /* Gap vertical ajustable entre imagen y texto */
+    --habilidades-icono-size: 8rem;           /* Tamaño comunal de los 6 iconos SVG */
+    --habilidades-nombre-fs: 2rem;            /* Font-size comunal de los títulos de la matriz */
+}
+
+/* =============================================
+   BLOQUE: Mitad Izquierda - Contenedor centrado
+   ============================================= */
+.habilidades-mitad-izq {
+    width: var(--habilidades-ancho-izq);
+    padding: var(--habilidades-padding-izq);
+    display: flex;
+    justify-content: center;     /* Contenedor centrado en su mitad */
+    align-items: center;
+    padding-top: var(--habilidades-padding-seccion);
+    padding-bottom: var(--habilidades-padding-seccion);
+}
+
+.habilidades-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Alineados a la misma altura izquierda */
+    text-align: left;            /* Alineación interna a la izquierda */
+}
+
+/* Subtítulo verde */
+.habilidades-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--habilidades-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--habilidades-subtitulo-max);
+    margin-bottom: var(--habilidades-gap-sub-titulo);
+}
+
+/* Título azul (weight 800 general + 900 en "INTELIGENTE") */
+.habilidades-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 800;
+    font-size: var(--habilidades-titulo-fs);
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--habilidades-titulo-max);
+    margin-bottom: var(--habilidades-gap-titulo-parrafo);
+}
+
+.habilidades-bold {
+    font-weight: 800;
+    font-size: var(--habilidades-inteligente-fs);
+    line-height: 1;
+}
+
+/* Párrafo descriptivo */
+.habilidades-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 530;
+    font-size: var(--habilidades-parrafo-fs);
+    line-height: 1.3;
+    text-align: left;
+    max-width: var(--habilidades-parrafo-max);
+}
+
+/* =============================================
+   BLOQUE: Mitad Derecha - Matriz 2x3 (2 filas x 3 cols)
+   ============================================= */
+.habilidades-mitad-der {
+    width: var(--habilidades-ancho-der);
+    padding: var(--habilidades-padding-der);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: var(--habilidades-padding-seccion);
+    padding-bottom: var(--habilidades-padding-seccion);
+}
+
+.habilidades-matriz {
+    display: grid;
+    grid-template-columns: repeat(3, var(--habilidades-item-ancho));
+    grid-template-rows: repeat(2, auto);
+    column-gap: var(--habilidades-matriz-gap-col);
+    row-gap: var(--habilidades-matriz-gap-row);
+    justify-content: center;
+    align-items: start;          /* Misma altura vertical para los elementos de cada fila */
+}
+
+/* Cada celda de la matriz */
+.habilidad-item {
+    width: var(--habilidades-item-ancho);
+    display: flex;
+    flex-direction: column;
+    align-items: center;         /* Imagen y texto centrados horizontalmente en su espacio */
+    justify-content: flex-start;
+    text-align: center;
+    gap: var(--habilidades-item-gap-vertical);
+}
+
+/* Icono comunal */
+.habilidad-icono {
+    width: var(--habilidades-icono-size);
+    height: var(--habilidades-icono-size);
+    object-fit: contain;
+    display: block;
+}
+
+/* Título comunal (Montserrat azul, weight 500) */
+.habilidad-nombre {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 750;
+    font-size: var(--habilidades-nombre-fs);
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   2 secciones apiladas con fondo blanco:
+   1. Mitad izquierda arriba con textos centrados
+   2. Los 6 elementos de la matriz en pila debajo
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-habilidades {
+        flex-direction: column;
+        background-color: #ffffff;
+        margin: 1rem 0;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --habilidades-subtitulo-fs: 1.5rem;
+        --habilidades-titulo-fs: 1.8rem;
+        --habilidades-parrafo-fs: 1.05rem;
+        --habilidades-parrafo-max: 90%;
+
+        --habilidades-gap-sub-titulo: 0.5rem;
+        --habilidades-gap-titulo-parrafo: 1.2rem;
+
+        --habilidades-item-ancho: 14rem;
+        --habilidades-icono-size: 7rem;
+        --habilidades-nombre-fs: 1.35rem;
+        --habilidades-item-gap-vertical: 0.8rem;
+        --habilidades-pila-gap-movil: 2.5rem;    /* Separación vertical entre los 6 elementos en pila */
+        --habilidades-titulo-fs: 1.8rem;
+        --habilidades-inteligente-fs: 2.2rem;    /* ⬅ Tamaño de "INTELIGENTE" en móvil */
+        
+        
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1 (Arriba): Textos centrados           */
+    /* ------------------------------------------------- */
+    .habilidades-mitad-izq {
+        width: 100%;
+        padding: 3.5rem 6% 2rem 6%;
+        justify-content: center;
+    }
+
+    .habilidades-textos {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .habilidades-subtitulo {
+        text-align: center;
+        max-width: 100%;
+        font-weight: 600;
+    }
+
+    .habilidades-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .habilidades-parrafo {
+        text-align: justify;
+        text-align-last: center;
+        br {
+            display: none;
+        }
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2 (Abajo): 6 elementos en pila         */
+    /* ------------------------------------------------- */
+    .habilidades-mitad-der {
+        width: 100%;
+        padding: 1.5rem 6% 4rem 6%;
+        justify-content: center;
+    }
+
+    .habilidades-matriz {
+        display: grid;
+        grid-template-columns: repeat(2, auto); /* 3 columnas en móvil */
+        grid-template-rows: repeat(3, auto);    /* 2 filas */
+        justify-content: center;
+        column-gap: 0rem;                       /* Gap horizontal entre columnas en móvil */
+        row-gap: var(--habilidades-pila-gap-movil); /* Gap vertical entre filas */
+        width: 100%;
+    }
+
+    
 }
