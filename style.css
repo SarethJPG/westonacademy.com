@@ -4142,11 +4142,11 @@ body {
     --unicos-gap-sub-titulo: 0.8rem;            /* Separación subtítulo ↔ título */
 
     /* Tamaños y max-widths independientes */
-    --unicos-subtitulo-fs: 1.7rem;
-    --unicos-subtitulo-max: 30rem;
+    --unicos-subtitulo-fs: 2rem;
+    --unicos-subtitulo-max: 45rem;
 
-    --unicos-titulo-fs: 2.5rem;
-    --unicos-titulo-max: 38rem;
+    --unicos-titulo-fs: 3.5rem;
+    --unicos-titulo-max: 50rem;
 
     --unicos-parrafo-fs: 1.35rem;
     --unicos-parrafo-max: 42rem;
@@ -4188,7 +4188,7 @@ body {
 .unicos-titulo {
     font-family: var(--fuente-principal);
     color: #3663a7;
-    font-weight: 700;
+    font-weight: 750;
     font-size: var(--unicos-titulo-fs);
     line-height: 1.1;
     text-align: left;
