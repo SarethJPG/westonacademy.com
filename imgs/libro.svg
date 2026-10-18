@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
+  <!-- Generator: Adobe Illustrator 30.0.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 123)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #26512c;
+      }
+
+      .st1 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 9.84px;
+      }
+    </style>
+  </defs>
+  <circle class="st0" cx="263.5" cy="264.5" r="207.5"/>
+  <g>
+    <line class="st1" x1="317.06" y1="334.52" x2="317.06" y2="334.52"/>
+    <path class="st1" d="M356.37,210.57h23.63v166.43h-107.33c0-7.55-6.12-13.67-13.67-13.67s-13.67,6.12-13.67,13.67h-107.33v-166.43h23.61"/>
+    <polyline class="st1" points="259 354.19 356.37 354.19 356.37 334.52"/>
+    <polyline class="st1" points="259 354.19 161.63 354.19 161.63 334.52"/>
+    <path class="st1" d="M181.32,180.56h-19.71v153.96h77.72c10.87,0,19.67,8.81,19.67,19.67"/>
+    <path class="st1" d="M203.26,157.83c-6.32-.86-13.17-1.28-20.62-1.28v154.56c38.21,0,60.73,11.1,76.42,35.48"/>
+    <path class="st1" d="M259,354.19c0-30.56-24.77-62.77-55.33-62.77v-156.42c30.56,0,55.33,32.21,55.33,62.77v156.42Z"/>
+    <path class="st1" d="M294.92,334.52h-16.25c-10.87,0-19.67,8.81-19.67,19.67"/>
+    <polyline class="st1" points="331.17 180.56 356.39 180.56 356.39 334.52 339.19 334.52"/>
+    <path class="st1" d="M259,354.19c0-27.56,31.82-56.6,71.06-56.6v-141.04c-39.25,0-71.06,29.04-71.06,56.6v141.04Z"/>
+  </g>
+</svg>

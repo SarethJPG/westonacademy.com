@@ -3002,7 +3002,7 @@ body {
     .hero-me-contenedor {
         width: 100%;
         margin-left: 0;
-        padding: 0 6%;
+        padding: 0 0%;
         align-items: center;   /* Elementos centrados dentro del contenedor */
         text-align: center;
     }
@@ -3013,20 +3013,20 @@ body {
     .hero-me-subtitulo {
         text-align: justify;
         text-align-last: center;
-        font-weight: 600;
-        font-size: 2rem;
+        font-weight: 700;
+        font-size: 1.3rem;
     }
 
     .hero-me-titulo {
         text-align: center;
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .hero-me-parrafo {
         text-align: justify;
         text-align-last: center;
         font-weight: 550;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 }
 
@@ -3660,4 +3660,463 @@ body {
     }
 
     
+}
+
+/* =============================================
+   BLOQUE: Sección 4 - La Experiencia WIA (Currícula)
+   ============================================= */
+.seccion-curricula {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 2rem 0 7rem 0;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --curricula-gap-sub-titulo: 1.5rem;         
+    --curricula-gap-titulo-cards: 8rem;         
+    --curricula-cards-gap: 2.5rem;              
+    --curricula-margin-lateral: 8%;             
+
+    --curricula-subtitulo-fs: 2.1rem;
+    --curricula-titulo-fs: 3.8rem;
+    --curricula-titulo-max: 65rem;
+
+    /* --- Estructura interna de cada Card --- */
+    --curricula-card-ancho: 1fr;                
+    --curricula-card-altura: 39rem;             
+    
+    --curricula-card-icono-size: 8rem;          
+    --curricula-card-titulo-fs: 2rem;         
+    --curricula-card-titulo-max: 24rem;        
+    --curricula-card-gap-icono-titulo: 1rem; 
+    --curricula-card-gap-titulo-lista: 1rem;  
+    --curricula-card-gap-lista-items: 0.5rem;   
+    --curricula-lista-fs: 1.4rem;               
+    --curricula-lista-max: 24rem;               
+}
+
+/* Subtítulo y Título principal */
+.curricula-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--curricula-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin-bottom: var(--curricula-gap-sub-titulo);
+}
+
+.curricula-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 800;
+    font-size: var(--curricula-titulo-fs);
+    line-height: 1;
+    text-align: center;
+    max-width: var(--curricula-titulo-max);
+    margin: 0 auto var(--curricula-gap-titulo-cards) auto;
+    padding: 0 1rem;
+}
+
+/* Contenedor de las 3 Cards (Grid) */
+.curricula-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, var(--curricula-card-ancho));
+    column-gap: var(--curricula-cards-gap);
+    margin: 0 var(--curricula-margin-lateral);
+    align-items: stretch;
+}
+
+/* Estructura base de cada Card (Sin capa oscura) */
+.curricula-card {
+    position: relative;
+    width: 100%;
+    height: var(--curricula-card-altura);
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen de fondo de la card */
+.curricula-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 1;
+}
+
+/* Mitad Superior: Imagen SVG centrada exactamente en la mitad de arriba */
+.curricula-card-icono {
+    position: relative;
+    z-index: 2;
+    width: var(--curricula-card-icono-size);
+    height: var(--curricula-card-icono-size);
+    object-fit: contain;
+    display: block;
+    margin-top: 15.5rem; /* Posiciona el icono perfectamente en la mitad superior */
+}
+
+/* Mitad Inferior: Contenedor para título y lista centrados horizontalmente */
+.curricula-card-inferior {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+    text-align: center;
+}
+
+/* Título de la card (Montserrat azul, weight 600, sin fondo blanco) */
+.curricula-card-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 700;
+    font-size: var(--curricula-card-titulo-fs);
+    line-height: 1.2;
+    text-align: center;
+    max-width: var(--curricula-card-titulo-max);
+    margin-bottom: var(--curricula-card-gap-titulo-lista);
+    margin-top: var(--curricula-card-gap-icono-titulo);
+}
+
+/* Lista con viñetas check.svg (sin fondos blancos individuales) */
+.curricula-lista {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--curricula-card-gap-lista-items);
+    align-items: flex-start;
+    text-align: left;
+    max-width: var(--curricula-lista-max);
+    width: auto;
+}
+
+.curricula-lista li {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 400;
+    font-size: var(--curricula-lista-fs);
+    line-height: 1.35;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    text-align: left;
+}
+
+
+/* Viñeta check.svg personalizada antes de cada texto */
+.curricula-lista li::before {
+    content: '';
+    display: inline-block;
+    width: 1.1rem;
+    height: 1.1rem;
+    background-image: url('imgs/check.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+/* =============================================
+   BLOQUE: ANIMACIONES DE ESCRITORIO
+   Escalonadas de izquierda a derecha (Stagger)
+   con aparición individual de abajo hacia arriba
+   ============================================= */
+.seccion-curricula .curricula-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+.seccion-curricula .curricula-card:nth-child(2) {
+    transition-delay: 0.25s;
+}
+.seccion-curricula .curricula-card:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Cards en pila vertical + Animaciones hacia el centro
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-curricula {
+        padding: 2rem 0 5rem 0;
+
+        --curricula-subtitulo-fs: 1.2rem;
+        --curricula-titulo-fs: 1.8rem;
+        --curricula-gap-sub-titulo: 0.5rem;
+        --curricula-gap-titulo-cards: 2.5rem;
+        
+
+        --curricula-card-altura: 28rem;         
+        --curricula-pila-gap: 2rem;             
+        --curricula-margin-lateral: 6%;         
+
+        --curricula-card-icono-size: 6rem;
+        --curricula-card-titulo-fs: 1.35rem;
+        --curricula-lista-fs: 1.05rem;
+
+        --curricula-card-gap-icono-titulo: -1rem
+    }
+
+    .curricula-titulo {
+        max-width: 100%;
+        padding: 0 1rem;
+        
+    }
+
+    .curricula-contenedor {
+        display: flex;
+        flex-direction: column;
+        gap: var(--curricula-pila-gap);
+        margin: 0 var(--curricula-margin-lateral);
+    }
+
+    .curricula-card {
+        width: 100%;
+    }
+
+    .curricula-card-icono {
+        margin-top: 11rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* ANIMACIONES EN MÓVIL (Hacia el centro)              */
+    /* Card 1 y 3 entran desde la izquierda (-> centro)  */
+    /* Card 2 entra desde la derecha (<- centro)         */
+    /* Sin alterar su posición final centrada            */
+    /* ------------------------------------------------- */
+    .seccion-curricula .curricula-card:nth-child(1) {
+        transform: translateX(-40px);
+        transition-delay: 0.1s;
+    }
+
+    .seccion-curricula .curricula-card:nth-child(2) {
+        transform: translateX(40px);
+        transition-delay: 0.25s;
+    }
+
+    .seccion-curricula .curricula-card:nth-child(3) {
+        transform: translateX(-40px);
+        transition-delay: 0.4s;
+    }
+
+    /* Cuando el IntersectionObserver añade .visible, restablece la posición x a 0 (centrada) */
+    .seccion-curricula .curricula-card.visible {
+        transform: translateX(0);
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 5 - Nuestro Código de Honor
+   ============================================= */
+.seccion-transformar {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --transformar-split-izq: 50%;               /* Porcentaje de ancho de la mitad izquierda (vacía para ver la foto) */
+    --transformar-split-der: calc(100% - var(--transformar-split-izq)); /* La derecha toma el resto automáticamente */
+    
+    --transformar-padding-der: 0 6% 0 4rem;     /* Padding del contenedor derecho (top | right | bottom | left) */
+    
+    /* Gaps verticales */
+    --transformar-gap-sub-titulo: 0rem;       /* Distancia subtítulo ↔ título */
+    --transformar-gap-titulo-parrafo: 1rem;   /* Distancia título ↔ párrafo */
+
+    /* Tamaños y anchos máximos independientes */
+    --transformar-subtitulo-fs: 2rem;
+    --transformar-subtitulo-max: 30rem;
+
+    --transformar-titulo-fs: 4rem;
+    --transformar-titulo-max: 30rem;
+
+    --transformar-parrafo-fs: 1.8rem;
+    --transformar-parrafo-max: 44rem;
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   (En flujo normal: define la altura de la sección)
+   ============================================= */
+.transformar-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Contenedor dividido
+   ============================================= */
+.transformar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 2;
+}
+
+/* Mitad izquierda (vacía para que se vea el fondo) */
+.transformar-mitad-izq {
+    width: var(--transformar-split-izq);
+    height: 100%;
+}
+
+/* Mitad derecha (contiene los textos) */
+.transformar-mitad-der {
+    width: var(--transformar-split-der);
+    padding: var(--transformar-padding-der);
+    display: flex;
+    align-items: center;         /* Centra los textos verticalmente */
+}
+
+.transformar-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Los 3 elementos alineados a la izquierda */
+    text-align: left;            /* Alineación interna a la izquierda */
+}
+
+/* =============================================
+   BLOQUE: Textos (Subtítulo, Título, Párrafo)
+   ============================================= */
+
+/* Subtítulo verde (Weight 400) */
+.transformar-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--transformar-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--transformar-subtitulo-max);
+    margin-bottom: var(--transformar-gap-sub-titulo);
+}
+
+/* Título blanco (Weight 500 general) */
+.transformar-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 500;
+    font-size: var(--transformar-titulo-fs);
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--transformar-titulo-max);
+    margin-bottom: var(--transformar-gap-titulo-parrafo);
+}
+
+/* Palabra "TRANSFORMAR" (Weight 700) */
+.transformar-bold {
+    font-weight: 700;
+}
+
+/* Párrafo blanco (Weight 400) */
+.transformar-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--transformar-parrafo-fs);
+    line-height: 1.45;
+    text-align: left;
+    max-width: var(--transformar-parrafo-max);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   2 secciones: Imagen arriba encuadrada al centro, 
+   fondo azul abajo con textos centrados
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-transformar {
+        display: flex;
+        flex-direction: column;
+        background-color: #3663a7;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --transformar-img-altura-movil: 55vh;       /* Altura de la imagen en móvil */
+        --transformar-img-pos-x-movil: 0%;         /* Permite ajustar qué parte de la imagen se ve (25% enfoca la mitad izquierda original) */
+        
+        --transformar-subtitulo-fs: 1rem;
+        --transformar-titulo-fs: 1.9rem;
+        --transformar-parrafo-fs: 1.05rem;
+        --transformar-parrafo-max: 95%;
+
+        --transformar-gap-sub-titulo: 0.5rem;
+        --transformar-gap-titulo-parrafo: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1 (Arriba): Imagen encuadrada          */
+    /* ------------------------------------------------- */
+    .transformar-bg {
+        width: 100%;
+        height: var(--transformar-img-altura-movil);
+        min-height: 16rem;
+        object-fit: cover;
+        object-position: var(--transformar-img-pos-x-movil) center;
+    }
+
+    /* El overlay pasa a flujo normal y se vuelve la Subsección 2 */
+    .transformar-overlay {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Ocultamos la mitad izquierda vacía en móvil */
+    .transformar-mitad-izq {
+        display: none;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2 (Abajo): Fondo azul y textos         */
+    /* ------------------------------------------------- */
+    .transformar-mitad-der {
+        width: 100%;
+        padding: 3rem 6% 4rem 6%;
+        background-color: #3663a7;
+        justify-content: center;
+    }
+
+    .transformar-textos {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .transformar-subtitulo {
+        text-align: center;
+        max-width: 100%;
+        font-weight: 650;
+        font-size: 1.5rem;
+    }
+
+    .transformar-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .transformar-parrafo {
+        text-align: justify;
+        text-align-last: center; /* Alineación justificada-centrada */
+    }
 }
