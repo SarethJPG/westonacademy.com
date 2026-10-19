@@ -3668,7 +3668,7 @@ body {
 .seccion-curricula {
     background-color: #ffffff;
     width: 100%;
-    padding: 2rem 0 7rem 0;
+    padding: 0rem 0 7rem 0;
     overflow: hidden;
 
     /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
@@ -4032,7 +4032,7 @@ body {
     color: var(--color-blanco);
     font-weight: 400;
     font-size: var(--transformar-parrafo-fs);
-    line-height: 1.45;
+    line-height: 1.2;
     text-align: left;
     max-width: var(--transformar-parrafo-max);
 }
@@ -4488,5 +4488,201 @@ body {
     /* Ajuste de foto Card 1 en móvil */
     .caract-card:nth-child(1) .caract-icono {
         height: 6rem;   /* ⬅ Sube o baja a ojo para el celular */
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 8 - El futuro comienza
+   ============================================= */
+.seccion-futuro {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --futuro-split-izq: 65%;                    /* Porcentaje de ancho de la mitad izquierda (contiene textos) */
+    --futuro-split-der: calc(100% - var(--futuro-split-izq)); /* La derecha toma el resto (vacía para ver la foto) */
+    
+    --futuro-padding-izq: 0 4rem 0 8%;          /* Padding del contenedor izquierdo (top | right | bottom | left) */
+    
+    /* Gaps verticales */
+    --futuro-gap-titulo-parrafo: 1.5rem;        /* Distancia título ↔ párrafo */
+    --futuro-gap-parrafo-btn: 4rem;           /* Distancia párrafo ↔ botón */
+
+    /* Tamaños y anchos máximos independientes */
+    --futuro-titulo-fs: 3.3rem;
+    --futuro-titulo-max: 42rem;
+
+    --futuro-parrafo-fs: 1.55rem;
+    --futuro-parrafo-max: 40rem;
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   ============================================= */
+.futuro-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Contenedor dividido
+   ============================================= */
+.futuro-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 2;
+}
+
+/* Mitad izquierda (contiene los textos) */
+.futuro-mitad-izq {
+    width: var(--futuro-split-izq);
+    padding: var(--futuro-padding-izq);
+    display: flex;
+    align-items: center;         /* Centra los textos verticalmente dentro de la sección */
+}
+
+.futuro-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Los 3 elementos alineados a la izquierda */
+    text-align: left;            /* Alineación interna a la izquierda */
+}
+
+/* Mitad derecha (vacía para que se vea el fondo) */
+.futuro-mitad-der {
+    width: var(--futuro-split-der);
+    height: 100%;
+}
+
+/* =============================================
+   BLOQUE: Textos y Botón
+   ============================================= */
+
+/* Título blanco (Weight 700) */
+.futuro-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 800;
+    font-size: var(--futuro-titulo-fs);
+    line-height: 1;
+    text-align: left;
+    max-width: var(--futuro-titulo-max);
+    margin-bottom: var(--futuro-gap-titulo-parrafo);
+}
+
+/* Párrafo blanco (Weight 400) */
+.futuro-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--futuro-parrafo-fs);
+    line-height: 1.45;
+    text-align: left;
+    max-width: var(--futuro-parrafo-max);
+    margin-bottom: var(--futuro-gap-parrafo-btn);
+}
+
+/* Botón Verde (Weight 500) */
+.futuro-btn {
+    display: inline-block;
+    background-color: var(--color-verde);
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 0.8rem 4rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative;     /* ⬅ Agrega esto */
+    top: 1.2rem;              /* ⬅ Aumenta este valor para bajarlo más sin empujar los textos hacia arriba */
+}
+
+.futuro-btn:hover {
+    background-color: #1f8a54;
+    transform: scale(1.03);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   2 secciones: Imagen arriba encuadrada al centro, 
+   fondo azul abajo con textos centrados
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-futuro {
+        display: flex;
+        flex-direction: column;
+        background-color: #0284d0;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --futuro-img-altura-movil: 45vh;            /* Altura de la imagen en móvil */
+        --futuro-img-pos-x-movil: 80%;              /* Permite encuadrar a la derecha para ver a los niños */
+        
+        --futuro-titulo-fs: 1.85rem;
+        --futuro-parrafo-fs: 1.3rem;
+        --futuro-parrafo-max: 95%;
+
+        --futuro-gap-titulo-parrafo: 1.2rem;
+        --futuro-gap-parrafo-btn: 2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1 (Arriba): Imagen encuadrada          */
+    /* ------------------------------------------------- */
+    .futuro-bg {
+        width: 100%;
+        height: var(--futuro-img-altura-movil);
+        min-height: 18rem;
+        object-fit: cover;
+        object-position: var(--futuro-img-pos-x-movil) center;
+    }
+
+    /* El overlay pasa a flujo normal y se vuelve la Subsección 2 */
+    .futuro-overlay {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Ocultamos la mitad derecha vacía en móvil */
+    .futuro-mitad-der {
+        display: none;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2 (Abajo): Fondo azul y textos         */
+    /* ------------------------------------------------- */
+    .futuro-mitad-izq {
+        width: 100%;
+        padding: 3.5rem 6% 4.5rem 6%;
+        background-color: #0284d0;
+        justify-content: center;
+    }
+
+    .futuro-textos {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .futuro-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .futuro-parrafo {
+        text-align: justify;
+        text-align-last: center; /* Alineación justificada-centrada */
     }
 }
