@@ -4814,3 +4814,277 @@ body {
         margin-top: 1rem;
     }
 }
+
+/* =============================================
+   BLOQUE: Sección 1 - Hero Instalaciones
+   ============================================= */
+.hero-instalaciones {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --hero-inst-ancho-contenedor: 50%;         /* Ancho del contenedor izquierdo (deja libre el derecho) */
+    --hero-inst-margin-left: 5.8%;               /* Margen izquierdo para despegar el título del borde */
+    
+    /* Tamaños de fuente */
+    --hero-inst-fs-titulo: 5.49rem;             /* Tamaño del título principal */
+    --hero-inst-max-titulo: 40rem;             /* Ancho máximo (por si acaso rompe línea) */
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   ============================================= */
+.hero-inst-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Overlay superpuesto
+   ============================================= */
+.hero-inst-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;       /* Centra verticalmente el contenido */
+    justify-content: flex-start;
+    z-index: 2;
+}
+
+/* Contenedor que limita el ancho del texto a la izquierda */
+.hero-inst-contenedor {
+    width: var(--hero-inst-ancho-contenedor);
+    margin-left: var(--hero-inst-margin-left);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Alineación a la izquierda dentro del contenedor */
+    text-align: left;
+}
+
+/* =============================================
+   BLOQUE: Título blanco
+   ============================================= */
+.hero-inst-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 800;
+    font-size: var(--hero-inst-fs-titulo);
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--hero-inst-max-titulo);
+    margin: 0;
+    /* Sombra sutil para garantizar legibilidad si la foto de fondo es clara en esa zona */
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Título centrado + Imagen encuadrada con zoom
+   ============================================= */
+@media (max-width: 768px) {
+
+    .hero-instalaciones {
+        /* Mantiene el margen de la navbar pero con la altura móvil */
+        margin-top: var(--altura-navbar);
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --hero-inst-pos-x-movil: 76%;             /* 0% = izq, 50% = centro, 100% = der. Mueve el encuadre */
+        --hero-inst-zoom-movil: 1.2;              /* 1 = tamaño normal, 1.5 = 50% de zoom, etc. */
+        --hero-inst-altura-movil: 55vh;           /* Altura fija de la sección en móvil */
+        
+        --hero-inst-fs-titulo: 2.8rem;            /* Título más pequeño en celular */
+    }
+
+    /* ------------------------------------------------- */
+    /* 1. Imagen ajustada con altura, encuadre y zoom    */
+    /* ------------------------------------------------- */
+    .hero-inst-bg {
+        min-height: 25rem;
+        height: var(--hero-inst-altura-movil);
+        object-fit: cover;
+        /* Mueve el foco de la imagen (encuadre derecho que pediste) */
+        object-position: var(--hero-inst-pos-x-movil) center;
+        
+        /* Opcional: aplica zoom a la imagen si es necesario */
+        transform: scale(var(--hero-inst-zoom-movil));
+    }
+
+    /* ------------------------------------------------- */
+    /* 2. Capa oscura/blanca sutil (opcional para leer mejor) */
+    /* ------------------------------------------------- */
+    .hero-instalaciones::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.15); /* Oscurece un 15% la foto */
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------- */
+    /* 3. Overlay centrado en lugar de a la izquierda    */
+    /* ------------------------------------------------- */
+    .hero-inst-overlay {
+        justify-content: center; /* Centra horizontalmente el contenedor */
+        z-index: 2;
+    }
+
+    .hero-inst-contenedor {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 6%;
+        align-items: center;     /* Centra el título dentro del contenedor */
+        text-align: center;
+    }
+
+    .hero-inst-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 2 - Galería de Instalaciones (Cascada Final)
+   ============================================= */
+.seccion-galeria {
+    background-color: var(--color-blanco);
+    width: 100%;
+    padding: 6rem 0 8rem 0;
+
+    /* ⬇ VARIABLES AJUSTABLES DE LA GALERÍA */
+    --galeria-margin-lateral: 8%;
+    --galeria-gap: 1.5rem;          /* Espacio entre todas las fotos */
+    --galeria-radius: 0.5rem;       /* Borde redondeado */
+}
+
+/* ------------------------------------------------- */
+/* Contenedor Maestro: Grid exacto de 3 columnas (1/3 y 2/3) */
+/* ------------------------------------------------- */
+.galeria-tiras-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: var(--galeria-gap);
+    margin: 0 var(--galeria-margin-lateral);
+    
+    /* Obliga a que ambas columnas (izq y der) midan exactamente lo mismo de alto */
+    align-items: stretch; 
+}
+
+/* ------------------------------------------------- */
+/* Tira Izquierda (1/3 del espacio)                  */
+/* ------------------------------------------------- */
+.galeria-tira-izq {
+    grid-column: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: var(--galeria-gap); 
+}
+
+/* ------------------------------------------------- */
+/* Tira Derecha (2/3 del espacio)                    */
+/* ------------------------------------------------- */
+.galeria-tira-der {
+    grid-column: 2 / 4; 
+    display: flex;
+    flex-direction: column;
+    gap: var(--galeria-gap); 
+}
+
+/* Sub-fila de la tira derecha (Fotos 2 y 3 / Fotos 7 y 8) */
+.galeria-fila-der {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Mitades exactas */
+    gap: var(--galeria-gap);
+}
+
+/* Sub-fila asimétrica final de la tira derecha (Fotos 14 y 15) */
+.galeria-fila-final-der {
+    display: grid;
+    /* Proporciones exactas. Aumenta el primer valor si quieres la foto 14 más ancha */
+    grid-template-columns: 2.8fr 1fr;
+    gap: var(--galeria-gap);
+    width: 100%;
+    
+    /* Toma absolutamente todo el espacio vertical sobrante de la columna */
+    flex-grow: 1; 
+}
+
+/* ------------------------------------------------- */
+/* Estilos Base para Imágenes                        */
+/* ------------------------------------------------- */
+.galeria-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--galeria-radius);
+    box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.galeria-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    position: relative;
+}
+
+/* Relaciones de Aspecto (Aspect-ratio) estándar */
+.img-16-9 {
+    aspect-ratio: 16 / 9;
+}
+
+/* Excepción: Hacemos que las imágenes 14 y 15 obedezcan a la caja maestra sobrante */
+.galeria-fila-final-der .galeria-img {
+    width: 100%;
+    height: 100%; /* Toma la altura generada por el flex-grow del padre */
+    object-fit: cover; /* Hace el zoom automático sin deformar */
+    aspect-ratio: auto !important; /* Forzamos a anular el aspect-ratio estándar */
+    min-height: 0; /* Previene bugs de desbordamiento en CSS Grid */
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .seccion-galeria {
+        padding: 3rem 0 5rem 0;
+        --galeria-margin-lateral: 6%;
+        --galeria-gap: 1rem;
+    }
+
+    /* Convertimos el Grid Maestro a 1 sola columna en celular */
+    .galeria-tiras-contenedor {
+        grid-template-columns: 1fr;
+        align-items: start; /* Quitamos el stretch porque ahora están apiladas */
+    }
+
+    /* Tiras pasan a bloque completo */
+    .galeria-tira-izq,
+    .galeria-tira-der {
+        grid-column: 1;
+    }
+
+    /* Rompemos los grid internos de filas a una sola columna apilada */
+    .galeria-fila-der {
+        grid-template-columns: 1fr; 
+    }
+
+    .galeria-fila-final-der {
+        grid-template-columns: 1fr; 
+        flex-grow: 0; /* Ya no rellenan espacio sobrante porque no hay columna paralela */
+    }
+
+    /* Le regresamos la proporción a la 14 y 15 en celular para que no colapsen */
+    .galeria-fila-final-der .galeria-img {
+        aspect-ratio: 16 / 9 !important;
+    }
+}
