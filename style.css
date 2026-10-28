@@ -5088,3 +5088,117 @@ body {
         aspect-ratio: 16 / 9 !important;
     }
 }
+
+/* =============================================
+   BLOQUE: Sección Hero - Informes / Admisiones
+   ============================================= */
+.hero-informes {
+    position: relative;
+    width: 100%;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+    overflow: hidden;
+
+    /* ⬇ VARIABLES DE LA SECCIÓN */
+    --hero-informes-titulo-size: 5.5rem;      /* Tamaño base usando rem (escalará con la raíz) */
+    --hero-informes-padding-izq: 5%;
+    --hero-informes-max-ancho-titulo: 45rem;
+}
+
+/* =============================================
+   Capa 1 - Imagen de fondo (Define la altura)
+   ============================================= */
+.hero-informes-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Capa overlay azul (oculta en desktop, visible en móvil) */
+.hero-informes-overlay {
+    display: none; 
+}
+
+/* =============================================
+   Capa 2 - Contenedor del título
+   ============================================= */
+.hero-informes-contenedor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;  /* Centrado vertical */
+    padding-left: var(--hero-informes-padding-izq); 
+    padding-bottom: 3rem;
+}
+
+/* Título */
+.hero-informes-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-size: var(--hero-informes-titulo-size); 
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--hero-informes-max-ancho-titulo); 
+    margin: 0;
+}
+
+.informes-normal {
+    font-weight: 500; 
+}
+
+.informes-negrita {
+    font-weight: 800; 
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .hero-informes {
+        margin-top: var(--altura-navbar);
+        
+        /* Redefinimos variables para celular */
+        --hero-informes-titulo-size: 2.2rem;     /* Ajuste específico para pantalla vertical */
+        --hero-informes-padding-izq: 0;
+        --hero-informes-max-ancho-titulo: 100%;
+        
+        /* Variable exclusiva para el encuadre móvil */
+        --hero-informes-posicion-img: 95%; 
+    }
+
+    /* Imagen: define altura en celular y permite encuadre */
+    .hero-informes-bg {
+        min-height: 25rem; 
+        height: 50vh;
+        object-position: var(--hero-informes-posicion-img) center;
+    }
+
+    /* Capa azul de contraste (baja opacidad) */
+    .hero-informes-overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(54, 99, 167, 0.4); /* #3663a7 al 40% de opacidad */
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Contenedor del título pasa a centrado horizontal */
+    .hero-informes-contenedor {
+        justify-content: center; /* Centrado horizontal */
+        z-index: 2; /* Por encima del overlay azul */
+    }
+
+    /* Título centrado */
+    .hero-informes-titulo {
+        text-align: center;
+        padding: 0 1rem;
+    }
+}

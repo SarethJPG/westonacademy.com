@@ -1,0 +1,5199 @@
+/* ============================================= */
+/* BLOQUE: Reset y normalización                 */
+/* ============================================= */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================= */
+/* BLOQUE: Escalado fluido global                */
+/* 1rem escala entre 9px y 16px según el ancho  */
+/* de pantalla → todo el sitio se adapta solo   */
+/* ============================================= */
+html {
+    font-size: clamp(9px, 0.833vw, 16px);
+    scroll-behavior: smooth;
+}
+
+/* ============================================= */
+/* BLOQUE: Variables globales                    */
+/* ============================================= */
+:root {
+    /* Familias tipográficas */
+    --fuente-principal: 'Montserrat', sans-serif;
+
+    /* Colores base del sitio */
+    --color-blanco: #ffffff;
+    --color-negro: #000000;
+    --color-verde: #27a566;
+    --color-texto: #3b3b3b;
+    --color-fondo: #ffffff;
+
+    /* Colores pastel (temporales, para secciones de prueba) */
+    --pastel-1: #FFD1DC;
+    --pastel-2: #AEC6CF;
+    --pastel-3: #B5EAD7;
+    --pastel-4: #FFF1B6;
+
+    /* Alturas de la navbar (para usar en margin-top de la primera sección) */
+    --altura-navbar: 7.4rem;
+    --altura-navbar-movil: 4.7rem;
+    --fuente-flecha: 'Oswald', sans-serif;
+}
+
+/* ============================================= */
+/* BLOQUE: Estilos base del body                 */
+/* ============================================= */
+body {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================= */
+/* BLOQUE: Animaciones al scroll (sistema base)  */
+/* Se aplican agregando la clase ".anim"          */
+/* + una variante (.anim-fade-up, etc.) al HTML  */
+/* ============================================= */
+.anim {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+/* --- Variantes de dirección --- */
+.anim-fade-up    { transform: translateY(30px); }
+.anim-fade-down  { transform: translateY(-30px); }
+.anim-fade-left  { transform: translateX(-40px); }
+.anim-fade-right { transform: translateX(40px); }
+.anim-fade-in    { transform: none; }
+.anim-zoom       { transform: scale(0.94); }
+
+/* --- Estado activo (lo aplica JS al entrar al viewport) --- */
+.anim.visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+/* --- Stagger: retardos escalonados para grupos de elementos --- */
+.anim-delay-1 { transition-delay: 0.10s; }
+.anim-delay-2 { transition-delay: 0.20s; }
+.anim-delay-3 { transition-delay: 0.30s; }
+.anim-delay-4 { transition-delay: 0.40s; }
+.anim-delay-5 { transition-delay: 0.50s; }
+.anim-delay-6 { transition-delay: 0.60s; }
+
+/* --- Accesibilidad: respeta la preferencia "reducir movimiento" --- */
+@media (prefers-reduced-motion: reduce) {
+    .anim {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Secciones de prueba (temporales)      */
+/* Se eliminarán cuando armemos las reales       */
+/* ============================================= */
+.seccion-prueba {
+    /* Altura fluida: entre 40vh y 80vh según pantalla */
+    min-height: clamp(18rem, 60vh, 45rem);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Tipografía fluida entre 1.1rem y 2rem */
+    font-size: clamp(1.1rem, 0.9rem + 0.6vw, 2rem);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Colores pastel de las secciones */
+.pastel-1 { background-color: var(--pastel-1); }
+.pastel-2 { background-color: var(--pastel-2); }
+.pastel-3 { background-color: var(--pastel-3); }
+.pastel-4 { background-color: var(--pastel-4); }
+
+/* ============================================= */
+/* BLOQUE: Navbar                                */
+/* ============================================= */
+.navbar {
+    background-color: var(--color-blanco);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Clase dinámica (JS) que oculta la navbar al hacer scroll hacia abajo */
+.navbar-oculta {
+    transform: translateY(-100%);
+}
+
+/* Contenedor principal: la altura la define el logo + el padding vertical */
+.seccion-a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5%;
+}
+
+/* --- Lado izquierdo: Logo --- */
+.seccion-b {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 5rem;
+    width: auto;
+}
+
+/* --- Lado derecho: pestañas + teléfono --- */
+.seccion-d {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Pestañas de navegación                */
+/* ============================================= */
+.seccion-2 {
+    display: flex;
+    gap: 3.75rem;
+}
+
+.nav-link {
+    font-family: var(--fuente-principal);
+    font-weight: 550;
+    color: var(--color-negro);
+    text-decoration: none;
+    font-size: 1.2rem;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    color: var(--color-verde);
+    transform: scale(1.05);
+}
+
+/* Línea verde inferior animada desde el centro */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.3rem;
+    left: 0;
+    width: 100%;
+    height: 0.25rem;
+    background-color: var(--color-verde);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* ============================================= */
+/* BLOQUE: Bloque de teléfono                    */
+/* ============================================= */
+.seccion-3 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.icono-telefono {
+    height: 1.2em;
+    width: auto;
+}
+
+.texto-telefono {
+    font-family: var(--fuente-principal);
+    font-weight: 700;
+    color: var(--color-verde);
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón sándwich (oculto en desktop)    */
+/* ============================================= */
+.btn-hamburguesa {
+    display: none;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Aquí sí hay @media porque el layout cambia    */
+/* (apilado vertical + menú sándwich)            */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* Congelamos el tamaño base porque el layout ya se apila */
+    html {
+        font-size: 14px;
+    }
+
+    /* Redefinimos la altura de la navbar para móvil
+       (así todas las secciones que usen var(--altura-navbar)
+       toman el valor correcto automáticamente) */
+    :root {
+        --altura-navbar: var(--altura-navbar-movil);
+    }
+
+    /* ------------------------------------------------- */
+    /* Ajustes de las secciones de prueba                */
+    /* ------------------------------------------------- */
+    .seccion-prueba {
+        min-height: 50vh;
+        padding: 1.25rem;
+        font-size: clamp(1rem, 4vw, 1.35rem);
+        letter-spacing: 0.03em;
+    }
+
+    /* ------------------------------------------------- */
+    /* Barra principal compacta                          */
+    /* ------------------------------------------------- */
+    .seccion-a {
+        padding: 0.6rem 5%;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        height: 3.5rem;
+        width: auto;
+    }
+
+    /* ------------------------------------------------- */
+    /* Botón sándwich (3 líneas)                         */
+    /* ------------------------------------------------- */
+    .btn-hamburguesa {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 2rem;
+        height: 1.4rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1001;
+    }
+
+    .btn-hamburguesa span {
+        display: block;
+        width: 100%;
+        height: 0.2rem;
+        background-color: var(--color-negro);
+        border-radius: 0.125rem;
+        transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Transformación a "X" al abrir */
+    .btn-hamburguesa.abierto span:nth-child(1) {
+        transform: translateY(0.5rem) rotate(45deg);
+        background-color: var(--color-verde);
+    }
+    .btn-hamburguesa.abierto span:nth-child(2) {
+        opacity: 0;
+    }
+    .btn-hamburguesa.abierto span:nth-child(3) {
+        transform: translateY(-0.5rem) rotate(-45deg);
+        background-color: var(--color-verde);
+    }
+
+    /* ------------------------------------------------- */
+    /* Menú desplegable flotante                         */
+    /* ------------------------------------------------- */
+    .seccion-d {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-blanco);
+        flex-direction: column;
+        align-items: center;
+        gap: 1.8rem;
+        padding: 0 5%;
+        box-shadow: 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.08);
+        border-top: 0.0625rem solid #f0f0f0;
+
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
+    }
+
+    .seccion-d.menu-activo {
+        max-height: 80vh;
+        opacity: 1;
+        padding: 2.2rem 5% 2rem 5%;
+        pointer-events: auto;
+    }
+
+    /* ------------------------------------------------- */
+    /* Pestañas apiladas verticalmente                   */
+    /* ------------------------------------------------- */
+    .seccion-2 {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.4rem;
+        width: 100%;
+    }
+
+    .nav-link {
+        font-size: 1.25rem;
+        text-align: center;
+        padding: 0.2rem 0;
+    }
+
+    /* ------------------------------------------------- */
+    /* Bloque teléfono con línea divisoria superior      */
+    /* ------------------------------------------------- */
+    .seccion-3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.8rem;
+        padding-top: 1.4rem;
+        border-top: 0.0625rem solid #ececec;
+        width: 100%;
+        max-width: 22rem;
+    }
+
+    .texto-telefono {
+        font-size: 0.95rem;
+        text-align: center;
+    }
+
+    .icono-telefono {
+        height: 1.1rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL PEQUEÑO (≤ 480px)    */
+/* ============================================= */
+@media (max-width: 480px) {
+    .seccion-prueba {
+        min-height: 40vh;
+        padding: 1rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Hero (Carrusel de 3 cards)    */
+/* ============================================= */
+.hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+}
+
+/* Pista que contiene las 3 cards (se mueve con JS) */
+.carrusel-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Cada card del carrusel */
+.carrusel-slide {
+    min-width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Imagen de fondo              */
+/* (Define la altura de toda la sección)         */
+/* ============================================= */
+.hero-img-fondo {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenedor superpuesto       */
+/* Dividido en 50% izquierda / 50% derecha       */
+/* ============================================= */
+.hero-contenedor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+/* Mitad izquierda: contiene los textos centrados verticalmente */
+.hero-mitad-izq {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4rem;
+}
+
+/* Mitad derecha: vacía (deja ver la imagen del banner) */
+.hero-mitad-der {
+    width: 50%;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor de los 5 textos apilados   */
+/* (Gap vertical ajustable desde aquí)           */
+/* ============================================= */
+.hero-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    /* ⬇ Ajusta este gap para cambiar la distancia vertical entre elementos */
+    gap: 1.3rem;
+    max-width: 42rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo                              */
+/* ============================================= */
+.hero-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 600;
+    font-size: 1.45rem;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (4 líneas)            */
+/* ============================================= */
+.hero-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-size: clamp(2.5rem, 3.8vw, 4.5rem);
+    line-height: 1.05;
+    margin: 0;
+}
+
+/* Variantes de color y peso dentro del título */
+.hero-normal {
+    font-weight: 400;
+    color: var(--color-texto);
+}
+
+.hero-azul {
+    font-weight: 800;
+    color: #3663a7;
+}
+
+.hero-verde {
+    font-weight: 800;
+    color: #27a566;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.hero-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.9rem;
+    line-height: 1.5;
+    max-width: 35rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón "Conoce más"                    */
+/* ============================================= */
+.hero-btn {
+    display: inline-block;
+    background-color: #27a566;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 5rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 4rem;
+}
+
+.hero-btn:hover {
+    background-color: #1f8a54;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: Flechas laterales del carrusel        */
+/* ============================================= */
+.hero-flecha {
+    position: absolute;
+    top: 50%;
+    /* Comprimimos horizontalmente al 65% (ajusta a tu gusto) */
+    transform: translateY(-100%) scaleX(0.65);
+    background-color: transparent;
+    color: #27a566;
+    border: none;
+    font-family: var(--fuente-flecha);
+    font-weight: 200;
+    font-size: 5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    user-select: none;
+}
+
+.hero-flecha:hover {
+    color: #1f8a54;
+    /* En hover mantenemos la compresión y añadimos un poco de escala */
+    transform: translateY(-100%) scaleX(0.65) scale(1.15);
+}
+
+.hero-flecha-izq {
+    left: 1.5rem;
+}
+
+.hero-flecha-der {
+    right: 1.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Puntos indicadores del carrusel       */
+/* ============================================= */
+.hero-puntos {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.hero-punto {
+    width: 0.9rem;
+    height: 0.9rem;
+    background-color: #c4c4c4;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-punto:hover {
+    transform: scale(1.15);
+}
+
+/* Estado activo (card actual visible) */
+.hero-punto.activo {
+    background-color: #27a566;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Centra la mitad derecha de la imagen +         */
+/* overlay blanco + textos centrados              */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección mantiene su margen superior con la navbar */
+    .hero {
+        margin-top: var(--altura-navbar);
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 1. La imagen pasa a cubrir la sección completa con encuadre derecho */
+    /* ------------------------------------------------------------------ */
+    .hero-img-fondo {
+        min-height: 32rem;
+        height: 70vh;
+        object-fit: cover;
+        /* Centra la mitad derecha de la imagen (65% hacia la derecha) */
+        object-position: 95% center;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 2. Overlay blanco translúcido encima de la imagen                   */
+    /* ------------------------------------------------------------------ */
+    .carrusel-slide::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.85);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 3. El contenedor superpuesto pasa a ser una sola columna centrada   */
+    /* ------------------------------------------------------------------ */
+    .hero-contenedor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+    }
+
+    /* Ocultamos la mitad derecha vacía en móvil */
+    .hero-mitad-der {
+        display: none;
+    }
+
+    /* La mitad izquierda pasa a ser el 100% y centra su contenido */
+    .hero-mitad-izq {
+        width: 100%;
+        padding: 0 6%;
+        justify-content: center;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 4. Bloque de textos centrado con espaciado más compacto             */
+    /* ------------------------------------------------------------------ */
+    .hero-textos {
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        max-width: 100%;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 5. Jerarquía tipográfica ajustada a pantalla chica                  */
+    /* ------------------------------------------------------------------ */
+    .hero-subtitulo {
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+        /* Subtítulo justificado con última línea centrada */
+        text-align: justify;
+        text-align-last: center;
+    }
+
+    .hero-titulo {
+        font-size: 2.2rem;
+        line-height: 1.1;
+        text-align: center;
+    }
+
+    .hero-parrafo {
+        font-size: 0.95rem;
+        line-height: 1.45;
+        max-width: 70%;
+        /* Párrafo justificado con última línea centrada */
+        text-align: justify;
+        text-align-last: center;
+        font-weight: 550;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 6. Botón adaptado a móvil con buen área táctil                      */
+    /* ------------------------------------------------------------------ */
+    .hero-btn {
+        font-size: 1rem;
+        padding: 0.8rem 2.8rem;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 7. Flechas laterales visibles, bien ubicadas y con fondo discreto   */
+    /* ------------------------------------------------------------------ */
+    .hero-flecha {
+        font-size: 2.8rem;
+        padding: 0.4rem 0.6rem;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 20;
+    }
+    .hero-flecha-izq {
+        left: 0.8rem;
+    }
+    .hero-flecha-der {
+        right: 0.8rem;
+    }
+    /* ------------------------------------------------------------------ */
+    /* 8. Puntos indicadores: un poco más arriba para dar aire al borde    */
+    /* ------------------------------------------------------------------ */
+    .hero-puntos {
+        bottom: 1rem;
+        gap: 0.8rem;
+        z-index: 20;
+    }
+    .hero-punto {
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Valores (4 grupos con iconos) */
+/* ============================================= */
+.seccion-valores {
+    background-color: #ffffff;
+    width: 100%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --valores-gap-lateral: 2rem;        /* Separación horizontal entre grupos (desktop) */
+    --valores-gap-imagen-texto: 2.5rem; /* Separación vertical entre imagen y texto dentro de cada grupo */
+    --valores-gap-vertical: 3rem;       /* Separación vertical entre filas/grupos (tablet y móvil) */
+}
+
+/* Contenedor con margin de 2 argumentos: vertical | horizontal */
+.valores-contenedor {
+    margin: 8rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: var(--valores-gap-lateral);
+}
+
+/* ============================================= */
+/* BLOQUE: Cada grupo (imagen arriba + texto)     */
+/* ============================================= */
+.valores-grupo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* Centrado horizontal de hijos */
+    justify-content: flex-start;
+    text-align: center;
+    gap: var(--valores-gap-imagen-texto);
+    position: relative;
+    padding: 0 1rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Separadores verticales grises         */
+/* Se generan solo a partir del grupo 2            */
+/* ============================================= */
+.valores-grupo:not(:first-child)::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--valores-gap-lateral) / 2); /* Centrado en el gap */
+    height: 100%;   
+    width: 3px;
+    background-color: #e1e1e1;
+}
+
+/* ============================================= */
+/* BLOQUE: Icono e imagen                         */
+/* ============================================= */
+.valores-icono {
+    width: 7rem;
+    height: 7rem;
+    object-fit: contain;
+}
+
+/* ============================================= */
+/* BLOQUE: Texto                                  */
+/* ============================================= */
+.valores-texto {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    /* Ancho máximo común para que los 4 textos tengan el mismo ancho visual */
+    max-width: 17rem;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE TABLET (≤ 1024px)          */
+/* Cambia el layout a matriz 2×2                  */
+/* ============================================= */
+@media (max-width: 1024px) {
+
+    .valores-contenedor {
+        margin: 3rem 5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* gap vertical | horizontal */
+        gap: var(--valores-gap-vertical) var(--valores-gap-lateral);
+    }
+
+    /* Cada grupo ocupa el 50% menos la mitad del gap */
+    .valores-grupo {
+        flex: 0 0 calc(50% - (var(--valores-gap-lateral) / 2));
+        padding: 0;
+    }
+
+    /* Apagamos los separadores verticales en este layout */
+    .valores-grupo:not(:first-child)::before {
+        display: none;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Grupos apilados en 1 columna, sin líneas       */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .valores-contenedor {
+        margin: 3rem 6%;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--valores-gap-vertical);
+    }
+
+    .valores-grupo {
+        flex: 0 0 auto;
+        width: 100%;
+        padding: 0;
+    }
+
+    .valores-icono {
+        width: 7rem;
+        height: 7rem;
+    }
+
+    .valores-texto {
+        font-size: 1.2rem;
+        max-width: 80%;
+        font-weight: 550;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Programas                      */
+/* ============================================= */
+.seccion-programas {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 2rem 0 0rem 0;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --programas-margin-contenedor: 2rem 8rem;   /* Margin del contenedor (vertical | horizontal) */
+    --programas-gap-cards: 3rem;                 /* Separación horizontal entre las 2 cards */
+    --programas-gap-vertical-movil: 3rem;        /* Separación vertical entre cards apiladas (móvil) */
+    --programas-padding-contenido: 2rem 3rem;    /* Padding interno del contenido de cada card */
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                         */
+/* ============================================= */
+.programas-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal con estilos mixtos    */
+/* ============================================= */
+.programas-titulo {
+    font-family: var(--fuente-principal);
+    font-size: 4.1rem;         /* ← sin clamp */
+    line-height: 1.1;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    max-width: 90rem;
+    padding: 0 1rem;
+}
+
+/* "UNA BASE SÓLIDA" → mismo estilo que "UNA" del hero */
+.programas-titulo-normal {
+    font-weight: 400;
+    color: var(--color-texto);
+}
+
+/* "TODA LA FAMILIA" → mismo estilo que "GRAN EDUCACIÓN" del hero */
+.programas-titulo-azul {
+    font-weight: 800;
+    color: #3663a7;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor de las 2 cards              */
+/* ============================================= */
+.programas-contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--programas-gap-cards);
+    margin: var(--programas-margin-contenedor);
+    align-items: start; /* Ambas cards se alinean arriba */
+}
+
+/* ============================================= */
+/* BLOQUE: Cada card                              */
+/* ============================================= */
+.programa-card {
+    position: relative;
+}
+
+/* ============================================= */
+/* BLOQUE: Imagen de fondo (dicta la altura)      */
+/* Al estar en flujo normal, la imagen se ve      */
+/* COMPLETA, sin recortes de object-fit.          */
+/* ============================================= */
+.programa-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenido superpuesto                  */
+/* Se posiciona absoluto sobre la mitad derecha   */
+/* de la imagen.                                  */
+/* ============================================= */
+.programa-contenido {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--programas-padding-contenido);
+    gap: 1rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título de cada card                    */
+/* ============================================= */
+.programa-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: left;
+    max-width: 20rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo de cada card                   */
+/* ============================================= */
+.programa-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-align: left;
+    max-width: 15rem;
+    margin-bottom: 2.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón (link con imagen flecha)         */
+/* ============================================= */
+.programa-link {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.programa-link:hover {
+    transform: translateX(0.4rem);
+}
+
+.programa-img {
+    width: 4.5rem;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .programas-subtitulo {
+        font-size: 0.95rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .programas-titulo {
+        font-size: 1.7rem;
+        line-height: 1.2;
+        margin-bottom: 2.2rem;
+        padding: 0 1rem;
+    }
+
+    /* Contenedor: 1 columna, cards apiladas */
+    .programas-contenedor {
+        grid-template-columns: 1fr;
+        row-gap: var(--programas-gap-vertical-movil);
+        margin: 1rem 4%;
+        justify-items: center;
+    }
+
+    /* Card al 95% del contenedor → casi ancho completo pero con margen visual */
+    .programa-card {
+        width: 95%;
+        max-width: 30rem;
+        position: relative;
+    }
+
+    /* Imagen en flujo normal: dicta la altura y se ve COMPLETA, sin recortes */
+    .programa-bg {
+        position: relative;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* Contenido superpuesto en la mitad derecha (mismo split que desktop) */
+    .programa-contenido {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        padding: 1rem 0.8rem;
+        gap: 0.6rem;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    /* Título compacto */
+    .programa-titulo {
+        font-size: 1.15rem;
+        line-height: 1.15;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    /* Párrafo: máx 3 líneas garantizadas con line-clamp */
+    .programa-parrafo {
+        font-size: 0.78rem;
+        line-height: 1.35;
+        max-width: 90%;
+        margin-bottom: 0;
+        /* Recorta el texto a 3 líneas con "..." si se pasa */
+        display: -webkit-box;
+        line-clamp: 3;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Botón flecha más chico para no robar altura */
+    .programa-img {
+        width: 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Modelo Educativo               */
+/* ============================================= */
+.seccion-modelo {
+    background-color: #ffffff;
+    width: 100%;
+    padding-bottom: 5rem;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --modelo-overlay-top: 59%;          /* Posición vertical del subtítulo sobre la imagen (15% = 15% desde arriba) */
+    --modelo-gap-sub-titulo: 1.5rem;    /* Separación entre subtítulo y título */
+    --modelo-parrafo-margin-top: -7rem;  /* Separación del párrafo con la imagen */
+    --modelo-btn-margin-top: 2.5rem;    /* Separación del botón con el párrafo */
+}
+
+/* ============================================= */
+/* BLOQUE: Wrapper de la imagen + overlay         */
+/* ============================================= */
+.modelo-imagen-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Imagen de fondo (dicta la altura) */
+.modelo-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    margin-top: -18%;
+}
+
+/* ============================================= */
+/* BLOQUE: Overlay superpuesto (subtítulo+título) */
+/* ============================================= */
+.modelo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* ⬇ AQUÍ se controla la posición vertical del contenido sobre la imagen */
+    padding-top: var(--modelo-overlay-top);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    gap: var(--modelo-gap-sub-titulo);
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.modelo-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Título azul centrado                   */
+/* ============================================= */
+.modelo-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 500;
+    font-size: 3.2rem;
+    line-height: 1.1;
+    text-align: center;
+    /* ⬇ Ajusta este max-width para controlar en cuántas líneas parte el título */
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo (debajo de la imagen)          */
+/* ============================================= */
+.modelo-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    text-align: center;
+    /* ⬇ Separación con la imagen de arriba */
+    margin-top: var(--modelo-parrafo-margin-top);
+    /* ⬇ Ajusta este max-width para controlar en cuántas líneas parte el párrafo */
+    max-width: 68rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón azul (basado en hero-btn)        */
+/* ============================================= */
+.modelo-btn {
+    display: table;
+    background-color: #0284d0;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 5rem;
+    border-radius: 50rem;
+    text-align: center;
+    /* ⬇ Separación con el párrafo */
+    margin-top: var(--modelo-btn-margin-top);
+    /* display: table + margin auto = centrado horizontal */
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.modelo-btn:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen de fondo + capa blanca + todo centrado  */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-modelo {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;     /* Centra el contenido verticalmente */
+        align-items: center;         /* Centra el contenido horizontalmente */
+        min-height: 60dvh;          /* Ocupa toda la pantalla del celular */
+        padding: 3rem 1.5rem;
+        gap: 1rem;                   /* Separación entre overlay, párrafo y botón */
+        overflow: hidden;            /* Evita desbordes por la imagen absoluta */
+        --modelo-crop-y: 30%;
+    }
+
+    /* ⬇ TRUCO CLAVE: aplanamos el wrapper.
+       Sus hijos (imagen + overlay) pasan a comportarse como
+       hijos directos de la sección para el layout flex. */
+    .modelo-imagen-wrapper {
+        display: contents;
+    }
+
+    /* Imagen cubriendo TODA la sección (fondo) */
+    .modelo-bg {
+        position: absolute;
+        top: calc(-1 * var(--modelo-crop-y));            /* Sobresale X% por arriba */
+        left: 0;
+        width: 100%;
+        height: calc(100% + (2 * var(--modelo-crop-y))); /* Compensa lo que sobresale arriba y abajo */
+        object-fit: cover;
+        object-position: center;
+        margin-top: 0;
+        z-index: 0;
+    }
+
+    /* Capa blanca translúcida encima de la imagen */
+    .seccion-modelo::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.70);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* Todos los bloques de texto/botón quedan ENCIMA de la capa blanca */
+    .modelo-overlay,
+    .modelo-parrafo,
+    .modelo-btn {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Overlay como columna flex centrada (ya no absoluta) */
+    .modelo-overlay {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0;
+        gap: 0.8rem;
+        width: 100%;
+        height: auto;
+    }
+
+    /* Subtítulo */
+    .modelo-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        font-weight: 550;
+    }
+
+    /* Título */
+    .modelo-titulo {
+        font-size: 1.6rem;
+        line-height: 1.15;
+        max-width: 22rem;
+        font-weight: 650;
+    }
+
+    /* Párrafo */
+    .modelo-parrafo {
+        margin-top: 0;
+        max-width: 22rem;
+        padding: 0;
+        font-size: 0.95rem;
+        line-height: 1.45;
+        text-align: justify;
+        text-align-last: center;
+        font-weight: 550;
+    }
+
+    /* Botón */
+    .modelo-btn {
+        margin-top: 0;
+    }
+}
+
+
+/* ============================================= */
+/* BLOQUE: Sección Nuestras Diferencias           */
+/* ============================================= */
+.seccion-diferencias {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --diferencias-split-der: 65%;           /* Ancho del tercio derecho (imagen) */
+    --diferencias-ancho-contenido: 50%;    /* Ancho del contenido (independiente del split). Si es mayor que (100% - split-der), se encima sobre la imagen */
+    --diferencias-padding-contenido: 5rem 0rem 5rem 8%;  /* Padding del wrapper (top | right | bottom | left) */
+    --diferencias-gap-vertical: 3rem;        /* Gap entre subtítulo, título y grupos */
+    --diferencias-gap-columnas: 1rem;          /* Gap entre las 4 columnas de grupos */
+    --diferencias-gap-grupo-interno: 0.7rem;   /* Gap interno de cada grupo (icono, título, párrafo) */
+    --diferencias-max-subtitulo: 70rem;        /* Ancho máx del subtítulo */
+    --diferencias-max-titulo: 80rem;           /* Ancho máx del título principal */
+    --diferencias-max-titulo-grupo: 12rem;     /* Ancho máx del título de cada grupo */
+    --diferencias-max-parrafo-grupo: 13rem;    /* Ancho máx del párrafo de cada grupo */
+    --diferencias-icono-size: 6rem;            /* Tamaño de los iconos */
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Fondo (2/3 blanco + 1/3 img) */
+/* ============================================= */
+.diferencias-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: vacío */
+.diferencias-fondo-izq {
+    width: calc(100% - var(--diferencias-split-der));
+    background-color: #ffffff;
+}
+
+/* Tercio derecho: contiene la imagen que dicta la altura */
+.diferencias-fondo-der {
+    width: var(--diferencias-split-der);
+}
+
+.diferencias-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenido superpuesto         */
+/* ============================================= */
+.diferencias-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 100%;
+    display: flex;
+    align-items: center;      /* Centrado vertical del contenido */
+    z-index: 2;
+}
+
+/* Wrapper: aquí controlas el desplazamiento del contenido hacia la izquierda */
+.diferencias-contenido-wrapper {
+    width: var(--diferencias-ancho-contenido);
+    padding: var(--diferencias-padding-contenido);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Alineación interna a la izquierda */
+    text-align: left;
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.diferencias-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--diferencias-max-subtitulo);
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.diferencias-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 4.1rem;
+    line-height: 1.15;
+    text-align: left;
+    max-width: var(--diferencias-max-titulo);
+    margin-bottom: var(--diferencias-gap-vertical);
+}
+
+/* "UNA EDUCACIÓN QUE" → weight 500 */
+.diferencias-titulo-normal {
+    font-weight: 450;
+}
+
+/* "MARCA LA DIFERENCIA" → weight 700 */
+.diferencias-titulo-azul {
+    font-weight: 650;
+}
+
+/* ============================================= */
+/* BLOQUE: Grid de los 4 grupos (con subgrid)     */
+/* ============================================= */
+.diferencias-grupos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto; /* 3 filas: icono, título, párrafo */
+    column-gap: var(--diferencias-gap-columnas);
+    width: 110%;
+    margin-top: 1rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Cada grupo (subgrid de 3 filas)        */
+/* ============================================= */
+.diferencia-grupo {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    row-gap: var(--diferencias-gap-grupo-interno);
+    align-items: start;
+    justify-items: start;    /* Alineación interna a la izquierda */
+    text-align: left;
+}
+
+/* ============================================= */
+/* BLOQUE: Icono                                  */
+/* ============================================= */
+.diferencia-icono {
+    width: var(--diferencias-icono-size);
+    height: var(--diferencias-icono-size);
+    object-fit: contain;
+    
+}
+
+/* ============================================= */
+/* BLOQUE: Título de cada grupo (azul del botón)  */
+/* ============================================= */
+.diferencia-titulo {
+    font-family: var(--fuente-principal);
+    color: #0284d0;
+    font-weight: 700;
+    font-size: 1.7rem;
+    line-height: 1.3;
+    text-align: left;
+    max-width: var(--diferencias-max-titulo-grupo);
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo de cada grupo                  */
+/* ============================================= */
+.diferencia-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: 1.2rem;
+    line-height: 1.45;
+    text-align: left;
+    max-width: var(--diferencias-max-parrafo-grupo);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen centrada con overlay blanco,           */
+/* subtítulo y título encima, grupos debajo       */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección pasa a flex column para apilar la imagen + el contenido debajo */
+    .seccion-diferencias {
+        display: flex;
+        flex-direction: column;
+
+        /* Ajustes para móvil */
+        --diferencias-padding-contenido: 3rem 6% 4rem 6%;
+        --diferencias-gap-columnas: 0;
+        --diferencias-gap-grupo-interno: 1rem;
+        --diferencias-max-titulo-grupo: 100%;
+        --diferencias-max-parrafo-grupo: 100%;
+        --diferencias-icono-size: 5rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 1: la imagen ocupa todo el ancho            */
+    /* ------------------------------------------------- */
+    .diferencias-fondo {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    /* Ocultamos el lado izquierdo vacío */
+    .diferencias-fondo-izq {
+        display: none;
+    }
+
+    /* La imagen ocupa todo el ancho */
+    .diferencias-fondo-der {
+        width: 100%;
+    }
+
+    .diferencias-bg {
+        width: 100%;
+        height: 55vh;
+        min-height: 22rem;
+        object-fit: cover;
+        /* Centrado: recorta simétricamente los laterales */
+        object-position: center center;
+    }
+
+    /* Overlay blanco translúcido encima de la imagen */
+    .diferencias-fondo::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.75);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 2: el contenido deja de ser absoluto para   */
+    /* que los grupos fluyan debajo de la imagen        */
+    /* ------------------------------------------------- */
+    .diferencias-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    /* Rompemos el wrapper para que sus hijos se comporten
+       como si fueran hijos directos de .diferencias-contenido */
+    .diferencias-contenido-wrapper {
+        display: contents;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subtítulo y título: sobre la imagen, centrados    */
+    /* ------------------------------------------------- */
+    .diferencias-subtitulo,
+    .diferencias-titulo {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 3;
+        padding: 0 1.5rem;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .diferencias-subtitulo {
+        /* Ajusta este valor para subir/bajar el subtítulo sobre la imagen */
+        top: 15vh;
+        font-weight: 700;
+        font-size: 2rem;
+        letter-spacing: 0.04em;
+    }
+
+    .diferencias-titulo {
+        /* Ajusta este valor para subir/bajar el título sobre la imagen */
+        top: 26vh;
+        font-size: 2rem;
+        line-height: 1.15;
+    }
+
+    /* ------------------------------------------------- */
+    /* Grupos: debajo de la imagen, apilados en columna  */
+    /* ------------------------------------------------- */
+    .diferencias-grupos {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        padding: var(--diferencias-padding-contenido);
+        background-color: #ffffff;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    /* Cada grupo: columna con elementos centrados */
+    .diferencia-grupo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+        text-align: center;
+        gap: var(--diferencias-gap-grupo-interno);
+        max-width: 100%;
+    }
+
+    .diferencia-titulo,
+    .diferencia-parrafo {
+        text-align: center;
+        max-width: 70%;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Actividades Complementarias    */
+/* ============================================= */
+.seccion-actividades {
+    background-color: #ffffff;
+    width: 100%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --actividades-subtitulo-margin-top: 5rem;      /* Separación con la sección de arriba */
+    --actividades-subtitulo-margin-bottom: 1.5rem;     /* Separación subtítulo ↔ título */
+    --actividades-titulo-margin-bottom: 1.5rem;      /* Separación título ↔ párrafo */
+    --actividades-parrafo-margin-bottom: 4rem;       /* Separación párrafo ↔ cards */
+    --actividades-cards-margin-bottom: 4rem;         /* Separación cards ↔ botón */
+    --actividades-cards-gap: 2.5rem;                 /* Gap horizontal entre cards */
+    --actividades-card-gap-interno: 1.2rem;          /* Gap interno de cada card (imagen ↔ título) */
+    --actividades-cards-margin-lateral: 8%;          /* Margin lateral del contenedor de cards */
+    --actividades-max-titulo: 60rem;                 /* Ancho máx del título principal */
+    --actividades-max-parrafo: 55rem;                /* Ancho máx del párrafo */
+    --actividades-max-titulo-card: 15rem;            /* Ancho máx del título de cada card */
+    --actividades-gap-vertical-movil: 2rem;          /* Separación vertical entre cards (móvil) */
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.actividades-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.7rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin-top: var(--actividades-subtitulo-margin-top);
+    margin-bottom: var(--actividades-subtitulo-margin-bottom);
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.actividades-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 3.8rem;
+    line-height: 1.15;
+    text-align: center;
+    max-width: var(--actividades-max-titulo);
+    margin: 0 auto var(--actividades-titulo-margin-bottom) auto;
+    padding: 0 1rem;
+}
+
+/* Los dos spans se apilan uno debajo del otro */
+.actividades-titulo-normal,
+.actividades-titulo-azul {
+    display: block;
+}
+
+/* "DESCUBRIR TALENTOS" → weight 450 */
+.actividades-titulo-normal {
+    font-weight: 450;
+}
+
+/* "TAMBIÉN ES APRENDER" → weight 650 */
+.actividades-titulo-azul {
+    font-weight: 650;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.actividades-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: 1.7rem;
+    line-height: 1.3;
+    text-align: center;
+    max-width: var(--actividades-max-parrafo);
+    margin: 0 auto var(--actividades-parrafo-margin-bottom) auto;
+    padding: 0 2rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor de las 4 cards              */
+/* ============================================= */
+.actividades-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: var(--actividades-cards-gap);
+    margin: 0 var(--actividades-cards-margin-lateral) var(--actividades-cards-margin-bottom) var(--actividades-cards-margin-lateral);
+}
+
+/* ============================================= */
+/* BLOQUE: Cada card                              */
+/* ============================================= */
+.actividad-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--actividades-card-gap-interno);
+}
+
+/* Imagen de la card */
+.actividad-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Título debajo de la imagen */
+.actividad-titulo {
+    font-family: var(--fuente-principal);
+    color: #0284d0;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    text-align: center;
+    max-width: var(--actividades-max-titulo-card);
+}
+
+/* ============================================= */
+/* BLOQUE: Botón "Conoce más"                     */
+/* (Mismo estilo del botón de Modelo Educativo)   */
+/* ============================================= */
+.actividades-btn {
+    display: table;
+    background-color: #0284d0;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 5rem;
+    border-radius: 50rem;
+    text-align: center;
+    margin: 0 auto;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-bottom: 6rem;
+}
+
+.actividades-btn:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Cards apiladas en 1 columna con gap reducido   */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-actividades {
+        /* Ajustes para móvil */
+        --actividades-parrafo-margin-bottom: 2.5rem;
+        --actividades-cards-margin-bottom: 2.5rem;
+        --actividades-cards-margin-lateral: 8%;
+        --actividades-gap-vertical-movil: 2rem;
+        --actividades-card-gap-interno: 0.8rem;
+    }
+
+    .actividades-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .actividades-titulo {
+        font-size: 1.8rem;
+        line-height: 1.15;
+        max-width: 100%;
+    }
+
+    .actividades-parrafo {
+        font-size: 1.2rem;
+        line-height: 1.45;
+        max-width: 90%;
+        padding: 0 6%;
+        text-align: center;
+        text-align-last: center;
+    }
+
+    /* Contenedor de cards: 1 columna, gap vertical */
+    .actividades-cards {
+        grid-template-columns: 1fr;
+        row-gap: var(--actividades-gap-vertical-movil);
+        column-gap: 0;
+        margin-bottom: 5rem;
+    }
+
+    /* Cada card limitada al ancho que quieras para que no sea gigante */
+    .actividad-card {
+        max-width: 22rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .actividad-titulo {
+        font-size: 1.15rem;
+        max-width: 100%;
+    }
+
+    .actividades-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem 5rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Nuestro Campus                 */
+/* ============================================= */
+.seccion-campus {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --campus-split-der: 67%;                    /* Ancho de la imagen (pegada a la derecha). Ajusta para agrandar/achicar la imagen */
+    --campus-ancho-contenido: 65%;              /* Ancho del contenedor de contenido (independiente del split) */
+    --campus-padding-contenido: 5rem 0 5rem 8%; /* Padding del wrapper (top | right | bottom | left) */
+    --campus-gap-vertical: 1.5rem;              /* Gap vertical entre subtítulo, título, párrafo y botón */
+    --campus-max-subtitulo: 30rem;              /* Ancho máx del subtítulo */
+    --campus-max-titulo: 90rem;                 /* Ancho máx del título principal */
+    --campus-max-parrafo: 58rem;                /* Ancho máx del párrafo */
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Fondo dividido                */
+/* (izquierda blanca vacía + derecha imagen)      */
+/* ============================================= */
+.campus-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: vacío */
+.campus-fondo-izq {
+    width: calc(100% - var(--campus-split-der));
+    background-color: #ffffff;
+}
+
+/* Lado derecho: contiene la imagen que dicta la altura */
+.campus-fondo-der {
+    width: var(--campus-split-der);
+}
+
+.campus-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenido superpuesto         */
+/* ============================================= */
+.campus-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;      /* Centrado vertical del contenido */
+    z-index: 2;
+}
+
+/* Wrapper: aquí controlas el ancho del contenido y su desplazamiento */
+.campus-contenido-wrapper {
+    width: var(--campus-ancho-contenido);
+    padding: var(--campus-padding-contenido);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Alineación interna a la izquierda */
+    text-align: left;
+    gap: var(--campus-gap-vertical);
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.campus-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.7rem;
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--campus-max-subtitulo);
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.campus-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 4.5rem;
+    line-height: 1;
+    text-align: left;
+    max-width: var(--campus-max-titulo);
+}
+
+/* "UN AMBIENTE EXCEPCIONAL PARA" → weight 450 */
+.campus-titulo-normal {
+    font-weight: 450;
+}
+
+/* "GRANDES PERSONAS" → weight 650 */
+.campus-titulo-azul {
+    font-weight: 750;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.campus-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: left;
+    max-width: var(--campus-max-parrafo);
+    margin-bottom: 2rem;
+    letter-spacing: -0.02rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón "Conoce nuestro campus"          */
+/* ============================================= */
+.campus-btn {
+    display: inline-block;
+    background-color: #0284d0;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.campus-btn:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen arriba centrada + contenido debajo,     */
+/* todo con alineación centrada                   */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección pasa a flex column para apilar la imagen + el contenido debajo */
+    .seccion-campus {
+        display: flex;
+        flex-direction: column;
+
+        /* Ajustes para móvil */
+        --campus-padding-contenido: 3rem 6% 4rem 6%;
+        --campus-gap-vertical: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 1: la imagen ocupa todo el ancho, arriba     */
+    /* ------------------------------------------------- */
+    .campus-fondo {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    /* Ocultamos el lado izquierdo vacío */
+    .campus-fondo-izq {
+        display: none;
+    }
+
+    /* La imagen ocupa todo el ancho */
+    .campus-fondo-der {
+        width: 100%;
+    }
+
+    .campus-bg {
+        width: 100%;
+        height: 55vh;
+        min-height: 22rem;
+        object-fit: cover;
+        /* Centrado: recorta simétricamente los laterales */
+        object-position: center center;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 2: el contenido deja de ser absoluto para   */
+    /* que fluya debajo de la imagen                    */
+    /* ------------------------------------------------- */
+    .campus-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    /* El wrapper ocupa el 100% y centra su contenido */
+    .campus-contenido-wrapper {
+        width: 100%;
+        align-items: center;   /* Centrado horizontal de hijos */
+        text-align: center;    /* Alineación interna centrada */
+        gap: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Jerarquía tipográfica ajustada a pantalla chica    */
+    /* ------------------------------------------------- */
+    .campus-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .campus-titulo {
+        font-size: 1.7rem;
+        line-height: 1.15;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .campus-parrafo {
+        font-size: 1.5rem;
+        line-height: 1.45;
+        text-align: center;
+        text-align-last: center;
+        max-width: 22rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .campus-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Admisiones                     */
+/* (espejo de Nuestro Campus: imagen a la izq.)   */
+/* ============================================= */
+.seccion-admisiones {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --admisiones-split-izq: 100%;                    /* Ancho de la imagen (pegada a la izquierda) */
+    --admisiones-ancho-contenido: 65%;              /* Ancho del contenedor de contenido (independiente del split) */
+    --admisiones-padding-contenido: 5rem 8% 5rem 0; /* Padding del wrapper (top | right | bottom | left) */
+    --admisiones-gap-vertical: 1.5rem;              /* Gap vertical entre subtítulo, título, párrafo y botón */
+    --admisiones-max-subtitulo: 30rem;              /* Ancho máx del subtítulo */
+    --admisiones-max-titulo: 55rem;                 /* Ancho máx del título principal */
+    --admisiones-max-parrafo: 55rem;                /* Ancho máx del párrafo */
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 1 - Fondo dividido                */
+/* (izquierda imagen + derecha blanca vacía)      */
+/* ============================================= */
+.admisiones-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: contiene la imagen que dicta la altura */
+.admisiones-fondo-izq {
+    width: var(--admisiones-split-izq);
+}
+
+.admisiones-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Lado derecho: vacío */
+.admisiones-fondo-der {
+    width: calc(100% - var(--admisiones-split-izq));
+    background-color: #ffffff;
+}
+
+/* ============================================= */
+/* BLOQUE: Capa 2 - Contenido superpuesto         */
+/* ============================================= */
+.admisiones-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;          /* Centrado vertical del contenido */
+    justify-content: flex-end;    /* Empuja el contenido a la derecha */
+    z-index: 2;
+}
+
+/* Wrapper: alineado a la derecha */
+.admisiones-contenido-wrapper {
+    width: var(--admisiones-ancho-contenido);
+    padding: var(--admisiones-padding-contenido);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;        /* Alineación interna a la derecha */
+    text-align: right;
+    gap: var(--admisiones-gap-vertical);
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* BLOQUE: Subtítulo verde                        */
+/* ============================================= */
+.admisiones-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: 1.7rem;
+    letter-spacing: 0.05em;
+    text-align: right;
+    max-width: var(--admisiones-max-subtitulo);
+}
+
+/* ============================================= */
+/* BLOQUE: Título principal (dos pesos)           */
+/* ============================================= */
+.admisiones-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: 4.5rem;
+    line-height: 1;
+    text-align: right;
+    max-width: var(--admisiones-max-titulo);
+}
+
+/* "INICIEMOS JUNTOS ESTA" → weight 450 */
+.admisiones-titulo-normal {
+    font-weight: 450;
+}
+
+/* "GRAN HISTORIA" → weight 750 */
+.admisiones-titulo-azul {
+    font-weight: 750;
+}
+
+/* ============================================= */
+/* BLOQUE: Párrafo                                */
+/* ============================================= */
+.admisiones-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: 2rem;
+    line-height: 1.2;
+    text-align: right;
+    max-width: var(--admisiones-max-parrafo);
+    margin-bottom: 2rem;
+    letter-spacing: -0.02rem;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón verde "Solicita información"     */
+/* ============================================= */
+.admisiones-btn {
+    display: inline-block;
+    background-color: #27a566;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.admisiones-btn:hover {
+    background-color: #1f8a54;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Imagen arriba centrada + contenido debajo,     */
+/* todo con alineación centrada                   */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    /* La sección pasa a flex column para apilar la imagen + el contenido debajo */
+    .seccion-admisiones {
+        display: flex;
+        flex-direction: column;
+
+        /* Ajustes para móvil */
+        --admisiones-padding-contenido: 3rem 6% 4rem 6%;
+        --admisiones-gap-vertical: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 1: la imagen ocupa todo el ancho, arriba     */
+    /* ------------------------------------------------- */
+    .admisiones-fondo {
+        position: relative;
+        display: block;
+        width: 220%;
+    }
+
+    /* La imagen ocupa todo el ancho */
+    .admisiones-fondo-izq {
+        width: 100%;
+    }
+
+    .admisiones-bg {
+        width: 100%;
+        height: 55vh;
+        min-height: 22rem;
+        object-fit: cover;
+        /* Centrado: recorta simétricamente los laterales */
+        object-position: center center;
+    }
+
+    /* Ocultamos el lado derecho vacío */
+    .admisiones-fondo-der {
+        display: none;
+    }
+
+    /* ------------------------------------------------- */
+    /* Capa 2: el contenido deja de ser absoluto para   */
+    /* que fluya debajo de la imagen                    */
+    /* ------------------------------------------------- */
+    .admisiones-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    /* El wrapper ocupa el 100% y centra su contenido */
+    .admisiones-contenido-wrapper {
+        width: 100%;
+        align-items: center;   /* Centrado horizontal de hijos */
+        text-align: center;    /* Alineación interna centrada */
+        gap: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Jerarquía tipográfica ajustada a pantalla chica    */
+    /* ------------------------------------------------- */
+    .admisiones-subtitulo {
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .admisiones-titulo {
+        font-size: 1.7rem;
+        line-height: 1.15;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .admisiones-parrafo {
+        font-size: 1.5rem;
+        line-height: 1.45;
+        text-align: center;
+        text-align-last: center;
+        max-width: 22rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .admisiones-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Sección Contacto (Formulario + Mapa)   */
+/* ============================================= */
+.seccion-contacto {
+    background-color: #f0f0f0;
+    width: 100%;
+    padding: 0;                       /* Los márgenes internos de cada hijo dan el espaciado */
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --contacto-mapa-ancho: 38%;       /* Ancho del mapa (más pequeño) */
+    --contacto-margin: 1rem;          /* X → margin común (top, bottom, izquierda del mapa, izquierda del form... ver detalle) */
+    --contacto-margin-doble: 2rem;    /* 2X → margin derecho del mapa e izquierdo del form */
+    --contacto-padding-form: 0rem 3rem; /* Padding interno del formulario */
+    --contacto-max-form: 45rem;       /* Ancho máximo del formulario */
+}
+
+/* ============================================= */
+/* BLOQUE: Contenedor principal                   */
+/* ============================================= */
+.contacto-contenedor {
+    display: flex;
+    align-items: stretch;             /* Ambas columnas a la MISMA ALTURA */
+    width: 100%;
+    padding: 0;                       /* Sin padding: los márgenes de los hijos lo controlan */
+    gap: 10rem;                           /* Sin gap: la separación la da el margin del mapa */
+    justify-content: center;
+}
+
+/* ============================================= */
+/* BLOQUE: Formulario (izquierda)                 */
+/* Margin: X | 0 | X | 2X  (top | right | bottom | left) */
+/* → Simétrico con el margin-right del mapa        */
+/* ============================================= */
+.contacto-form-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--contacto-padding-form);
+    margin: var(--contacto-margin) 0 var(--contacto-margin) var(--contacto-margin-doble);
+    max-width: var(--contacto-max-form);
+}
+
+/* ============================================= */
+/* BLOQUE: Formulario                             */
+/* ============================================= */
+.form-weston {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+}
+
+.form-fila-doble {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.form-fila-doble .form-grupo {
+    flex: 1;
+}
+
+/* ============================================= */
+/* BLOQUE: Labels e inputs (SIN bordes)           */
+/* ============================================= */
+.form-label {
+    font-family: var(--fuente-principal);
+    color: #000000;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    color: #000000;
+    padding: 0.7rem 1rem;
+    background-color: var(--color-blanco);
+    border: none;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    box-shadow: 0 0.125rem 0.75rem rgba(2, 132, 208, 0.35);
+}
+
+.form-textarea {
+    resize: vertical;
+}
+
+/* ============================================= */
+/* BLOQUE: Mensajes de error                      */
+/* ============================================= */
+.error-msg {
+    color: red;
+    font-family: var(--fuente-principal);
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-top: 0.3rem;
+    margin-left: 0.5rem;
+    display: none;
+}
+
+/* ============================================= */
+/* BLOQUE: Botón Enviar (azul de la marca)        */
+/* ============================================= */
+.btn-enviar-form {
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-blanco);
+    background-color: #0284d0;
+    border: none;
+    border-radius: 50rem;
+    padding: 0.85rem 6rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    align-self: flex-start;
+}
+
+.btn-enviar-form:hover {
+    background-color: #026aa8;
+    transform: scale(1.03);
+}
+
+/* ============================================= */
+/* BLOQUE: Mapa (derecha)                         */
+/* Margin: X | 2X | X | X  (top | right | bottom | left) */
+/* El margin-left del mapa (X) crea la separación */
+/* respecto al formulario.                         */
+/* ============================================= */
+.contacto-mapa-wrapper {
+    width: var(--contacto-mapa-ancho);
+    aspect-ratio: 1 / 1;              /* Cuadrado perfecto */
+    margin: var(--contacto-margin) var(--contacto-margin-doble) var(--contacto-margin) var(--contacto-margin);
+    display: flex;
+    flex-shrink: 0;
+}
+
+.contacto-mapa-iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Formulario arriba, mapa abajo                  */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-contacto {
+        padding: 2rem 0;
+        --contacto-margin: 0;
+        --contacto-margin-doble: 0;
+        --contacto-padding-form: 0 6% 2rem 6%;
+    }
+
+    /* Contenedor: columna apilada */
+    .contacto-contenedor {
+        flex-direction: column;
+        padding: 0 6%;
+        gap: 2rem;
+        align-items: stretch;
+    }
+
+    /* Formulario: sin max-width, sin márgenes */
+    .contacto-form-wrapper {
+        max-width: 100%;
+        margin: 0;
+        padding: var(--contacto-padding-form);
+    }
+
+    /* Mapa: ocupa el 100% de ancho, más panorámico */
+    .contacto-mapa-wrapper {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        margin: 0;
+    }
+
+    /* Fila doble se apila en columna */
+    .form-fila-doble {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* Botón ancho completo para mejor pulsación táctil */
+    .btn-enviar-form {
+        width: 100%;
+        align-self: stretch;
+        padding: 0.9rem 2rem;
+    }
+}
+
+/* ============================================= */
+/* BLOQUE: Footer                                */
+/* ============================================= */
+.footer-weston {
+    background-color: #27a566;
+    width: 100%;
+
+    /* Padding general: separa las subsecciones de los bordes laterales */
+    padding: 0 5%;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --footer-padding-vertical: 3rem;         /* Padding vertical de cada subsección */
+    --footer-gap-grupos: 2rem;                /* Separación entre los 4 grupos (desktop) */
+    --footer-gap-vertical-movil: 2.5rem;      /* Separación vertical entre grupos (móvil) */
+    --footer-icon-size: 0.7rem;               /* Tamaño de los iconos de contacto */
+    --footer-social-size: 2.5rem;             /* Tamaño de los iconos sociales */
+    --footer-font-size: 1rem;               /* Tamaño de letra del footer */
+    --footer-hr-margin-lateral: 1.5rem;       /* Mínimo margin lateral de la HR */
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 1 - Logo                    */
+/* La imagen dicta la altura de esta subsección   */
+/* ============================================= */
+.footer-logo-seccion {
+    width: 100%;
+    padding: var(--footer-padding-vertical) 0;
+    display: flex;
+    justify-content: left;    /* Centrado horizontal del logo */
+    align-items: center;
+}
+
+.footer-logo-img {
+    width: 100%;
+    max-width: 20rem;
+    height: auto;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 2 - 4 grupos proporcionales */
+/* 30% | 30% | 30% | 10%                          */
+/* ============================================= */
+.footer-grupos {
+    display: flex;
+    align-items: flex-start;     /* Alineación superior de los grupos */
+    gap: var(--footer-gap-grupos);
+    width: 100%;
+    padding: var(--footer-padding-vertical) 0;
+}
+
+
+/* --- Grupo 1: Dirección (30%) --- */
+.footer-grupo-direccion {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.footer-direccion {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.5;
+    text-align: left;
+    max-width: 28rem;
+}
+
+/* --- Grupo 2: Contacto (30%) --- */
+.footer-grupo-contacto {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.footer-lista-contacto {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: left;
+    padding-left: 6rem;
+}
+
+.footer-lista-contacto li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.3;
+}
+
+.footer-icono-lista {
+    width: var(--footer-icon-size);
+    height: var(--footer-icon-size);
+    object-fit: contain;
+    /* Convertimos cualquier color del SVG a blanco */
+    filter: brightness(0) invert(1);
+    flex-shrink: 0;
+}
+
+/* --- Grupo 3: Navegación (30%) --- */
+.footer-grupo-nav {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.footer-lista-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+}
+
+.footer-nav-link {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 500;
+    font-size: var(--footer-font-size);
+    line-height: 1.3;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    display: inline-block;
+}
+
+.footer-nav-link:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+}
+
+/* --- Grupo 4: Redes sociales (10%) --- */
+.footer-grupo-social {
+    flex: 0 0 10%;
+    max-width: 10%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.6rem;
+}
+
+.footer-social-link {
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer-social-link:hover {
+    transform: scale(1.15);
+    opacity: 0.85;
+}
+
+.footer-social-link img {
+    width: var(--footer-social-size);
+    height: var(--footer-social-size);
+    object-fit: contain;
+    display: block;
+    /* Convertimos los SVG a blanco puro */
+    filter: brightness(0) invert(1);
+}
+
+/* ============================================= */
+/* BLOQUE: Línea divisoria (HR)                   */
+/* ============================================= */
+.footer-hr {
+    width: calc(100% - (var(--footer-hr-margin-lateral) * 2));
+    margin: 1rem var(--footer-hr-margin-lateral);
+    height: 3px;
+    background-color: var(--color-blanco);
+    border: none;
+    display: block;
+}
+
+/* ============================================= */
+/* BLOQUE: Subsección 3 - Copyright               */
+/* ============================================= */
+.footer-copyright-seccion {
+    width: 100%;
+    padding: 1.5rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-copyright {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    line-height: 1.4;
+}
+
+/* ============================================= */
+/* BLOQUE: Scroll-margin para que la navbar fija  */
+/* no tape las secciones al hacer autoscroll      */
+/* desde los enlaces del footer                   */
+/* ============================================= */
+#hero,
+#nosotros,
+#programas,
+#instalaciones,
+#admisiones {
+    scroll-margin-top: var(--altura-navbar);
+}
+
+/* ============================================= */
+/* BLOQUE: RESPONSIVE MÓVIL (≤ 768px)            */
+/* Grupos apilados en columna                     */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .footer-weston {
+        padding: 0 6%;
+        --footer-padding-vertical: 2rem;
+        --footer-icon-size: 0.85rem;
+        --footer-social-size: 1.3rem;
+    }
+
+    /* Subsección 1: logo más chico */
+    .footer-logo-img {
+        max-width: 14rem;
+    }
+
+    /* Subsección 2: los 4 grupos se apilan verticalmente */
+    .footer-grupos {
+        flex-direction: column;
+        gap: var(--footer-gap-vertical-movil);
+    }
+
+    /* Todos los grupos pasan a 100% de ancho */
+    .footer-grupo-direccion,
+    .footer-grupo-contacto,
+    .footer-grupo-nav,
+    .footer-grupo-social {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* Los iconos sociales ahora se alinean a la izquierda */
+    .footer-grupo-social {
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    /* HR */
+    .footer-hr {
+        margin: 3rem var(--footer-hr-margin-lateral);
+    }
+
+    /* Copyright */
+    .footer-copyright-seccion {
+        padding: 1.5rem 0;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección Hero 1 - Modelo Educativo
+   ============================================= */
+.hero-me {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --hero-me-ancho-contenedor: 35%;         /* Ancho del contenedor izquierdo (deja ver el resto de la imagen) */
+    --hero-me-margin-left: 5%;               /* Separación izquierda para que nunca toque el borde */
+    
+    /* Gaps verticales individuales entre los 3 elementos */
+    --hero-me-gap-sub-titulo: 0.5rem;        /* Separación vertical entre subtítulo y título */
+    --hero-me-gap-titulo-parrafo: 1.8rem;    /* Separación vertical entre título y párrafo */
+
+    /* Tamaños de fuente (rem se adapta solo con el clamp global del html) */
+    --hero-me-fs-subtitulo: 2rem;          /* Font-size del subtítulo */
+    --hero-me-fs-titulo: 4.2rem;             /* Font-size del título */
+    --hero-me-fs-parrafo: 1.6rem;            /* Font-size del párrafo */
+
+    /* Anchos máximos individuales (controlan los saltos de línea) */
+    --hero-me-max-subtitulo: 30rem;          /* Max-width del subtítulo */
+    --hero-me-max-titulo: 38rem;             /* Max-width del título */
+    --hero-me-max-parrafo: 37rem;            /* Max-width del párrafo */
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   (En flujo normal: define la altura de la sección)
+   ============================================= */
+.hero-me-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Overlay y Contenedor (35%)
+   ============================================= */
+.hero-me-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;       /* Centra verticalmente el contenedor */
+    justify-content: flex-start;
+    z-index: 2;
+}
+
+.hero-me-contenedor {
+    width: var(--hero-me-ancho-contenedor);
+    margin-left: var(--hero-me-margin-left);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Los 3 elementos alineados a la izquierda dentro del contenedor */
+    text-align: left;          /* Alineación interna a la izquierda */
+}
+
+/* =============================================
+   BLOQUE: Subtítulo verde
+   ============================================= */
+.hero-me-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--hero-me-fs-subtitulo);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--hero-me-max-subtitulo);
+    margin-bottom: var(--hero-me-gap-sub-titulo);
+}
+
+/* =============================================
+   BLOQUE: Título blanco con "TRANSFORMAR" bold
+   ============================================= */
+.hero-me-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 500;
+    font-size: var(--hero-me-fs-titulo);
+    line-height: 1;
+    text-align: left;
+    max-width: var(--hero-me-max-titulo);
+    margin-bottom: var(--hero-me-gap-titulo-parrafo);
+}
+
+.hero-me-bold {
+    font-weight: 700;
+}
+
+/* =============================================
+   BLOQUE: Párrafo blanco
+   ============================================= */
+.hero-me-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--hero-me-fs-parrafo);
+    line-height: 1.3;
+    text-align: left;
+    max-width: var(--hero-me-max-parrafo);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Mitad derecha de la imagen centrada + capa
+   blanca + contenedor y textos centrados
+   ============================================= */
+@media (max-width: 768px) {
+
+    .hero-me {
+        margin-top: var(--altura-navbar);
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --hero-me-pos-x-movil: 60%;              /* Mueve la imagen en el eje X para centrar la mitad derecha a ojo (0% izq - 100% der) */
+        --hero-me-altura-movil: 70vh;            /* Altura de la sección en móvil */
+        --hero-me-opacidad-capa: 0.7;           /* Opacidad de la capa blanca (0 a 1) */
+        --hero-me-color-texto-movil: var(--color-texto); /* Color para título y párrafo sobre la capa blanca (usa #ffffff si los prefieres blancos) */
+
+        /* Gaps verticales en móvil */
+        --hero-me-gap-sub-titulo: 0.8rem;
+        --hero-me-gap-titulo-parrafo: 1.2rem;
+
+        /* Tamaños de fuente en móvil */
+        --hero-me-fs-subtitulo: 1rem;
+        --hero-me-fs-titulo: 2.2rem;
+        --hero-me-fs-parrafo: 1.05rem;
+
+        /* Anchos máximos en móvil */
+        --hero-me-max-subtitulo: 100%;
+        --hero-me-max-titulo: 100%;
+        --hero-me-max-parrafo: 85%;
+    }
+
+    /* ------------------------------------------------- */
+    /* 1. Imagen centrada en la parte derecha y recortada */
+    /* ------------------------------------------------- */
+    .hero-me-bg {
+        min-height: 30rem;
+        height: var(--hero-me-altura-movil);
+        object-fit: cover;
+        object-position: var(--hero-me-pos-x-movil) center;
+    }
+
+    /* ------------------------------------------------- */
+    /* 2. Capa blanca translúcida encima de la imagen     */
+    /* ------------------------------------------------- */
+    .hero-me::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(54, 99, 167, var(--hero-me-opacidad-capa));
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------- */
+    /* 3. Contenedor centrado horizontal y verticalmente  */
+    /* ------------------------------------------------- */
+    .hero-me-overlay {
+        justify-content: center;
+        z-index: 2;
+    }
+
+    .hero-me-contenedor {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 0%;
+        align-items: center;   /* Elementos centrados dentro del contenedor */
+        text-align: center;
+    }
+
+    /* ------------------------------------------------- */
+    /* 4. Alineación interna justificada-centrada         */
+    /* ------------------------------------------------- */
+    .hero-me-subtitulo {
+        text-align: justify;
+        text-align-last: center;
+        font-weight: 700;
+        font-size: 1.3rem;
+    }
+
+    .hero-me-titulo {
+        text-align: center;
+        font-size: 2.5rem;
+    }
+
+    .hero-me-parrafo {
+        text-align: justify;
+        text-align-last: center;
+        font-weight: 550;
+        font-size: 1.3rem;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 2 - Nuestro Modelo Educativo (UNESCO)
+   ============================================= */
+.seccion-unesco {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --unesco-altura-arriba: 60%;                /* Porcentaje de altura de la mitad 1 (arriba) */
+    --unesco-altura-abajo: calc(100% - var(--unesco-altura-arriba)); /* La mitad 2 toma el resto automáticamente */
+    
+    /* --- Mitad 1 (Arriba - Derecha) --- */
+    --unesco-ancho-derecha: 58%;                /* Ancho que ocupa el contenedor derecho en la mitad 1 */
+    --unesco-padding-derecha: 0 4% 0 4rem;      /* Padding del contenedor derecho (top | right | bottom | left) */
+    
+    /* Variables propias de subtítulo, título y párrafo (Mitad 1) */
+    --unesco-subtitulo-color: var(--color-verde);
+    --unesco-subtitulo-peso: 500;
+    --unesco-subtitulo-fs: 2rem;
+    --unesco-subtitulo-max: 30rem;
+
+    --unesco-titulo-color: #3663a7;
+    --unesco-titulo-peso: 800;
+    --unesco-titulo-fs: 4.3rem;
+    --unesco-titulo-max: 55rem;
+
+    --unesco-parrafo-color: var(--color-texto);
+    --unesco-parrafo-peso: 530;
+    --unesco-parrafo-fs: 1.9rem;
+    --unesco-parrafo-max: 55rem;                /* Controla los saltos de línea del párrafo */
+
+    /* Gaps verticales individuales (Mitad 1) */
+    --unesco-gap-sub-titulo: 0.5rem;            /* Distancia subtítulo ↔ título */
+    --unesco-gap-titulo-parrafo: 3rem;          /* Distancia título ↔ párrafo */
+
+    /* --- Mitad 2 (Abajo - 5 Grupos) --- */
+    --unesco-grupos-margin-lateral: 8%;         /* Margen izquierdo y derecho del arreglo de 5 grupos */
+    --unesco-grupos-gap-horizontal: 7rem;     /* Gap horizontal igual entre los 5 grupos */
+    
+    /* Gaps verticales internos de los grupos */
+    --unesco-gap-icono-titulo: 1rem;            /* Gap vertical entre icono y título del grupo */
+    --unesco-gap-titulo-parrafo-grupo: 1.2rem;  /* Gap vertical entre título y párrafo del grupo */
+    
+    /* Tamaños comunales de icono y fuentes */
+    --unesco-icono-size: 7.5rem;                /* Tamaño comunal de los 5 iconos SVG */
+    --unesco-grupo-titulo-fs: 1.7rem;             /* Font-size comunal de los títulos de grupo */
+    --unesco-grupo-parrafo-fs: 1.2rem;          /* Font-size comunal de los párrafos de grupo */
+
+    /* Max-width INDEPENDIENTE para cada uno de los 5 grupos
+       (El max-width del párrafo determina el ancho total de su grupo) */
+    /* Grupo 1: Aprende a ser */
+    --unesco-g1-titulo-max: 13rem;
+    --unesco-g1-parrafo-max: 13rem;
+
+    /* Grupo 2: Aprender a conocer */
+    --unesco-g2-titulo-max: 13rem;
+    --unesco-g2-parrafo-max: 15rem;
+
+    /* Grupo 3: Aprender a hacer */
+    --unesco-g3-titulo-max: 9rem;
+    --unesco-g3-parrafo-max: 13rem;
+
+    /* Grupo 4: Aprender a vivir juntos */
+    --unesco-g4-titulo-max: 13rem;
+    --unesco-g4-parrafo-max: 12.5rem;
+
+    /* Grupo 5: Transformarse y transformar */
+    --unesco-g5-titulo-max: 13rem;
+    --unesco-g5-parrafo-max: 18rem;
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   (Define la altura en desktop y es la Subsección 1 en móvil)
+   ============================================= */
+.unesco-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Overlay dividido (Arriba / Abajo)
+   ============================================= */
+.unesco-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+/* =============================================
+   BLOQUE: Mitad 1 (Arriba - 60% ajustable)
+   ============================================= */
+.unesco-mitad-arriba {
+    width: 100%;
+    height: var(--unesco-altura-arriba);
+    display: flex;
+    justify-content: flex-end;   /* Empuja el contenedor hacia la derecha */
+    align-items: center;         /* Centra verticalmente dentro de la mitad superior */
+}
+
+.unesco-caja-derecha {
+    width: var(--unesco-ancho-derecha);
+    padding: var(--unesco-padding-derecha);
+    display: flex;
+    align-items: center;
+}
+
+.unesco-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Los 3 elementos alineados a la izquierda a la misma altura */
+    text-align: left;
+}
+
+/* Subtítulo "NUESTRO" */
+.unesco-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--unesco-subtitulo-color);
+    font-weight: var(--unesco-subtitulo-peso);
+    font-size: var(--unesco-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--unesco-subtitulo-max);
+    margin-bottom: var(--unesco-gap-sub-titulo);
+}
+
+/* Título "MODELO EDUCATIVO" (sin saltos de línea) */
+.unesco-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--unesco-titulo-color);
+    font-weight: var(--unesco-titulo-peso);
+    font-size: var(--unesco-titulo-fs);
+    line-height: 1.1;
+    white-space: nowrap;
+    text-align: left;
+    max-width: var(--unesco-titulo-max);
+    margin-bottom: var(--unesco-gap-titulo-parrafo);
+}
+
+/* Párrafo descriptivo */
+.unesco-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--unesco-parrafo-color);
+    font-weight: var(--unesco-parrafo-peso);
+    font-size: var(--unesco-parrafo-fs);
+    line-height: 1.2;
+    text-align: left;
+    max-width: var(--unesco-parrafo-max);
+}
+
+/* =============================================
+   BLOQUE: Mitad 2 (Abajo - 40% ajustable)
+   ============================================= */
+.unesco-mitad-abajo {
+    width: 100%;
+    height: var(--unesco-altura-abajo);
+    display: flex;
+    align-items: center;         /* Centra verticalmente la fila de 5 grupos en la mitad inferior */
+    justify-content: center;
+}
+
+/* =============================================
+   BLOQUE: Arreglo de 5 grupos con Subgrid
+   (Cada columna toma el ancho del max-width de su párrafo)
+   ============================================= */
+.unesco-grupos {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: auto auto auto; /* Fila 1: imagen | Fila 2: título | Fila 3: párrafo */
+    justify-content: center;
+    column-gap: var(--unesco-grupos-gap-horizontal);
+    width: 100%;
+    margin: 0 var(--unesco-grupos-margin-lateral);
+}
+
+.unesco-grupo {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    justify-items: center;       /* Elementos centrados horizontalmente dentro del grupo */
+    align-items: start;          /* Alineados al tope de su respectiva fila vecina */
+    text-align: center;
+}
+
+/* Imagen comunal de cada grupo */
+.unesco-icono {
+    width: var(--unesco-icono-size);
+    height: var(--unesco-icono-size);
+    object-fit: contain;
+    display: block;
+    margin-bottom: var(--unesco-gap-icono-titulo);
+}
+
+/* Título comunal de cada grupo (verde, weight 700) */
+.unesco-grupo-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 700;
+    font-size: var(--unesco-grupo-titulo-fs);
+    line-height: 1.25;
+    text-align: center;
+    width: 100%;
+    margin-bottom: var(--unesco-gap-titulo-parrafo-grupo);
+}
+
+/* Párrafo comunal de cada grupo (color texto, weight 400) */
+.unesco-grupo-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 400;
+    font-size: var(--unesco-grupo-parrafo-fs);
+    line-height: 1.4;
+    text-align: center;
+    width: 100%;
+}
+
+/* --- El max-width del párrafo determina el max-width de su grupo --- */
+.unesco-grupo:nth-child(1) { width: var(--unesco-g1-parrafo-max); max-width: var(--unesco-g1-parrafo-max); }
+.unesco-grupo:nth-child(1) .unesco-grupo-titulo  { max-width: var(--unesco-g1-titulo-max); }
+.unesco-grupo:nth-child(1) .unesco-grupo-parrafo { max-width: var(--unesco-g1-parrafo-max); }
+
+.unesco-grupo:nth-child(2) { width: var(--unesco-g2-parrafo-max); max-width: var(--unesco-g2-parrafo-max); }
+.unesco-grupo:nth-child(2) .unesco-grupo-titulo  { max-width: var(--unesco-g2-titulo-max); }
+.unesco-grupo:nth-child(2) .unesco-grupo-parrafo { max-width: var(--unesco-g2-parrafo-max); }
+
+.unesco-grupo:nth-child(3) { width: var(--unesco-g3-parrafo-max); max-width: var(--unesco-g3-parrafo-max); }
+.unesco-grupo:nth-child(3) .unesco-grupo-titulo  { max-width: var(--unesco-g3-titulo-max); }
+.unesco-grupo:nth-child(3) .unesco-grupo-parrafo { max-width: var(--unesco-g3-parrafo-max); }
+
+.unesco-grupo:nth-child(4) { width: var(--unesco-g4-parrafo-max); max-width: var(--unesco-g4-parrafo-max); }
+.unesco-grupo:nth-child(4) .unesco-grupo-titulo  { max-width: var(--unesco-g4-titulo-max); }
+.unesco-grupo:nth-child(4) .unesco-grupo-parrafo { max-width: var(--unesco-g4-parrafo-max); }
+
+.unesco-grupo:nth-child(5) { width: var(--unesco-g5-parrafo-max); max-width: var(--unesco-g5-parrafo-max); }
+.unesco-grupo:nth-child(5) .unesco-grupo-titulo  { max-width: var(--unesco-g5-titulo-max); }
+.unesco-grupo:nth-child(5) .unesco-grupo-parrafo { max-width: var(--unesco-g5-parrafo-max); }
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   3 subsecciones apiladas:
+   1. Esquina superior derecha de la imagen
+   2. Textos centrados sobre fondo #f4f4f4
+   3. 5 grupos en pila sobre fondo #f4f4f4
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-unesco {
+        display: flex;
+        flex-direction: column;
+        background-color: #f4f4f4;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL (dentro de .seccion-unesco) */
+        --unesco-img-altura-movil: 42vh;          /* Altura visible de la subsección 1 (imagen) */
+        --unesco-img-pos-x-movil: 5%;           /* 100% = derecha | 50% = centro | 0% = izquierda */
+        --unesco-img-pos-y-movil: 0%;             /* 0% = anclada arriba para que solo corte lo de abajo */
+        --unesco-img-zoom-movil: 1.8;             /* Zoom del 50% (usa 2 si quieres el doble exacto para que 50% superior = 42vh) */
+        
+        --unesco-gap-entre-grupos-movil: 2.8rem;  /* Gap vertical entre los 5 grupos apilados */
+        --unesco-gap-icono-titulo: 0.7rem;        /* Gap icono ↔ título en móvil */
+        --unesco-gap-titulo-parrafo-grupo: 0.5rem;/* Gap título ↔ párrafo en móvil */
+
+        /* Ajustes tipográficos en móvil */
+        --unesco-subtitulo-fs: 1rem;
+        --unesco-titulo-fs: 1.8rem;
+        --unesco-parrafo-fs: 1rem;
+        --unesco-parrafo-max: 90%;
+
+        --unesco-gap-sub-titulo: 0.5rem;
+        --unesco-gap-titulo-parrafo: 1.2rem;
+
+        --unesco-icono-size: 5rem;
+        --unesco-grupo-titulo-fs: 1.3rem;
+        --unesco-grupo-parrafo-fs: 1.05rem;
+
+        /* Max-width independientes en móvil (el del párrafo sigue dictando el ancho de cada grupo) */
+        --unesco-g1-titulo-max: 16rem;
+        --unesco-g1-parrafo-max: 17rem;
+        --unesco-g2-titulo-max: 16rem;
+        --unesco-g2-parrafo-max: 17rem;
+        --unesco-g3-titulo-max: 16rem;
+        --unesco-g3-parrafo-max: 17rem;
+        --unesco-g4-titulo-max: 16rem;
+        --unesco-g4-parrafo-max: 17rem;
+        --unesco-g5-titulo-max: 16rem;
+        --unesco-g5-parrafo-max: 17rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1: Mitad superior con zoom + corte inf */
+    /* ------------------------------------------------- */
+    .unesco-bg {
+        width: 100%;
+        height: var(--unesco-img-altura-movil);
+        min-height: 18rem;
+        object-fit: cover;
+        object-position: var(--unesco-img-pos-x-movil) var(--unesco-img-pos-y-movil);
+        /* Ancla el zoom arriba para que todo el excedente crezca hacia abajo y se recorte */
+        transform-origin: var(--unesco-img-pos-x-movil) top;
+        transform: scale(var(--unesco-img-zoom-movil));
+        clip-path: inset(0);
+    }
+
+    /* Asegura que las subsecciones 2 y 3 queden siempre por encima del recorte */
+    .unesco-overlay {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2: Mitad 1 con fondo #f4f4f4           */
+    /* ------------------------------------------------- */
+    .unesco-mitad-arriba {
+        height: auto;
+        background-color: #f4f4f4;
+        padding: 3rem 6% 1.5rem 6%;
+        justify-content: center;
+    }
+
+    .unesco-caja-derecha {
+        width: 100%;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .unesco-textos {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .unesco-subtitulo {
+        text-align: center;
+        max-width: 100%;
+        font-weight: 600;
+    }
+
+    .unesco-titulo {
+        text-align: center;
+        white-space: normal; /* Permite partir línea si la pantalla es muy angosta */
+        max-width: 100%;
+    }
+
+    .unesco-parrafo {
+        text-align: justify;
+        text-align-last: center; /* Centrado justificado */
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 3: Mitad 2 con fondo #f4f4f4 y pila    */
+    /* ------------------------------------------------- */
+    .unesco-mitad-abajo {
+        height: auto;
+        background-color: #f4f4f4;
+        padding: 2rem 6% 4rem 6%;
+    }
+
+    .unesco-grupos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--unesco-gap-entre-grupos-movil);
+        margin: 0;
+        width: 100%;
+    }
+
+    .unesco-grupo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 3 - Desarrolla al Alumno Inteligente (Habilidades)
+   ============================================= */
+.seccion-habilidades {
+    background-color: #ffffff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 10rem 0;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --habilidades-padding-seccion: 6rem 0;      /* Padding vertical de toda la sección */
+    --habilidades-ancho-izq: 55%;               /* Porcentaje de ancho de la mitad izquierda */
+    --habilidades-ancho-der: calc(100% - var(--habilidades-ancho-izq)); /* La mitad derecha toma el resto */
+
+    /* --- Mitad Izquierda (Textos en pila) --- */
+    --habilidades-padding-izq: 0 2rem 0 7rem;     /* Padding de la mitad izquierda (top | right | bottom | left) */
+    
+    /* Gaps verticales individuales (Mitad Izquierda) */
+    --habilidades-gap-sub-titulo: 0.8rem;       /* Distancia subtítulo ↔ título */
+    --habilidades-gap-titulo-parrafo: 2.2rem;   /* Distancia título ↔ párrafo */
+
+    /* Tamaños y anchos máximos independientes (Mitad Izquierda) */
+    --habilidades-subtitulo-fs: 2.1rem;
+    --habilidades-subtitulo-max: 45rem;
+
+    --habilidades-titulo-fs: 3.6rem;
+    --habilidades-inteligente-fs: 4.7rem;
+    --habilidades-titulo-max: 65rem;
+
+    --habilidades-parrafo-fs: 2.05rem;
+    --habilidades-parrafo-max: 65rem;
+
+    /* --- Mitad Derecha (Matriz 2x3 con variables comunales) --- */
+    --habilidades-padding-der: 0 8% 0 2rem;     /* Padding de la mitad derecha */
+    --habilidades-matriz-gap-col: 3.5rem;         /* Gap horizontal entre las 3 columnas de la matriz */
+    --habilidades-matriz-gap-row: 3rem;       /* Gap vertical entre las 2 filas de la matriz */
+    
+    --habilidades-item-ancho: 12rem;            /* Ancho comunal de los 6 elementos de la matriz */
+    --habilidades-item-gap-vertical: 0.5rem;    /* Gap vertical ajustable entre imagen y texto */
+    --habilidades-icono-size: 8rem;           /* Tamaño comunal de los 6 iconos SVG */
+    --habilidades-nombre-fs: 2rem;            /* Font-size comunal de los títulos de la matriz */
+}
+
+/* =============================================
+   BLOQUE: Mitad Izquierda - Contenedor centrado
+   ============================================= */
+.habilidades-mitad-izq {
+    width: var(--habilidades-ancho-izq);
+    padding: var(--habilidades-padding-izq);
+    display: flex;
+    justify-content: center;     /* Contenedor centrado en su mitad */
+    align-items: center;
+    padding-top: var(--habilidades-padding-seccion);
+    padding-bottom: var(--habilidades-padding-seccion);
+}
+
+.habilidades-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Alineados a la misma altura izquierda */
+    text-align: left;            /* Alineación interna a la izquierda */
+}
+
+/* Subtítulo verde */
+.habilidades-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--habilidades-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--habilidades-subtitulo-max);
+    margin-bottom: var(--habilidades-gap-sub-titulo);
+}
+
+/* Título azul (weight 800 general + 900 en "INTELIGENTE") */
+.habilidades-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 800;
+    font-size: var(--habilidades-titulo-fs);
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--habilidades-titulo-max);
+    margin-bottom: var(--habilidades-gap-titulo-parrafo);
+}
+
+.habilidades-bold {
+    font-weight: 800;
+    font-size: var(--habilidades-inteligente-fs);
+    line-height: 1;
+}
+
+/* Párrafo descriptivo */
+.habilidades-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 530;
+    font-size: var(--habilidades-parrafo-fs);
+    line-height: 1.3;
+    text-align: left;
+    max-width: var(--habilidades-parrafo-max);
+}
+
+/* =============================================
+   BLOQUE: Mitad Derecha - Matriz 2x3 (2 filas x 3 cols)
+   ============================================= */
+.habilidades-mitad-der {
+    width: var(--habilidades-ancho-der);
+    padding: var(--habilidades-padding-der);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: var(--habilidades-padding-seccion);
+    padding-bottom: var(--habilidades-padding-seccion);
+}
+
+.habilidades-matriz {
+    display: grid;
+    grid-template-columns: repeat(3, var(--habilidades-item-ancho));
+    grid-template-rows: repeat(2, auto);
+    column-gap: var(--habilidades-matriz-gap-col);
+    row-gap: var(--habilidades-matriz-gap-row);
+    justify-content: center;
+    align-items: start;          /* Misma altura vertical para los elementos de cada fila */
+}
+
+/* Cada celda de la matriz */
+.habilidad-item {
+    width: var(--habilidades-item-ancho);
+    display: flex;
+    flex-direction: column;
+    align-items: center;         /* Imagen y texto centrados horizontalmente en su espacio */
+    justify-content: flex-start;
+    text-align: center;
+    gap: var(--habilidades-item-gap-vertical);
+}
+
+/* Icono comunal */
+.habilidad-icono {
+    width: var(--habilidades-icono-size);
+    height: var(--habilidades-icono-size);
+    object-fit: contain;
+    display: block;
+}
+
+/* Título comunal (Montserrat azul, weight 500) */
+.habilidad-nombre {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 750;
+    font-size: var(--habilidades-nombre-fs);
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   2 secciones apiladas con fondo blanco:
+   1. Mitad izquierda arriba con textos centrados
+   2. Los 6 elementos de la matriz en pila debajo
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-habilidades {
+        flex-direction: column;
+        background-color: #ffffff;
+        margin: 1rem 0;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --habilidades-subtitulo-fs: 1.5rem;
+        --habilidades-titulo-fs: 1.8rem;
+        --habilidades-parrafo-fs: 1.05rem;
+        --habilidades-parrafo-max: 90%;
+
+        --habilidades-gap-sub-titulo: 0.5rem;
+        --habilidades-gap-titulo-parrafo: 1.2rem;
+
+        --habilidades-item-ancho: 14rem;
+        --habilidades-icono-size: 7rem;
+        --habilidades-nombre-fs: 1.35rem;
+        --habilidades-item-gap-vertical: 0.8rem;
+        --habilidades-pila-gap-movil: 2.5rem;    /* Separación vertical entre los 6 elementos en pila */
+        --habilidades-titulo-fs: 1.8rem;
+        --habilidades-inteligente-fs: 2.2rem;    /* ⬅ Tamaño de "INTELIGENTE" en móvil */
+        
+        
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1 (Arriba): Textos centrados           */
+    /* ------------------------------------------------- */
+    .habilidades-mitad-izq {
+        width: 100%;
+        padding: 3.5rem 6% 2rem 6%;
+        justify-content: center;
+    }
+
+    .habilidades-textos {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .habilidades-subtitulo {
+        text-align: center;
+        max-width: 100%;
+        font-weight: 600;
+    }
+
+    .habilidades-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .habilidades-parrafo {
+        text-align: justify;
+        text-align-last: center;
+        br {
+            display: none;
+        }
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2 (Abajo): 6 elementos en pila         */
+    /* ------------------------------------------------- */
+    .habilidades-mitad-der {
+        width: 100%;
+        padding: 1.5rem 6% 4rem 6%;
+        justify-content: center;
+    }
+
+    .habilidades-matriz {
+        display: grid;
+        grid-template-columns: repeat(2, auto); /* 3 columnas en móvil */
+        grid-template-rows: repeat(3, auto);    /* 2 filas */
+        justify-content: center;
+        column-gap: 0rem;                       /* Gap horizontal entre columnas en móvil */
+        row-gap: var(--habilidades-pila-gap-movil); /* Gap vertical entre filas */
+        width: 100%;
+    }
+
+    
+}
+
+/* =============================================
+   BLOQUE: Sección 4 - La Experiencia WIA (Currícula)
+   ============================================= */
+.seccion-curricula {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 0rem 0 7rem 0;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --curricula-gap-sub-titulo: 1.5rem;         
+    --curricula-gap-titulo-cards: 8rem;         
+    --curricula-cards-gap: 2.5rem;              
+    --curricula-margin-lateral: 8%;             
+
+    --curricula-subtitulo-fs: 2.1rem;
+    --curricula-titulo-fs: 3.8rem;
+    --curricula-titulo-max: 65rem;
+
+    /* --- Estructura interna de cada Card --- */
+    --curricula-card-ancho: 1fr;                
+    --curricula-card-altura: 39rem;             
+    
+    --curricula-card-icono-size: 8rem;          
+    --curricula-card-titulo-fs: 2rem;         
+    --curricula-card-titulo-max: 24rem;        
+    --curricula-card-gap-icono-titulo: 1rem; 
+    --curricula-card-gap-titulo-lista: 1rem;  
+    --curricula-card-gap-lista-items: 0.5rem;   
+    --curricula-lista-fs: 1.4rem;               
+    --curricula-lista-max: 24rem;               
+}
+
+/* Subtítulo y Título principal */
+.curricula-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--curricula-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin-bottom: var(--curricula-gap-sub-titulo);
+}
+
+.curricula-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 800;
+    font-size: var(--curricula-titulo-fs);
+    line-height: 1;
+    text-align: center;
+    max-width: var(--curricula-titulo-max);
+    margin: 0 auto var(--curricula-gap-titulo-cards) auto;
+    padding: 0 1rem;
+}
+
+/* Contenedor de las 3 Cards (Grid) */
+.curricula-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, var(--curricula-card-ancho));
+    column-gap: var(--curricula-cards-gap);
+    margin: 0 var(--curricula-margin-lateral);
+    align-items: stretch;
+}
+
+/* Estructura base de cada Card (Sin capa oscura) */
+.curricula-card {
+    position: relative;
+    width: 100%;
+    height: var(--curricula-card-altura);
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen de fondo de la card */
+.curricula-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 1;
+}
+
+/* Mitad Superior: Imagen SVG centrada exactamente en la mitad de arriba */
+.curricula-card-icono {
+    position: relative;
+    z-index: 2;
+    width: var(--curricula-card-icono-size);
+    height: var(--curricula-card-icono-size);
+    object-fit: contain;
+    display: block;
+    margin-top: 15.5rem; /* Posiciona el icono perfectamente en la mitad superior */
+}
+
+/* Mitad Inferior: Contenedor para título y lista centrados horizontalmente */
+.curricula-card-inferior {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+    text-align: center;
+}
+
+/* Título de la card (Montserrat azul, weight 600, sin fondo blanco) */
+.curricula-card-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 700;
+    font-size: var(--curricula-card-titulo-fs);
+    line-height: 1.2;
+    text-align: center;
+    max-width: var(--curricula-card-titulo-max);
+    margin-bottom: var(--curricula-card-gap-titulo-lista);
+    margin-top: var(--curricula-card-gap-icono-titulo);
+}
+
+/* Lista con viñetas check.svg (sin fondos blancos individuales) */
+.curricula-lista {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--curricula-card-gap-lista-items);
+    align-items: flex-start;
+    text-align: left;
+    max-width: var(--curricula-lista-max);
+    width: auto;
+}
+
+.curricula-lista li {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 400;
+    font-size: var(--curricula-lista-fs);
+    line-height: 1.35;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    text-align: left;
+}
+
+
+/* Viñeta check.svg personalizada antes de cada texto */
+.curricula-lista li::before {
+    content: '';
+    display: inline-block;
+    width: 1.1rem;
+    height: 1.1rem;
+    background-image: url('imgs/check.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+/* =============================================
+   BLOQUE: ANIMACIONES DE ESCRITORIO
+   Escalonadas de izquierda a derecha (Stagger)
+   con aparición individual de abajo hacia arriba
+   ============================================= */
+.seccion-curricula .curricula-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+.seccion-curricula .curricula-card:nth-child(2) {
+    transition-delay: 0.25s;
+}
+.seccion-curricula .curricula-card:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Cards en pila vertical + Animaciones hacia el centro
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-curricula {
+        padding: 2rem 0 5rem 0;
+
+        --curricula-subtitulo-fs: 1.2rem;
+        --curricula-titulo-fs: 1.8rem;
+        --curricula-gap-sub-titulo: 0.5rem;
+        --curricula-gap-titulo-cards: 2.5rem;
+        
+
+        --curricula-card-altura: 28rem;         
+        --curricula-pila-gap: 2rem;             
+        --curricula-margin-lateral: 6%;         
+
+        --curricula-card-icono-size: 6rem;
+        --curricula-card-titulo-fs: 1.35rem;
+        --curricula-lista-fs: 1.05rem;
+
+        --curricula-card-gap-icono-titulo: -1rem
+    }
+
+    .curricula-titulo {
+        max-width: 100%;
+        padding: 0 1rem;
+        
+    }
+
+    .curricula-contenedor {
+        display: flex;
+        flex-direction: column;
+        gap: var(--curricula-pila-gap);
+        margin: 0 var(--curricula-margin-lateral);
+    }
+
+    .curricula-card {
+        width: 100%;
+    }
+
+    .curricula-card-icono {
+        margin-top: 11rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* ANIMACIONES EN MÓVIL (Hacia el centro)              */
+    /* Card 1 y 3 entran desde la izquierda (-> centro)  */
+    /* Card 2 entra desde la derecha (<- centro)         */
+    /* Sin alterar su posición final centrada            */
+    /* ------------------------------------------------- */
+    .seccion-curricula .curricula-card:nth-child(1) {
+        transform: translateX(-40px);
+        transition-delay: 0.1s;
+    }
+
+    .seccion-curricula .curricula-card:nth-child(2) {
+        transform: translateX(40px);
+        transition-delay: 0.25s;
+    }
+
+    .seccion-curricula .curricula-card:nth-child(3) {
+        transform: translateX(-40px);
+        transition-delay: 0.4s;
+    }
+
+    /* Cuando el IntersectionObserver añade .visible, restablece la posición x a 0 (centrada) */
+    .seccion-curricula .curricula-card.visible {
+        transform: translateX(0);
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 5 - Nuestro Código de Honor
+   ============================================= */
+.seccion-transformar {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --transformar-split-izq: 50%;               /* Porcentaje de ancho de la mitad izquierda (vacía para ver la foto) */
+    --transformar-split-der: calc(100% - var(--transformar-split-izq)); /* La derecha toma el resto automáticamente */
+    
+    --transformar-padding-der: 0 6% 0 4rem;     /* Padding del contenedor derecho (top | right | bottom | left) */
+    
+    /* Gaps verticales */
+    --transformar-gap-sub-titulo: 0rem;       /* Distancia subtítulo ↔ título */
+    --transformar-gap-titulo-parrafo: 1rem;   /* Distancia título ↔ párrafo */
+
+    /* Tamaños y anchos máximos independientes */
+    --transformar-subtitulo-fs: 2rem;
+    --transformar-subtitulo-max: 30rem;
+
+    --transformar-titulo-fs: 4rem;
+    --transformar-titulo-max: 30rem;
+
+    --transformar-parrafo-fs: 1.8rem;
+    --transformar-parrafo-max: 44rem;
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   (En flujo normal: define la altura de la sección)
+   ============================================= */
+.transformar-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Contenedor dividido
+   ============================================= */
+.transformar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 2;
+}
+
+/* Mitad izquierda (vacía para que se vea el fondo) */
+.transformar-mitad-izq {
+    width: var(--transformar-split-izq);
+    height: 100%;
+}
+
+/* Mitad derecha (contiene los textos) */
+.transformar-mitad-der {
+    width: var(--transformar-split-der);
+    padding: var(--transformar-padding-der);
+    display: flex;
+    align-items: center;         /* Centra los textos verticalmente */
+}
+
+.transformar-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Los 3 elementos alineados a la izquierda */
+    text-align: left;            /* Alineación interna a la izquierda */
+}
+
+/* =============================================
+   BLOQUE: Textos (Subtítulo, Título, Párrafo)
+   ============================================= */
+
+/* Subtítulo verde (Weight 400) */
+.transformar-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--transformar-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--transformar-subtitulo-max);
+    margin-bottom: var(--transformar-gap-sub-titulo);
+}
+
+/* Título blanco (Weight 500 general) */
+.transformar-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 500;
+    font-size: var(--transformar-titulo-fs);
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--transformar-titulo-max);
+    margin-bottom: var(--transformar-gap-titulo-parrafo);
+}
+
+/* Palabra "TRANSFORMAR" (Weight 700) */
+.transformar-bold {
+    font-weight: 700;
+}
+
+/* Párrafo blanco (Weight 400) */
+.transformar-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--transformar-parrafo-fs);
+    line-height: 1.2;
+    text-align: left;
+    max-width: var(--transformar-parrafo-max);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   2 secciones: Imagen arriba encuadrada al centro, 
+   fondo azul abajo con textos centrados
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-transformar {
+        display: flex;
+        flex-direction: column;
+        background-color: #3663a7;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --transformar-img-altura-movil: 55vh;       /* Altura de la imagen en móvil */
+        --transformar-img-pos-x-movil: 0%;         /* Permite ajustar qué parte de la imagen se ve (25% enfoca la mitad izquierda original) */
+        
+        --transformar-subtitulo-fs: 1rem;
+        --transformar-titulo-fs: 1.9rem;
+        --transformar-parrafo-fs: 1.05rem;
+        --transformar-parrafo-max: 95%;
+
+        --transformar-gap-sub-titulo: 0.5rem;
+        --transformar-gap-titulo-parrafo: 1.2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1 (Arriba): Imagen encuadrada          */
+    /* ------------------------------------------------- */
+    .transformar-bg {
+        width: 100%;
+        height: var(--transformar-img-altura-movil);
+        min-height: 16rem;
+        object-fit: cover;
+        object-position: var(--transformar-img-pos-x-movil) center;
+    }
+
+    /* El overlay pasa a flujo normal y se vuelve la Subsección 2 */
+    .transformar-overlay {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Ocultamos la mitad izquierda vacía en móvil */
+    .transformar-mitad-izq {
+        display: none;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2 (Abajo): Fondo azul y textos         */
+    /* ------------------------------------------------- */
+    .transformar-mitad-der {
+        width: 100%;
+        padding: 3rem 6% 4rem 6%;
+        background-color: #3663a7;
+        justify-content: center;
+    }
+
+    .transformar-textos {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .transformar-subtitulo {
+        text-align: center;
+        max-width: 100%;
+        font-weight: 650;
+        font-size: 1.5rem;
+    }
+
+    .transformar-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .transformar-parrafo {
+        text-align: justify;
+        text-align-last: center; /* Alineación justificada-centrada */
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 6 - Lo que nos hace únicos
+   ============================================= */
+.seccion-unicos {
+    background-color: #ffffff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0rem;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --unicos-padding-seccion: 7rem 0;           /* Padding vertical de la sección */
+    --unicos-split-izq: 52%;                    /* Porcentaje de ancho de la mitad izquierda */
+    --unicos-split-der: calc(100% - var(--unicos-split-izq)); /* La derecha toma el resto */
+    
+    --unicos-padding-izq: 0 4rem 0 6%;          /* Padding contenedor izquierdo */
+    --unicos-padding-der: 0 8% 0 2rem;          /* Padding contenedor derecho */
+
+    --unicos-gap-sub-titulo: 0.8rem;            /* Separación subtítulo ↔ título */
+
+    /* Tamaños y max-widths independientes */
+    --unicos-subtitulo-fs: 2rem;
+    --unicos-subtitulo-max: 45rem;
+
+    --unicos-titulo-fs: 3.5rem;
+    --unicos-titulo-max: 50rem;
+
+    --unicos-parrafo-fs: 1.35rem;
+    --unicos-parrafo-max: 42rem;
+}
+
+/* =============================================
+   BLOQUE: Mitad Izquierda (Textos apilados)
+   ============================================= */
+.unicos-mitad-izq {
+    width: var(--unicos-split-izq);
+    padding: var(--unicos-padding-izq);
+    display: flex;
+    justify-content: flex-start;     /* Contenedor centrado en su mitad */
+    align-items: center;
+    padding-top: var(--unicos-padding-seccion);
+    padding-bottom: var(--unicos-padding-seccion);
+}
+
+.unicos-textos-izq {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Alineación a la izquierda */
+    text-align: left;
+}
+
+/* Subtítulo verde (Weight 400) */
+.unicos-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 450;
+    font-size: var(--unicos-subtitulo-fs);
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: var(--unicos-subtitulo-max);
+    margin-bottom: var(--unicos-gap-sub-titulo);
+}
+
+/* Título azul (Weight 700) */
+.unicos-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 750;
+    font-size: var(--unicos-titulo-fs);
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--unicos-titulo-max);
+}
+
+/* =============================================
+   BLOQUE: Mitad Derecha (Párrafo)
+   ============================================= */
+.unicos-mitad-der {
+    width: var(--unicos-split-der);
+    padding: var(--unicos-padding-der);
+    display: flex;
+    justify-content: flex-start; /* Párrafo alineado a la izquierda de su mitad */
+    align-items: center;
+    padding-top: var(--unicos-padding-seccion);
+    padding-bottom: var(--unicos-padding-seccion);
+}
+
+/* Párrafo descriptivo (Weight 500) */
+.unicos-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 500;
+    font-size: var(--unicos-parrafo-fs);
+    line-height: 1.2;
+    text-align: left;
+    max-width: var(--unicos-parrafo-max);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Pila de textos centrados + Animaciones verticales
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-unicos {
+        flex-direction: column;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --unicos-subtitulo-fs: 1rem;
+        --unicos-titulo-fs: 1.8rem;
+        --unicos-parrafo-fs: 1.1rem;
+        --unicos-parrafo-max: 90%;
+        --unicos-gap-sub-titulo: 0.5rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1 (Arriba): Mitad Izquierda            */
+    /* ------------------------------------------------- */
+    .unicos-mitad-izq {
+        width: 100%;
+        padding: 4rem 6% 1.5rem 6%;
+    }
+
+    .unicos-textos-izq {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .unicos-subtitulo {
+        text-align: center;
+        max-width: 100%;
+        font-weight: 600;
+    }
+
+    .unicos-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2 (Abajo): Mitad Derecha (Párrafo)     */
+    /* ------------------------------------------------- */
+    .unicos-mitad-der {
+        width: 100%;
+        padding: 0.5rem 6% 4rem 6%;
+        justify-content: center;
+    }
+
+    .unicos-parrafo {
+        text-align: justify;
+        text-align-last: center;
+    }
+
+    /* ------------------------------------------------- */
+    /* CONVERSIÓN DE ANIMACIONES (Horizontal a Vertical) */
+    /* ------------------------------------------------- */
+    .seccion-unicos .anim-fade-right,
+    .seccion-unicos .anim-fade-left {
+        transform: translateY(30px); /* Comportamiento idéntico a .anim-fade-up */
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 7 - Características y ventajas (3 cards)
+   ============================================= */
+.seccion-caracteristicas {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 1rem 0 5rem 0;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --caract-margin-lateral: 8%;                /* Margen lateral (izquierdo card1, derecho card3) */
+    --caract-cards-gap: 1.5rem;                 /* Gap horizontal entre cards (menor al margen lateral) */
+    
+    --caract-card-padding: 1.5rem 2.5rem 4rem 2rem; /* Padding interno de cada card (top | right | bottom | left) */
+    
+    /* Gaps verticales internos (comunes para el subgrid) */
+    --caract-gap-icono-titulo: 1.5rem;          /* Separación icono ↔ título */
+    --caract-gap-titulo-parrafo: 1.5rem;          /* Separación título ↔ párrafo */
+    --caract-gap-parrafo-lista: 2rem;           /* Separación párrafo ↔ lista */
+    
+    --caract-icono-size: 7rem;                /* Tamaño de las imágenes superiores */
+    
+    /* Tipografías y Max-widths */
+    --caract-titulo-fs: 1.6rem;
+    --caract-titulo-max: 22rem;
+
+    --caract-parrafo-fs: 1.3rem;
+    --caract-parrafo-max: 22rem;
+
+    --caract-lista-fs: 1.15rem;
+    --caract-lista-max: 20rem;
+}
+
+/* =============================================
+   BLOQUE: Contenedor Grid (3 columnas)
+   ============================================= */
+.caracteristicas-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto auto auto; /* 4 filas: Imagen | Título | Párrafo | Lista */
+    column-gap: var(--caract-cards-gap);
+    margin: 0 var(--caract-margin-lateral);
+    align-items: stretch;
+}
+
+/* =============================================
+   BLOQUE: Cada Card (Subgrid para alineación perfecta)
+   ============================================= */
+.caract-card {
+    background-color: #f4f4f4;
+    border-radius: 1.5rem;
+    padding: var(--caract-card-padding);
+    
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    row-gap: 0; /* El subgrid hereda el gap, pero usamos margin-bottom en los elementos para mejor control manual */
+    
+    justify-items: start;        /* Todos los elementos alineados a la izquierda de la card */
+    align-items: start;          /* Alineados al borde superior de su respectiva fila */
+}
+
+/* =============================================
+   BLOQUE: Elementos internos de las cards
+   ============================================= */
+
+/* Imagen superior */
+.caract-icono {
+    width: var(--caract-icono-size);
+    height: var(--caract-icono-size);
+    object-fit: contain;
+    display: block;
+    margin-bottom: var(--caract-gap-icono-titulo);
+}
+
+
+
+/* Título azul (Weight 600) */
+.caract-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 600;
+    font-size: var(--caract-titulo-fs);
+    line-height: 1.25;
+    text-align: left;
+    max-width: var(--caract-titulo-max);
+    margin-bottom: var(--caract-gap-titulo-parrafo);
+}
+
+/* Párrafo (Weight 400) */
+.caract-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 400;
+    font-size: var(--caract-parrafo-fs);
+    line-height: 1.45;
+    text-align: left;
+    max-width: var(--caract-parrafo-max);
+    margin-bottom: var(--caract-gap-parrafo-lista);
+}
+
+/* =============================================
+   BLOQUE: Lista centrada horizontalmente
+   pero con elementos alineados a la izquierda
+   ============================================= */
+.caract-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: 100%;
+    max-width: var(--caract-lista-max);
+    
+    /* Esto centra todo el bloque de la lista dentro de la card */
+    margin-left: auto;
+    margin-right: auto;
+    align-items: flex-start;     /* Elementos internos a la izquierda */
+}
+
+.caract-lista li {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 400;
+    font-size: var(--caract-lista-fs);
+    line-height: 1.3;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 0rem;
+}
+
+/* ------------------------------------------------- */
+/* Viñeta "check.svg" EXCLUSIVA para la primera card */
+/* (Se activa mediante la clase .caract-lista-check) */
+/* ------------------------------------------------- */
+.caract-lista-check li::before {
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-image: url('imgs/check.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+    margin-top: 0.2rem; /* Ajuste óptico vertical para alinearlo con el texto */
+    margin-right: 0.2rem;
+}
+
+
+/* ------------------------------------------------- */
+/* Ajuste exclusivo para que la foto de la Card 1    */
+/* compense visualmente su altura frente a los SVG   */
+/* ------------------------------------------------- */
+.caract-card:nth-child(1) .caract-icono {
+    width: auto;
+    height: 6.5rem;        /* ⬅ Sube este valor hasta que se vea igual de alta a ojo */
+    object-fit: cover;   /* Cubre el área para evitar espacios vacíos */
+    border-radius: 0.5rem; /* Opcional: un ligero borde redondeado a la foto */
+    padding-top: 2rem;
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Cards apiladas en columna, el subgrid se desactiva
+   para fluir naturalmente
+   ============================================= */
+@media (max-width: 768px) {
+    .seccion-caracteristicas {
+        padding: 1rem 0 5rem 0;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --caract-margin-lateral: 6%;
+        --caract-pila-gap-movil: 2.5rem;        /* Separación vertical entre cards apiladas */
+        
+        --caract-icono-size: 4.5rem;
+        --caract-titulo-fs: 1.4rem;
+        --caract-parrafo-fs: 1.15rem;
+        --caract-lista-fs: 1.05rem;
+    }
+
+    .caracteristicas-contenedor {
+        display: flex;
+        flex-direction: column;
+        gap: var(--caract-pila-gap-movil);
+        margin: 0 var(--caract-margin-lateral);
+    }
+
+    .caract-card {
+        /* Desactivamos el subgrid para que apile sus propios elementos */
+        display: flex;
+        flex-direction: column;
+        padding: 2.5rem 1.5rem 3rem 1.5rem;
+    }
+
+    /* Anchos máximos al 100% en celular */
+    .caract-titulo,
+    .caract-parrafo,
+    .caract-lista {
+        max-width: 100%;
+    }
+
+    /* Ajuste de foto Card 1 en móvil */
+    .caract-card:nth-child(1) .caract-icono {
+        height: 6rem;   /* ⬅ Sube o baja a ojo para el celular */
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 8 - El futuro comienza
+   ============================================= */
+.seccion-futuro {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --futuro-split-izq: 65%;                    /* Porcentaje de ancho de la mitad izquierda (contiene textos) */
+    --futuro-split-der: calc(100% - var(--futuro-split-izq)); /* La derecha toma el resto (vacía para ver la foto) */
+    
+    --futuro-padding-izq: 0 4rem 0 8%;          /* Padding del contenedor izquierdo (top | right | bottom | left) */
+    
+    /* Gaps verticales */
+    --futuro-gap-titulo-parrafo: 1.5rem;        /* Distancia título ↔ párrafo */
+    --futuro-gap-parrafo-btn: 4rem;           /* Distancia párrafo ↔ botón */
+
+    /* Tamaños y anchos máximos independientes */
+    --futuro-titulo-fs: 3.3rem;
+    --futuro-titulo-max: 42rem;
+
+    --futuro-parrafo-fs: 1.55rem;
+    --futuro-parrafo-max: 40rem;
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   ============================================= */
+.futuro-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Contenedor dividido
+   ============================================= */
+.futuro-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 2;
+}
+
+/* Mitad izquierda (contiene los textos) */
+.futuro-mitad-izq {
+    width: var(--futuro-split-izq);
+    padding: var(--futuro-padding-izq);
+    display: flex;
+    align-items: center;         /* Centra los textos verticalmente dentro de la sección */
+}
+
+.futuro-textos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     /* Los 3 elementos alineados a la izquierda */
+    text-align: left;            /* Alineación interna a la izquierda */
+}
+
+/* Mitad derecha (vacía para que se vea el fondo) */
+.futuro-mitad-der {
+    width: var(--futuro-split-der);
+    height: 100%;
+}
+
+/* =============================================
+   BLOQUE: Textos y Botón
+   ============================================= */
+
+/* Título blanco (Weight 700) */
+.futuro-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 800;
+    font-size: var(--futuro-titulo-fs);
+    line-height: 1;
+    text-align: left;
+    max-width: var(--futuro-titulo-max);
+    margin-bottom: var(--futuro-gap-titulo-parrafo);
+}
+
+/* Párrafo blanco (Weight 400) */
+.futuro-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 400;
+    font-size: var(--futuro-parrafo-fs);
+    line-height: 1.45;
+    text-align: left;
+    max-width: var(--futuro-parrafo-max);
+    margin-bottom: var(--futuro-gap-parrafo-btn);
+}
+
+/* Botón Verde (Weight 500) */
+.futuro-btn {
+    display: inline-block;
+    background-color: var(--color-verde);
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 0.8rem 4rem;
+    border-radius: 50rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative;     /* ⬅ Agrega esto */
+    top: 1.2rem;              /* ⬅ Aumenta este valor para bajarlo más sin empujar los textos hacia arriba */
+}
+
+.futuro-btn:hover {
+    background-color: #1f8a54;
+    transform: scale(1.03);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   2 secciones: Imagen arriba encuadrada al centro, 
+   fondo azul abajo con textos centrados
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-futuro {
+        display: flex;
+        flex-direction: column;
+        background-color: #0284d0;
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --futuro-img-altura-movil: 45vh;            /* Altura de la imagen en móvil */
+        --futuro-img-pos-x-movil: 80%;              /* Permite encuadrar a la derecha para ver a los niños */
+        
+        --futuro-titulo-fs: 1.85rem;
+        --futuro-parrafo-fs: 1.3rem;
+        --futuro-parrafo-max: 95%;
+
+        --futuro-gap-titulo-parrafo: 1.2rem;
+        --futuro-gap-parrafo-btn: 2rem;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 1 (Arriba): Imagen encuadrada          */
+    /* ------------------------------------------------- */
+    .futuro-bg {
+        width: 100%;
+        height: var(--futuro-img-altura-movil);
+        min-height: 18rem;
+        object-fit: cover;
+        object-position: var(--futuro-img-pos-x-movil) center;
+    }
+
+    /* El overlay pasa a flujo normal y se vuelve la Subsección 2 */
+    .futuro-overlay {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Ocultamos la mitad derecha vacía en móvil */
+    .futuro-mitad-der {
+        display: none;
+    }
+
+    /* ------------------------------------------------- */
+    /* Subsección 2 (Abajo): Fondo azul y textos         */
+    /* ------------------------------------------------- */
+    .futuro-mitad-izq {
+        width: 100%;
+        padding: 3.5rem 6% 4.5rem 6%;
+        background-color: #0284d0;
+        justify-content: center;
+    }
+
+    .futuro-textos {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .futuro-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .futuro-parrafo {
+        text-align: justify;
+        text-align-last: center; /* Alineación justificada-centrada */
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 404 (Página no encontrada)
+   ============================================= */
+.seccion-404 {
+    position: relative;
+    width: 100%;
+    /* Ocupa toda la pantalla visible descontando la altura de la navbar */
+    min-height: calc(100vh - var(--altura-navbar));
+    margin-top: var(--altura-navbar);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Capa 1: Imagen de fondo */
+.bg-404 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Capa 2: Filtro blanco al 90% para que apenas se asome la foto */
+.overlay-404 {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.90);
+    z-index: 2;
+}
+
+/* Capa 3: Contenedor central de los textos */
+.contenedor-404 {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 6%;
+    gap: 1.5rem;
+    max-width: 55rem;
+}
+
+/* Gran "404" */
+.titulo-404 {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    /* Tamaño dinámico exagerado: entre 6rem y 14rem dependiendo del tamaño de pantalla */
+    font-size: clamp(6rem, 15vw, 14rem);
+    font-weight: 900;
+    line-height: 1;
+    margin: 0;
+    text-shadow: 0 10px 30px rgba(54, 99, 167, 0.15);
+}
+
+/* Subtítulo verde */
+.subtitulo-404 {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin: 0;
+}
+
+/* Párrafo */
+.parrafo-404 {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.45;
+    margin: 0;
+    max-width: 42rem;
+}
+
+/* Botón Azul */
+.btn-404 {
+    display: inline-block;
+    background-color: #0284d0;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 1rem 3.5rem;
+    border-radius: 50rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 15px rgba(2, 132, 208, 0.2);
+}
+
+.btn-404:hover {
+    background-color: #026aa8;
+    transform: scale(1.04);
+}
+
+/* =============================================
+   RESPONSIVE MÓVIL 404 (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .contenedor-404 {
+        gap: 1.2rem;
+        padding: 4rem 6%;
+    }
+
+    .subtitulo-404 {
+        font-size: 1.3rem;
+        letter-spacing: 0.05em;
+    }
+
+    .parrafo-404 {
+        font-size: 1.15rem;
+        text-align: justify;
+        text-align-last: center;
+    }
+
+    .btn-404 {
+        font-size: 1rem;
+        padding: 0.9rem 2.5rem;
+        margin-top: 1rem;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 1 - Hero Instalaciones
+   ============================================= */
+.hero-instalaciones {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --hero-inst-ancho-contenedor: 50%;         /* Ancho del contenedor izquierdo (deja libre el derecho) */
+    --hero-inst-margin-left: 5.8%;               /* Margen izquierdo para despegar el título del borde */
+    
+    /* Tamaños de fuente */
+    --hero-inst-fs-titulo: 5.49rem;             /* Tamaño del título principal */
+    --hero-inst-max-titulo: 40rem;             /* Ancho máximo (por si acaso rompe línea) */
+}
+
+/* =============================================
+   BLOQUE: Capa 1 - Imagen de fondo
+   ============================================= */
+.hero-inst-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   BLOQUE: Capa 2 - Overlay superpuesto
+   ============================================= */
+.hero-inst-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;       /* Centra verticalmente el contenido */
+    justify-content: flex-start;
+    z-index: 2;
+}
+
+/* Contenedor que limita el ancho del texto a la izquierda */
+.hero-inst-contenedor {
+    width: var(--hero-inst-ancho-contenedor);
+    margin-left: var(--hero-inst-margin-left);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;   /* Alineación a la izquierda dentro del contenedor */
+    text-align: left;
+}
+
+/* =============================================
+   BLOQUE: Título blanco
+   ============================================= */
+.hero-inst-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-weight: 800;
+    font-size: var(--hero-inst-fs-titulo);
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--hero-inst-max-titulo);
+    margin: 0;
+    /* Sombra sutil para garantizar legibilidad si la foto de fondo es clara en esa zona */
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Título centrado + Imagen encuadrada con zoom
+   ============================================= */
+@media (max-width: 768px) {
+
+    .hero-instalaciones {
+        /* Mantiene el margen de la navbar pero con la altura móvil */
+        margin-top: var(--altura-navbar);
+
+        /* ⬇ VARIABLES AJUSTABLES PARA MÓVIL */
+        --hero-inst-pos-x-movil: 76%;             /* 0% = izq, 50% = centro, 100% = der. Mueve el encuadre */
+        --hero-inst-zoom-movil: 1.2;              /* 1 = tamaño normal, 1.5 = 50% de zoom, etc. */
+        --hero-inst-altura-movil: 55vh;           /* Altura fija de la sección en móvil */
+        
+        --hero-inst-fs-titulo: 2.8rem;            /* Título más pequeño en celular */
+    }
+
+    /* ------------------------------------------------- */
+    /* 1. Imagen ajustada con altura, encuadre y zoom    */
+    /* ------------------------------------------------- */
+    .hero-inst-bg {
+        min-height: 25rem;
+        height: var(--hero-inst-altura-movil);
+        object-fit: cover;
+        /* Mueve el foco de la imagen (encuadre derecho que pediste) */
+        object-position: var(--hero-inst-pos-x-movil) center;
+        
+        /* Opcional: aplica zoom a la imagen si es necesario */
+        transform: scale(var(--hero-inst-zoom-movil));
+    }
+
+    /* ------------------------------------------------- */
+    /* 2. Capa oscura/blanca sutil (opcional para leer mejor) */
+    /* ------------------------------------------------- */
+    .hero-instalaciones::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.15); /* Oscurece un 15% la foto */
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------- */
+    /* 3. Overlay centrado en lugar de a la izquierda    */
+    /* ------------------------------------------------- */
+    .hero-inst-overlay {
+        justify-content: center; /* Centra horizontalmente el contenedor */
+        z-index: 2;
+    }
+
+    .hero-inst-contenedor {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 6%;
+        align-items: center;     /* Centra el título dentro del contenedor */
+        text-align: center;
+    }
+
+    .hero-inst-titulo {
+        text-align: center;
+        max-width: 100%;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 2 - Galería de Instalaciones (Cascada Final)
+   ============================================= */
+.seccion-galeria {
+    background-color: var(--color-blanco);
+    width: 100%;
+    padding: 6rem 0 8rem 0;
+
+    /* ⬇ VARIABLES AJUSTABLES DE LA GALERÍA */
+    --galeria-margin-lateral: 8%;
+    --galeria-gap: 1.5rem;          /* Espacio entre todas las fotos */
+    --galeria-radius: 0.5rem;       /* Borde redondeado */
+}
+
+/* ------------------------------------------------- */
+/* Contenedor Maestro: Grid exacto de 3 columnas (1/3 y 2/3) */
+/* ------------------------------------------------- */
+.galeria-tiras-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: var(--galeria-gap);
+    margin: 0 var(--galeria-margin-lateral);
+    
+    /* Obliga a que ambas columnas (izq y der) midan exactamente lo mismo de alto */
+    align-items: stretch; 
+}
+
+/* ------------------------------------------------- */
+/* Tira Izquierda (1/3 del espacio)                  */
+/* ------------------------------------------------- */
+.galeria-tira-izq {
+    grid-column: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: var(--galeria-gap); 
+}
+
+/* ------------------------------------------------- */
+/* Tira Derecha (2/3 del espacio)                    */
+/* ------------------------------------------------- */
+.galeria-tira-der {
+    grid-column: 2 / 4; 
+    display: flex;
+    flex-direction: column;
+    gap: var(--galeria-gap); 
+}
+
+/* Sub-fila de la tira derecha (Fotos 2 y 3 / Fotos 7 y 8) */
+.galeria-fila-der {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Mitades exactas */
+    gap: var(--galeria-gap);
+}
+
+/* Sub-fila asimétrica final de la tira derecha (Fotos 14 y 15) */
+.galeria-fila-final-der {
+    display: grid;
+    /* Proporciones exactas. Aumenta el primer valor si quieres la foto 14 más ancha */
+    grid-template-columns: 2.8fr 1fr;
+    gap: var(--galeria-gap);
+    width: 100%;
+    
+    /* Toma absolutamente todo el espacio vertical sobrante de la columna */
+    flex-grow: 1; 
+}
+
+/* ------------------------------------------------- */
+/* Estilos Base para Imágenes                        */
+/* ------------------------------------------------- */
+.galeria-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--galeria-radius);
+    box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.galeria-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    position: relative;
+}
+
+/* Relaciones de Aspecto (Aspect-ratio) estándar */
+.img-16-9 {
+    aspect-ratio: 16 / 9;
+}
+
+/* Excepción: Hacemos que las imágenes 14 y 15 obedezcan a la caja maestra sobrante */
+.galeria-fila-final-der .galeria-img {
+    width: 100%;
+    height: 100%; /* Toma la altura generada por el flex-grow del padre */
+    object-fit: cover; /* Hace el zoom automático sin deformar */
+    aspect-ratio: auto !important; /* Forzamos a anular el aspect-ratio estándar */
+    min-height: 0; /* Previene bugs de desbordamiento en CSS Grid */
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .seccion-galeria {
+        padding: 3rem 0 5rem 0;
+        --galeria-margin-lateral: 6%;
+        --galeria-gap: 1rem;
+    }
+
+    /* Convertimos el Grid Maestro a 1 sola columna en celular */
+    .galeria-tiras-contenedor {
+        grid-template-columns: 1fr;
+        align-items: start; /* Quitamos el stretch porque ahora están apiladas */
+    }
+
+    /* Tiras pasan a bloque completo */
+    .galeria-tira-izq,
+    .galeria-tira-der {
+        grid-column: 1;
+    }
+
+    /* Rompemos los grid internos de filas a una sola columna apilada */
+    .galeria-fila-der {
+        grid-template-columns: 1fr; 
+    }
+
+    .galeria-fila-final-der {
+        grid-template-columns: 1fr; 
+        flex-grow: 0; /* Ya no rellenan espacio sobrante porque no hay columna paralela */
+    }
+
+    /* Le regresamos la proporción a la 14 y 15 en celular para que no colapsen */
+    .galeria-fila-final-der .galeria-img {
+        aspect-ratio: 16 / 9 !important;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección Hero - Informes / Admisiones
+   ============================================= */
+.hero-informes {
+    position: relative;
+    width: 100%;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+    overflow: hidden;
+}
+
+/* =============================================
+   Capa 1 - Imagen de fondo (Define la altura)
+   ============================================= */
+.hero-informes-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Capa overlay azul (oculta en desktop, visible en móvil) */
+.hero-informes-overlay {
+    display: none; 
+}
+
+/* =============================================
+   Capa 2 - Contenedor del título
+   ============================================= */
+.hero-informes-contenedor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;  /* Centrado vertical */
+    
+    /* ⬇ VARIABLE: Ajusta el margen izquierdo (separación del borde) */
+    padding-left: 8%; 
+}
+
+/* Título */
+.hero-informes-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-size: clamp(2.5rem, 4vw, 4.5rem); 
+    line-height: 1.1;
+    text-align: left;
+    
+    /* ⬇ VARIABLE: Controla el salto de línea si el título fuera más largo */
+    max-width: 35rem; 
+    margin: 0;
+}
+
+.informes-normal {
+    font-weight: 500; 
+}
+
+.informes-negrita {
+    font-weight: 800; 
+}
+
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .hero-informes {
+        margin-top: var(--altura-navbar);
+    }
+
+    /* Imagen: define altura en celular y permite encuadre */
+    .hero-informes-bg {
+        min-height: 25rem; 
+        height: 50vh;
+        /* ⬇ VARIABLE: Ajusta qué porcentaje del lado DERECHO se muestra (95% es casi todo a la derecha) */
+        object-position: 95% center;
+    }
+
+    /* Capa azul de contraste (baja opacidad) */
+    .hero-informes-overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(54, 99, 167, 0.4); /* #3663a7 al 40% de opacidad */
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Contenedor del título pasa a centrado horizontal */
+    .hero-informes-contenedor {
+        padding-left: 0; 
+        justify-content: center; /* Centrado horizontal */
+        z-index: 2; /* Por encima del overlay azul */
+    }
+
+    /* Título centrado */
+    .hero-informes-titulo {
+        text-align: center;
+        font-size: 2.2rem;
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+}

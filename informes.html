@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Weston Academy - Plataforma educativa">
+    <title>Admisiones | Weston Academy</title>
+    <link rel="icon" type="image/svg+xml" href="imgs/weston_ico.svg">
+
+    <!-- una pagina hecha por Jurado Flores Santiago @sareth.jpg -->
+
+    <!-- Fuente Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Fuente Oswald (para flechas y detalles) -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- CSS global -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- =========================================
+        NAVBAR
+    ========================================= -->
+    <nav class="navbar" id="navbar">
+        <div class="seccion-a">
+
+            <!-- Logo (izquierda) -->
+            <div class="seccion-b">
+                <a href="index.html" class="enlace-logo">
+                    <img src="imgs/logo.webp" alt="Logo Weston Academy" class="logo" loading="lazy">
+                </a>
+            </div>
+
+            <!-- Botón sándwich (solo móvil) -->
+            <button class="btn-hamburguesa" id="btn-hamburguesa" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Navegación y teléfono (derecha) -->
+            <div class="seccion-d">
+
+                <!-- Pestañas de navegación -->
+                <div class="seccion-2">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="modelo_educativo.html" class="nav-link">Nosotros</a>
+                    <a href="404.html" class="nav-link">Pre-First</a>
+                    <a href="404.html" class="nav-link">Primaria</a>
+                    <a href="instalaciones.html" class="nav-link">Instalaciones</a>
+                    <!-- Aquí estamos en Informes (Admisiones), podrías agregar una clase activo si quieres resaltarlo -->
+                    <a href="informes.html" class="nav-link">Admisiones</a> 
+                    <a href="#contacto" class="nav-link">Contacto</a>
+                </div>
+
+                <!-- Teléfono de contacto -->
+                <div class="seccion-3">
+                    <img src="imgs/telefono_verde.svg" alt="Icono Teléfono" class="icono-telefono" loading="lazy">
+                    <span class="texto-telefono">55 3973 2243</span>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Fin de la Navbar -->
+
+    <!-- =========================================
+         SECCIÓN HERO: INFORMES / ADMISIONES
+    ========================================= -->
+    <section class="hero-informes" id="hero">
+
+        <!-- Capa 1: Imagen de fondo (ajustable en desktop, controlada en celular) -->
+        <img src="imgs/banner_informes_1.webp" alt="Admisiones Weston Academy" class="hero-informes-bg" loading="lazy">
+        
+        <!-- Capa blanca translúcida (Solo se muestra en celular) -->
+        <div class="hero-informes-overlay"></div>
+
+        <!-- Capa 2: Contenedor del título -->
+        <div class="hero-informes-contenedor">
+            <h1 class="hero-informes-titulo anim anim-fade-right">
+                <span class="informes-normal">PROCESO DE</span>
+                <br>
+                <span class="informes-negrita">ADMISIÓN</span>
+            </h1>
+        </div>
+
+    </section>
+
+    <!-- 
+       AQUÍ IRIAN LAS SECCIONES SUPERIORES (HERO O BANNERS PROPIOS DE LA PÁGINA) 
+       Dejamos este espacio listo para que me indiques qué sigue debajo de la navbar.
+    -->
+
+    <!-- =========================================
+         SECCIÓN CONTACTO (Formulario + Mapa)
+    ========================================= -->
+    <section class="seccion-contacto" id="contacto">
+        
+        <!-- Contenedor general que divide en 2 columnas (desktop) o las apila (móvil) -->
+        <div class="contacto-contenedor">
+
+            <!-- ============================================= -->
+            <!-- Lado Izquierdo: Formulario de Contacto        -->
+            <!-- ============================================= -->
+            <div class="contacto-form-wrapper anim anim-fade-right">
+
+                <!-- Importante mantener el ID 'form-contacto' y 'novalidate' para nuestro JS -->
+                <form id="form-contacto" class="form-weston" novalidate>
+
+                    <!-- Nombre -->
+                    <div class="form-grupo">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" class="form-input" required>
+                        <span class="error-msg">Por favor ingresa un nombre válido (mín. 2 letras, sin números).</span>
+                    </div>
+
+                    <!-- Fila dividida: Ciudad y Teléfono -->
+                    <div class="form-fila-doble">
+                        <div class="form-grupo">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <input type="text" id="ciudad" name="ciudad" class="form-input" maxlength="50" required>
+                            <span class="error-msg">Máximo 50 caracteres.</span>
+                        </div>
+                        <div class="form-grupo">
+                            <label for="telefono" class="form-label">Tels.</label>
+                            <input type="tel" id="telefono" name="telefono" class="form-input" required>
+                            <span class="error-msg">Solo se permiten números.</span>
+                        </div>
+                    </div>
+
+                    <!-- Correo Electrónico -->
+                    <div class="form-grupo">
+                        <label for="correo" class="form-label">Correo electrónico</label>
+                        <input type="email" id="correo" name="correo" class="form-input" required>
+                        <span class="error-msg">Por favor ingresa un correo válido (con "@" y extensión).</span>
+                    </div>
+
+                    <!-- Mensaje -->
+                    <div class="form-grupo">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" class="form-textarea" rows="5" maxlength="500" required></textarea>
+                        <span class="error-msg">Máximo 500 caracteres.</span>
+                    </div>
+
+                    <!-- Botón Enviar -->
+                    <button type="submit" class="btn-enviar-form">Enviar</button>
+
+                </form>
+
+            </div>
+
+            <!-- ============================================= -->
+            <!-- Lado Derecho: Mapa de Google Maps             -->
+            <!-- ============================================= -->
+            <div class="contacto-mapa-wrapper anim anim-fade-left anim-delay-2">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.19061002777!2d-99.22941432392157!3d19.53342858176761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d21d9a6b47d611%3A0xab8dc670c589f47a!2sWeston%20International%20Academy!5e0!3m2!1ses!2smx!4v1791431881738!5m2!1ses!2smx"
+                    class="contacto-mapa-iframe"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin">
+                </iframe>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Fin de la Sección Contacto -->
+
+    <!-- =========================================
+         FOOTER
+    ========================================= -->
+    <footer class="footer-weston">
+
+        <!-- Subsección 1: Logo -->
+        <div class="footer-logo-seccion anim anim-fade-up">
+            <img src="imgs/weston_logo_blanco.webp" alt="Weston International Academy" class="footer-logo-img" loading="lazy">
+        </div>
+
+        <!-- Subsección 2: Grupos de Enlaces/Info (30/30/30/10) -->
+        <div class="footer-grupos anim anim-fade-up anim-delay-1">
+
+            <!-- Dirección -->
+            <div class="footer-grupo footer-grupo-direccion">
+                <p class="footer-direccion">
+                    Esquina con San Bernardo Convento de Acolman 23, Hab Jardines de Santa Mónica, 54050 Tlalnepantla, Méx.
+                </p>
+            </div>
+
+            <!-- Contacto (Viñetas con icono) -->
+            <div class="footer-grupo footer-grupo-contacto">
+                <ul class="footer-lista-contacto">
+                    <li>
+                        <img src="imgs/telefono.svg" alt="Teléfono" class="footer-icono-lista" loading="lazy">
+                        <span>56 3973 2243</span>
+                    </li>
+                    <li>
+                        <img src="imgs/whatsapp.svg" alt="WhatsApp" class="footer-icono-lista" loading="lazy">
+                        <span>56 3973 2243</span>
+                    </li>
+                    <li>
+                        <img src="imgs/correo.svg" alt="Correo" class="footer-icono-lista" loading="lazy">
+                        <span>info@westonacademy.education</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Navegación -->
+            <div class="footer-grupo footer-grupo-nav">
+                <ul class="footer-lista-nav">
+                    <li><a href="index.html" class="footer-nav-link">Inicio</a></li>
+                    <li><a href="modelo_educativo.html" class="footer-nav-link">Nosotros</a></li>
+                    <li><a href="404.html" class="footer-nav-link">Pre-First</a></li>
+                    <li><a href="404.html" class="footer-nav-link">Primaria</a></li>
+                    <li><a href="instalaciones.html" class="footer-nav-link">Instalaciones</a></li>
+                    <li><a href="informes.html" class="footer-nav-link">Admisiones</a></li>
+                </ul>
+            </div>
+
+            <!-- Redes Sociales -->
+            <div class="footer-grupo footer-grupo-social">
+                <a href="#" class="footer-social-link" aria-label="Facebook">
+                    <img src="imgs/facebook_logo.svg" alt="Facebook" loading="lazy">
+                </a>
+                <a href="#" class="footer-social-link" aria-label="Instagram">
+                    <img src="imgs/instagram_logo.svg" alt="Instagram" loading="lazy">
+                </a>
+                <a href="#" class="footer-social-link" aria-label="WhatsApp">
+                    <img src="imgs/whatsapp_logo.svg" alt="WhatsApp" loading="lazy">
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Línea separadora -->
+        <br>
+        <hr class="footer-hr anim anim-fade-in anim-delay-2">
+        <br>
+        <br>
+
+        <!-- Copyright -->
+        <div class="footer-copyright-seccion anim anim-fade-up anim-delay-3">
+            <p class="footer-copyright">Copyright © 2026 Weston International Academy todos los derechos reservados</p>
+        </div>
+        <br>
+        <br>
+
+    </footer>
+    <!-- Fin del Footer -->
+
+    <!-- Archivo principal de JS (Navbar oculta, menú hamburguesa, animaciones, form validation) -->
+    <script src="script.js"></script>
+</body>
+</html>
