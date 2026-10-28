@@ -5162,12 +5162,12 @@ body {
         margin-top: var(--altura-navbar);
         
         /* Redefinimos variables para celular */
-        --hero-informes-titulo-size: 2.2rem;     /* Ajuste específico para pantalla vertical */
+        --hero-informes-titulo-size: 3.2rem;     /* Ajuste específico para pantalla vertical */
         --hero-informes-padding-izq: 0;
         --hero-informes-max-ancho-titulo: 100%;
         
         /* Variable exclusiva para el encuadre móvil */
-        --hero-informes-posicion-img: 95%; 
+        --hero-informes-posicion-img: 70%; 
     }
 
     /* Imagen: define altura en celular y permite encuadre */
@@ -5185,7 +5185,7 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(54, 99, 167, 0.4); /* #3663a7 al 40% de opacidad */
+        background-color: rgba(54, 99, 167, 0.7); /* #3663a7 al 40% de opacidad */
         pointer-events: none;
         z-index: 1;
     }
