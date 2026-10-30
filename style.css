@@ -5202,3 +5202,820 @@ body {
         padding: 0 1rem;
     }
 }
+
+/* =============================================
+   BLOQUE: Sección 3 - Proceso de Admisión (4 Pasos)
+   ============================================= */
+.seccion-proceso {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --proceso-desplazamiento-izq: 15%;        /* Qué tan a la izquierda está el bloque entero de los 4 grupos */
+    --proceso-gap-entre-grupos: 3rem;         /* Distancia vertical entre cada uno de los 4 grupos */
+    
+    /* Gaps internos de cada grupo */
+    --proceso-gap-icono-titulo: 1.5rem;       /* Separación vertical SVG ↔ Título */
+    --proceso-gap-titulo-parrafo: 0.8rem;     /* Separación vertical Título ↔ Párrafo */
+
+    /* Tamaños comunales */
+    --proceso-icono-size: 14rem;               /* Tamaño del SVG (como la foto está recortada y adaptada, este CSS le dará su tamaño final en pantalla) */
+    --proceso-numero-size: 3.2rem;            /* Tamaño de los números 1, 2, 3, 4 */
+    --proceso-titulo-fs: 2.8rem;              /* Tamaño de fuente del Título */
+    --proceso-parrafo-fs: 1.8rem;             /* Tamaño de fuente del Párrafo */
+
+    --proceso-max-ancho-grupo: 26rem;         /* Ancho máximo de cada grupo para que los textos rompan línea armónicamente */
+}
+
+/* =============================================
+   Capa 1: Imagen de fondo (Define la altura real)
+   ============================================= */
+.proceso-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* =============================================
+   Capa 2: Overlay Absoluto
+   ============================================= */
+.proceso-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;      /* Centra la pila verticalmente respecto a la imagen */
+    justify-content: flex-start;
+    z-index: 2;
+}
+
+/* Contenedor Pila: Desplazado a la izquierda según la variable */
+.proceso-pila {
+    display: flex;
+    flex-direction: column;
+    gap: var(--proceso-gap-entre-grupos); /* Separación entre cada grupo */
+    margin-left: var(--proceso-desplazamiento-izq);
+}
+
+/* =============================================
+   BLOQUE: Estructura de cada Grupo
+   ============================================= */
+.proceso-grupo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* Todo centrado horizontalmente */
+    text-align: center;
+    max-width: var(--proceso-max-ancho-grupo);
+}
+
+/* --- SVG (Icono) --- */
+.proceso-icono {
+    width: var(--proceso-icono-size);
+    height: var(--proceso-icono-size);
+    object-fit: contain;
+    display: block;
+    margin-bottom: var(--proceso-gap-icono-titulo);
+}
+
+/* --- Título --- */
+.proceso-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde); /* Los títulos siempre son verdes según tus instrucciones */
+    font-weight: 700;
+    font-size: var(--proceso-titulo-fs);
+    line-height: 1.15;
+    margin-bottom: var(--proceso-gap-titulo-parrafo);
+}
+
+/* --- Párrafo --- */
+.proceso-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 400;
+    font-size: var(--proceso-parrafo-fs);
+    line-height: 1.1;
+}
+
+/* =============================================
+   BLOQUE: Los Números (Posicionamiento Absoluto)
+   ============================================= */
+.proceso-numero {
+    position: absolute;
+    top: -1rem; /* Desplazado ligeramente hacia arriba respecto al icono */
+    font-family: var(--fuente-principal);
+    font-weight: 700;
+    font-size: var(--proceso-numero-size);
+    line-height: 1;
+    z-index: 3;
+}
+
+/* Clases para los colores */
+.numero-verde {
+    color: var(--color-verde);
+}
+
+.numero-azul {
+    color: #3663a7;
+}
+
+/* Clases para anclaje (Izquierda o Derecha) */
+.ancla-izq {
+    left: 0;
+}
+
+.ancla-der {
+    right: 0;
+}
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .seccion-proceso {
+        /* Redefinimos variables para celular */
+        --proceso-desplazamiento-izq: 0;          /* En celular se centra la pila */
+        --proceso-gap-entre-grupos: 3.5rem;       /* Reducimos el gap entre grupos */
+        
+        --proceso-gap-icono-titulo: 1rem;
+        --proceso-gap-titulo-parrafo: 0.5rem;
+
+        --proceso-icono-size: 5.5rem;
+        --proceso-numero-size: 3.5rem;
+        --proceso-titulo-fs: 1.6rem;
+        --proceso-parrafo-fs: 1.15rem;
+
+        --proceso-max-ancho-grupo: 85%;           /* Toma el 85% del ancho de la pantalla */
+    }
+
+    /* ------------------------------------------------- */
+    /* 1. Imagen recorta de los lados (aumenta altura proporcional) */
+    /* ------------------------------------------------- */
+    .proceso-bg {
+        /* En móvil forzamos una altura mínima para que los 4 grupos quepan
+           sin estirar infinitamente la imagen y perdiendo calidad */
+        min-height: 60rem; 
+        height: 120vh;     
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    /* Capa blanca translúcida OPCIONAL para asegurar legibilidad en móvil
+       (la imagen se recorta, puede que los textos caigan en zonas oscuras) */
+    .seccion-proceso::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.65);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ------------------------------------------------- */
+    /* 2. Pila centrada                                  */
+    /* ------------------------------------------------- */
+    .proceso-overlay {
+        justify-content: center; /* Centra la pila horizontalmente */
+    }
+
+    .proceso-pila {
+        width: 100%;
+        align-items: center; /* Centra cada grupo dentro de la pila */
+        padding: 2rem 0;
+    }
+
+    /* Anclajes de números ajustados para que no se salgan de pantalla en móvil */
+    .ancla-izq {
+        left: 4rem;
+    }
+
+    .ancla-der {
+        right: 4rem;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección Hero - Pre-First
+   ============================================= */
+.hero-prefirst {
+    position: relative;
+    width: 100%;
+    /* Compensa la navbar fija usando la variable global */
+    margin-top: var(--altura-navbar);
+    overflow: hidden;
+
+    /* ⬇ VARIABLES DE LA SECCIÓN */
+    --hero-prefirst-padding-izq: 8%;         /* Separación del borde izquierdo en desktop */
+    --hero-prefirst-gap-titulos: 0.2rem;       /* Separación vertical mínima entre ambos títulos */
+    
+    --hero-prefirst-titulo1-size: 4rem;      /* Tamaño base del título 1 */
+    --hero-prefirst-titulo1-max: 35rem;      /* Controla saltos de línea del título 1 */
+    --hero-prefirst-titulo1-peso: 450;       /* Peso del título 1 */
+    
+    --hero-prefirst-titulo2-size: 4rem;      /* Tamaño base del título 2 */
+    --hero-prefirst-titulo2-max: 35rem;      /* Controla saltos de línea del título 2 */
+    --hero-prefirst-titulo2-peso: 650;       /* Peso del título 2 */
+}
+
+/* =============================================
+   Capa 1 - Imagen de fondo (Define la altura)
+   ============================================= */
+.hero-prefirst-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Capa verde de contraste (oculta en desktop, visible en móvil) */
+.hero-prefirst-overlay {
+    display: none; 
+}
+
+/* =============================================
+   Capa 2 - Contenedor de los títulos
+   ============================================= */
+.hero-prefirst-contenedor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;  /* Centrado vertical en relación a la sección */
+    padding-left: var(--hero-prefirst-padding-izq); 
+}
+
+/* Contenedor interno para agrupar los dos títulos y controlar su gap */
+.hero-prefirst-titulos-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alineados a la izquierda entre sí */
+    gap: var(--hero-prefirst-gap-titulos);
+}
+
+/* Título 1 */
+.hero-prefirst-titulo1 {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-size: var(--hero-prefirst-titulo1-size); 
+    font-weight: var(--hero-prefirst-titulo1-peso);
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--hero-prefirst-titulo1-max); 
+    margin: 0;
+}
+
+/* Título 2 */
+.hero-prefirst-titulo2 {
+    font-family: var(--fuente-principal);
+    color: var(--color-blanco);
+    font-size: var(--hero-prefirst-titulo2-size); 
+    font-weight: var(--hero-prefirst-titulo2-peso);
+    font-style: italic; /* Italic solicitado */
+    line-height: 1.1;
+    text-align: left;
+    max-width: var(--hero-prefirst-titulo2-max); 
+    margin: 0;
+}
+
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .hero-prefirst {
+        margin-top: var(--altura-navbar);
+        
+        /* Redefinimos variables para celular */
+        --hero-prefirst-padding-izq: 0;
+        
+        --hero-prefirst-titulo1-size: 2.2rem;
+        --hero-prefirst-titulo1-max: 100%;
+        
+        --hero-prefirst-titulo2-size: 2.2rem;
+        --hero-prefirst-titulo2-max: 100%;
+        
+        /* Variable exclusiva para el encuadre móvil */
+        --hero-prefirst-posicion-img: 75%; /* Ajusta el % para mostrar el centro de la mitad derecha */
+    }
+
+    /* Imagen: define altura en celular y permite encuadre */
+    .hero-prefirst-bg {
+        min-height: 25rem; 
+        height: 50vh;
+        object-position: var(--hero-prefirst-posicion-img) center;
+    }
+
+    /* Capa verde de contraste (baja opacidad con gradiente a transparente) */
+    .hero-prefirst-overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Gradiente: #27a565 al 60% arriba, desvaneciéndose a transparente abajo */
+        background: linear-gradient(to bottom, rgba(39, 165, 101, 0.6) 0%, rgba(39, 165, 101, 0.4) 60%, rgba(39, 165, 101, 0) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Contenedor del título pasa a centrado horizontal */
+    .hero-prefirst-contenedor {
+        justify-content: center; /* Centrado horizontal */
+        z-index: 2; /* Por encima del overlay verde */
+    }
+
+    /* Títulos justificados con última línea centrada (y alineados al centro en su contenedor flex) */
+    .hero-prefirst-titulos-wrapper {
+        align-items: center; 
+        width: 100%;
+        padding: 0 6%;
+    }
+
+    .hero-prefirst-titulo1,
+    .hero-prefirst-titulo2 {
+        text-align: center;
+        text-align-last: center;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 2 - Beneficios Pre-First
+   ============================================= */
+.seccion-beneficios-prefirst {
+    background-color: #f4f4f4;
+    width: 100%;
+    padding: 6rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN */
+    --prefirst-gap-secciones: 5rem;              /* Separación vertical entre los textos superiores y la cola de grupos */
+    
+    /* Gaps Textos Superiores */
+    --prefirst-gap-sub-titulo: 1rem;             /* Separación subtítulo ↔ título */
+    --prefirst-gap-titulo-parrafo: 2rem;         /* Separación título ↔ párrafo */
+
+    /* Tamaños Textos Superiores */
+    --prefirst-subtitulo-size: 2rem;
+    --prefirst-titulo-size: 4.7rem;
+    --prefirst-parrafo-size: 2.1rem;
+    
+    /* Gaps Cola de Grupos */
+    --prefirst-grupos-gap-horizontal: 5rem;      /* Separación horizontal entre los 5 grupos */
+    --prefirst-grupo-gap-icono-titulo: 1.5rem;   /* Separación vertical SVG ↔ Título en cada grupo */
+    --prefirst-grupo-gap-titulo-parrafo: 2rem; /* Separación vertical Título ↔ Párrafo en cada grupo */
+
+    /* Tamaños Cola de Grupos */
+    --prefirst-icono-size: 6.5rem;               /* Tamaño de los SVG */
+    --prefirst-grupo-titulo-size: 1.9rem;
+    --prefirst-grupo-parrafo-size: 1.4rem;
+
+    /* Max-widths individuales de cada grupo para control de saltos de línea */
+    --prefirst-g1-max-titulo: 16rem;
+    --prefirst-g1-max-parrafo: 18rem;
+
+    --prefirst-g2-max-titulo: 20rem;
+    --prefirst-g2-max-parrafo: 14rem;
+
+    --prefirst-g3-max-titulo: 12rem;
+    --prefirst-g3-max-parrafo: 15rem;
+
+    --prefirst-g4-max-titulo: 10rem;
+    --prefirst-g4-max-parrafo: 13rem;
+
+    --prefirst-g5-max-titulo: 18rem;
+    --prefirst-g5-max-parrafo: 18rem;
+}
+
+/* =============================================
+   Contenedor Superior (Textos)
+   ============================================= */
+.prefirst-textos-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: var(--prefirst-gap-secciones);
+    padding: 0 5%;
+}
+
+.prefirst-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-size: var(--prefirst-subtitulo-size);
+    font-weight: 450;
+    margin-bottom: var(--prefirst-gap-sub-titulo);
+    letter-spacing: 0.05em;
+}
+
+.prefirst-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-size: var(--prefirst-titulo-size);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: var(--prefirst-gap-titulo-parrafo);
+    max-width: 90rem;
+}
+
+.prefirst-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-size: var(--prefirst-parrafo-size);
+    font-weight: 500;
+    line-height: 1.2;
+    max-width: 91rem;
+}
+
+/* =============================================
+   Contenedor Inferior (Cola de 5 grupos)
+   ============================================= */
+.prefirst-cola-grupos {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea los grupos por su parte superior */
+    gap: var(--prefirst-grupos-gap-horizontal);
+    width: 100%;
+    padding: 0 2rem;
+}
+
+/* =============================================
+   Cada Grupo Individual
+   ============================================= */
+.prefirst-grupo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.prefirst-icono {
+    width: var(--prefirst-icono-size);
+    height: var(--prefirst-icono-size);
+    object-fit: contain;
+    display: block;
+    margin-bottom: var(--prefirst-grupo-gap-icono-titulo);
+}
+
+.prefirst-grupo-titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-size: var(--prefirst-grupo-titulo-size);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: var(--prefirst-grupo-gap-titulo-parrafo);
+}
+
+.prefirst-grupo-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-size: var(--prefirst-grupo-parrafo-size);
+    font-weight: 450;
+    line-height: 1.35;
+}
+
+/* --- Max-widths aplicados individualmente --- */
+.prefirst-grupo:nth-child(1) .prefirst-grupo-titulo { max-width: var(--prefirst-g1-max-titulo); }
+.prefirst-grupo:nth-child(1) .prefirst-grupo-parrafo { max-width: var(--prefirst-g1-max-parrafo); }
+
+.prefirst-grupo:nth-child(2) .prefirst-grupo-titulo { max-width: var(--prefirst-g2-max-titulo); }
+.prefirst-grupo:nth-child(2) .prefirst-grupo-parrafo { max-width: var(--prefirst-g2-max-parrafo); }
+
+.prefirst-grupo:nth-child(3) .prefirst-grupo-titulo { max-width: var(--prefirst-g3-max-titulo); }
+.prefirst-grupo:nth-child(3) .prefirst-grupo-parrafo { max-width: var(--prefirst-g3-max-parrafo); }
+
+.prefirst-grupo:nth-child(4) .prefirst-grupo-titulo { max-width: var(--prefirst-g4-max-titulo); }
+.prefirst-grupo:nth-child(4) .prefirst-grupo-parrafo { max-width: var(--prefirst-g4-max-parrafo); }
+
+.prefirst-grupo:nth-child(5) .prefirst-grupo-titulo { max-width: var(--prefirst-g5-max-titulo); }
+.prefirst-grupo:nth-child(5) .prefirst-grupo-parrafo { max-width: var(--prefirst-g5-max-parrafo); }
+
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .seccion-beneficios-prefirst {
+        padding: 4rem 0;
+        
+        /* Redefinimos variables para celular */
+        --prefirst-gap-secciones: 4rem;
+        
+        --prefirst-subtitulo-size: 1.2rem;
+        --prefirst-titulo-size: 2rem;
+        
+        /* ⬇ AJUSTES SOLICITADOS PARA MÓVIL */
+        --prefirst-parrafo-size: 1.25rem;            /* Aumentado de 1.15rem a 1.25rem */
+        --prefirst-grupo-titulo-size: 1.4rem;        /* Aumentado de 1.3rem a 1.4rem */
+        --prefirst-grupo-parrafo-size: 1.15rem;      /* Aumentado de 1.05rem a 1.15rem */
+
+        --prefirst-grupos-gap-horizontal: 4rem;      /* Aumentado de 3rem a 4rem (gap entre grupos apilados) */
+        
+        --prefirst-grupo-gap-icono-titulo: 1.2rem;   /* Separación SVG ↔ Título */
+        --prefirst-grupo-gap-titulo-parrafo: 0.2rem; /* ⬇ Disminuido drásticamente para acercar título y párrafo */
+        
+        --prefirst-icono-size: 5rem;
+    }
+
+    .prefirst-textos-contenedor {
+        padding: 0 6%;
+    }
+
+    .prefirst-titulo {
+        font-size: 1.8rem;
+    }
+
+    .prefirst-parrafo {
+        text-align: justify;
+        text-align-last: center;
+    }
+
+    /* La cola pasa de horizontal a vertical en celular */
+    .prefirst-cola-grupos {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--prefirst-grupos-gap-horizontal); 
+    }
+
+    /* Quitamos las restricciones de max-width individuales para celular */
+    .prefirst-grupo-titulo,
+    .prefirst-grupo-parrafo {
+        max-width: 80% !important;
+    }
+    
+    .prefirst-grupo-parrafo {
+        text-align: justify;
+        text-align-last: center;
+    }
+
+    .prefirst-grupo-titulo br,
+    .prefirst-grupo-parrafo br {
+        display: none;
+    }
+}
+
+/* =============================================
+   BLOQUE: Sección 3 - 100% en Inglés (Pre-First)
+   ============================================= */
+.seccion-ingles {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+    overflow: hidden;
+
+    /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
+    --ingles-split-izq: 52%;                      /* Ancho de la mitad izquierda (textos) */
+    --ingles-split-der: calc(100% - var(--ingles-split-izq)); /* La derecha toma el resto (imagen) */
+    
+    --ingles-padding-izq: 5rem 3rem 5rem 8%;      /* Padding del contenedor izquierdo */
+    
+    /* Gaps verticales independientes */
+    --ingles-gap-sub-titulo: 0.8rem;              
+    --ingles-gap-titulo-parrafo: 1.5rem;          
+    --ingles-gap-parrafo-texto: 1.8rem;             
+    --ingles-gap-texto-lista: 1rem;             
+
+    /* Tamaños y anchos máximos independientes */
+    --ingles-subtitulo-fs: 2rem;
+    --ingles-subtitulo-max: 40rem;
+
+    --ingles-titulo-fs: 4rem;
+    --ingles-titulo-max: 45rem;
+
+    --ingles-parrafo-fs: 1.45rem;
+    --ingles-parrafo-max: 46rem;
+
+    --ingles-texto-fs: 1.25rem;
+    --ingles-texto-max: 46rem;
+
+    --ingles-lista-fs: 1.15rem;
+}
+
+/* =============================================
+   Capa 1 - Fondo dividido (Izquierda vacía + Derecha imagen)
+   ============================================= */
+.ingles-fondo {
+    display: flex;
+    width: 100%;
+}
+
+/* Lado izquierdo: vacío (fondo blanco) */
+.ingles-fondo-izq {
+    width: var(--ingles-split-izq);
+    background-color: #ffffff;
+}
+
+/* Lado derecho: contiene la imagen que DICTA LA ALTURA DE LA SECCIÓN */
+.ingles-fondo-der {
+    width: var(--ingles-split-der);
+}
+
+.ingles-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* =============================================
+   Capa 2 - Contenido superpuesto (Absoluto en desktop)
+   ============================================= */
+.ingles-contenido {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;          /* Centrado vertical del contenido */
+    z-index: 2;
+}
+
+/* Mitad Izquierda: Contenedor de textos */
+.ingles-mitad-izq {
+    width: var(--ingles-split-izq);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.ingles-textos-wrapper {
+    width: 100%;
+    padding: var(--ingles-padding-izq);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;       /* Alineado a la izquierda */
+    text-align: left;
+}
+
+/* Mitad Derecha: Vacía para dejar ver la imagen de fondo */
+.ingles-mitad-der {
+    width: var(--ingles-split-der);
+    height: 100%;
+}
+
+/* =============================================
+   Tipografías y Elementos de la Pila
+   ============================================= */
+.ingles-subtitulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-verde);
+    font-weight: 500;
+    font-size: var(--ingles-subtitulo-fs);
+    letter-spacing: 0.05em;
+    max-width: var(--ingles-subtitulo-max);
+    margin-bottom: var(--ingles-gap-sub-titulo);
+}
+
+.ingles-titulo {
+    font-family: var(--fuente-principal);
+    color: #3663a7;
+    font-weight: 800;
+    font-size: var(--ingles-titulo-fs);
+    line-height: 1.1;
+    max-width: var(--ingles-titulo-max);
+    margin-bottom: var(--ingles-gap-titulo-parrafo);
+}
+
+.ingles-parrafo {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto);
+    font-weight: 450;
+    font-size: var(--ingles-parrafo-fs);
+    line-height: 1.4;
+    max-width: var(--ingles-parrafo-max);
+    margin-bottom: var(--ingles-gap-parrafo-texto);
+}
+
+.ingles-texto {
+    font-family: var(--fuente-principal);
+    color: #000000;
+    font-weight: 600;
+    font-size: var(--ingles-texto-fs);
+    line-height: 1.3;
+    max-width: var(--ingles-texto-max);
+    margin-bottom: var(--ingles-gap-texto-lista);
+}
+
+.ingles-lista {
+    list-style-type: disc;        
+    list-style-position: inside;  
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: left;
+}
+
+.ingles-lista li {
+    font-family: var(--fuente-principal);
+    color: #000000;
+    font-weight: 450;
+    font-size: var(--ingles-lista-fs);
+    line-height: 1.3;
+    text-align: left;
+}
+
+
+/* =============================================
+   BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
+   Sección apilada: Imagen arriba, textos abajo centrados (lista izq)
+   ============================================= */
+@media (max-width: 768px) {
+
+    .seccion-ingles {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+    }
+
+    /* Capa 1: La imagen pasa arriba ocupando un alto proporcional controlado */
+    .ingles-fondo {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    .ingles-fondo-izq {
+        display: none;
+    }
+
+    .ingles-fondo-der {
+        width: 100%;
+    }
+
+    .ingles-bg {
+        width: 100%;
+        height: 45vh;
+        min-height: 18rem;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    /* Capa 2: El contenido deja de ser absoluto y fluye de manera natural abajo */
+    .ingles-contenido {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: #ffffff;
+    }
+
+    .ingles-mitad-der {
+        display: none;
+    }
+
+    .ingles-mitad-izq {
+        width: 100%;
+        display: block;
+    }
+
+    .ingles-textos-wrapper {
+        padding: 2.5rem 6% 3.5rem 6%;
+        align-items: center;       
+        text-align: center;        
+    }
+
+    .ingles-subtitulo {
+        text-align: center;
+        max-width: 100%;
+        font-weight: 600;
+    }
+
+    .ingles-titulo {
+        text-align: center;
+        max-width: 100%;
+        font-size: 1.8rem;
+    }
+
+    .ingles-parrafo {
+        text-align: justify;
+        text-align-last: center;
+        max-width: 100%;
+    }
+
+    .ingles-texto {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    /* La lista se mantiene alineada a la izquierda como pediste */
+    .ingles-lista {
+        align-self: flex-start;    
+        text-align: left;          
+        margin-left: 8%;          
+        width: auto;
+    }
+
+    .ingles-lista li {
+        text-align: left;
+    }
+}

@@ -49,7 +49,7 @@
                 <div class="seccion-2">
                     <a href="index.html" class="nav-link">Inicio</a>
                     <a href="modelo_educativo.html" class="nav-link">Nosotros</a>
-                    <a href="404.html" class="nav-link">Pre-First</a>
+                    <a href="pre-first.html" class="nav-link">Pre-First</a>
                     <a href="404.html" class="nav-link">Primaria</a>
                     <a href="instalaciones.html" class="nav-link">Instalaciones</a>
                     <!-- Aquí estamos en Informes (Admisiones), podrías agregar una clase activo si quieres resaltarlo -->
@@ -90,10 +90,78 @@
 
     </section>
 
-    <!-- 
-       AQUÍ IRIAN LAS SECCIONES SUPERIORES (HERO O BANNERS PROPIOS DE LA PÁGINA) 
-       Dejamos este espacio listo para que me indiques qué sigue debajo de la navbar.
-    -->
+    <!-- =========================================
+         SECCIÓN PROCESO DE ADMISIÓN (4 Pasos)
+    ========================================= -->
+    <section class="seccion-proceso" id="pasos-admision">
+
+        <!-- Capa 1: Imagen de fondo (en flujo normal para dictar la altura real) -->
+        <img src="imgs/banner_informes_2.webp" alt="Fondo Proceso de Admisión" class="proceso-bg" loading="lazy">
+
+        <!-- Capa 2: Contenedor superpuesto absoluto -->
+        <div class="proceso-overlay">
+
+            <!-- Contenedor principal de la pila (desplazado a la izquierda) -->
+            <div class="proceso-pila">
+
+                <!-- ============================================= -->
+                <!-- GRUPO 1: Informes                             -->
+                <!-- ============================================= -->
+                <div class="proceso-grupo">
+                    <!-- Número (Esquina superior izquierda, Verde) -->
+                    <span class="proceso-numero numero-verde ancla-izq anim anim-fade-right">1</span>
+                    
+                    <!-- Contenido centrado -->
+                    <img src="imgs/informes.svg" alt="Informes" class="proceso-icono anim anim-fade-up">
+                    <h3 class="proceso-titulo anim anim-fade-up anim-delay-1">Informes</h3>
+                    <p class="proceso-parrafo anim anim-fade-up anim-delay-2">Presencial, Whatsapp o redes sociales</p>
+                </div>
+
+                <!-- ============================================= -->
+                <!-- GRUPO 2: Recorrido                            -->
+                <!-- ============================================= -->
+                <div class="proceso-grupo">
+                    <!-- Número (Esquina superior derecha, Azul) -->
+                    <span class="proceso-numero numero-azul ancla-der anim anim-fade-left">2</span>
+                    
+                    <!-- Contenido centrado -->
+                    <img src="imgs/recorrido.svg" alt="Recorrido" class="proceso-icono anim anim-fade-up">
+                    <h3 class="proceso-titulo anim anim-fade-up anim-delay-1">Recorrido</h3>
+                    <p class="proceso-parrafo anim anim-fade-up anim-delay-2">Se agenda un recorrido para conocer instalaciones y oferta educativa</p>
+                </div>
+
+                <!-- ============================================= -->
+                <!-- GRUPO 3: Examen de admisión                   -->
+                <!-- ============================================= -->
+                <div class="proceso-grupo">
+                    <!-- Número (Esquina superior izquierda, Verde) -->
+                    <span class="proceso-numero numero-verde ancla-izq anim anim-fade-right">3</span>
+                    
+                    <!-- Contenido centrado -->
+                    <img src="imgs/examen.svg" alt="Examen de admisión" class="proceso-icono anim anim-fade-up">
+                    <h3 class="proceso-titulo anim anim-fade-up anim-delay-1">Examen de admisión</h3>
+                    <p class="proceso-parrafo anim anim-fade-up anim-delay-2">Se agenda una tercera cita con los posibles alumnos para realizar examen académico y psicométrico</p>
+                </div>
+
+                <!-- ============================================= -->
+                <!-- GRUPO 4: Resultados                           -->
+                <!-- ============================================= -->
+                <div class="proceso-grupo">
+                    <!-- Número (Esquina superior derecha, Azul) -->
+                    <span class="proceso-numero numero-azul ancla-der anim anim-fade-left">4</span>
+                    
+                    <!-- Contenido centrado -->
+                    <img src="imgs/resultados.svg" alt="Resultados" class="proceso-icono anim anim-fade-up">
+                    <h3 class="proceso-titulo anim anim-fade-up anim-delay-1">Resultados</h3>
+                    <p class="proceso-parrafo anim anim-fade-up anim-delay-2">Se entregan resultados vía whatsapp para realizar proceso de inscripción</p>
+                </div>
+
+            </div>
+            
+        </div>
+
+    </section>
+    <!-- Fin de la Sección Proceso de Admisión -->
 
     <!-- =========================================
          SECCIÓN CONTACTO (Formulario + Mapa)
@@ -214,7 +282,7 @@
                 <ul class="footer-lista-nav">
                     <li><a href="index.html" class="footer-nav-link">Inicio</a></li>
                     <li><a href="modelo_educativo.html" class="footer-nav-link">Nosotros</a></li>
-                    <li><a href="404.html" class="footer-nav-link">Pre-First</a></li>
+                    <li><a href="pre-first.html" class="footer-nav-link">Pre-First</a></li>
                     <li><a href="404.html" class="footer-nav-link">Primaria</a></li>
                     <li><a href="instalaciones.html" class="footer-nav-link">Instalaciones</a></li>
                     <li><a href="informes.html" class="footer-nav-link">Admisiones</a></li>

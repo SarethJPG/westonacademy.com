@@ -1,0 +1,82 @@
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <!-- Generator: Adobe Illustrator 30.0.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 123)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #3771bc;
+      }
+
+      .st1 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 7.83px;
+      }
+    </style>
+  </defs>
+  <!-- Círculo igualado al SVG de referencia de 1000x1000 -->
+  <circle class="st0" cx="504.52" cy="502.95" r="497.05" />
+  
+  <!-- Contenido interno escalado (2.39x) y trasladado para mantener la proporción exacta -->
+  <g transform="translate(-101.64, -100.79) scale(2.3954)">
+    <g id="g2479">
+      <g id="g2485">
+        <path id="path2487" class="st1" d="M125.37,347.41h259.5" />
+      </g>
+      <g id="g2489">
+        <path id="path2491" class="st1" d="M376.5,230.21v117.19" />
+      </g>
+      <g id="g2493">
+        <path id="path2495" class="st1" d="M133.74,347.41v-117.19" />
+      </g>
+      <g id="g2497">
+        <path id="path2499" class="st1" d="M368.13,230.21h16.74l-16.74-37.67h-83.71" />
+      </g>
+      <g id="g2501">
+        <path id="path2503" class="st1" d="M225.82,192.54h-83.71l-16.74,37.67h62.78l66.97-66.97,66.97,66.97h29.3" />
+      </g>
+    </g>
+    <g id="g2505">
+      <path id="path2507" class="st1" d="M255.12,163.24v-46.04" />
+    </g>
+    <g id="g2509">
+      <path id="path2511" class="st1" d="M255.12,117.2h29.3v20.93h-29.3" />
+    </g>
+    <g id="g2515">
+      <g id="g2521">
+        <path id="path2523" class="st1" d="M280.23,238.58c0,13.87-11.24,25.11-25.11,25.11s-25.11-11.24-25.11-25.11,11.24-25.11,25.11-25.11,25.11,11.24,25.11,25.11Z" />
+      </g>
+      <g id="g2525">
+        <path id="path2527" class="st1" d="M255.12,246.95v-8.37l8.37-4.19" />
+      </g>
+      <g id="g2529">
+        <path id="path2531" class="st1" d="M255.12,292.99v37.67" />
+      </g>
+      <g id="g2533">
+        <path id="path2535" class="st1" d="M221.64,347.41v-16.74h66.97v16.74" />
+      </g>
+      <g id="g2537">
+        <path id="path2539" class="st1" d="M280.23,330.66v-37.67h-50.23v37.67" />
+      </g>
+      <g id="g2541">
+        <path id="path2543" class="st1" d="M175.6,318.11h33.48v-25.11h-58.6v25.11h8.37" />
+      </g>
+      <path id="path2545" class="st1" d="M150.48,276.25h58.6v-25.11h-58.6v25.11Z" />
+      <g id="g2547">
+        <path id="path2549" class="st1" d="M179.78,276.25v-25.11" />
+      </g>
+      <g id="g2551">
+        <path id="path2553" class="st1" d="M179.78,318.11v-25.11" />
+      </g>
+      <path id="path2555" class="st1" d="M301.16,318.11h58.6v-25.11h-58.6v25.11Z" />
+      <path id="path2557" class="st1" d="M301.16,276.25h58.6v-25.11h-58.6v25.11Z" />
+      <g id="g2559">
+        <path id="path2561" class="st1" d="M330.46,276.25v-25.11" />
+      </g>
+      <g id="g2563">
+        <path id="path2565" class="st1" d="M330.46,318.11v-25.11" />
+      </g>
+    </g>
+  </g>
+</svg>
