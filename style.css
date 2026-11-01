@@ -5772,8 +5772,7 @@ body {
     overflow: hidden;
 
     /* ⬇ VARIABLES AJUSTABLES DE ESTA SECCIÓN (Desktop) */
-    --ingles-split-izq: 52%;                      /* Ancho de la mitad izquierda (textos) */
-    --ingles-split-der: calc(100% - var(--ingles-split-izq)); /* La derecha toma el resto (imagen) */
+    --ingles-split-izq: 52%;                      /* Ancho del contenedor izquierdo (textos) */
     
     --ingles-padding-izq: 5rem 3rem 5rem 8%;      /* Padding del contenedor izquierdo */
     
@@ -5781,7 +5780,7 @@ body {
     --ingles-gap-sub-titulo: 0.8rem;              
     --ingles-gap-titulo-parrafo: 1.5rem;          
     --ingles-gap-parrafo-texto: 1.8rem;             
-    --ingles-gap-texto-lista: 1rem;             
+    --ingles-gap-texto-lista: 1.5rem;             
 
     /* Tamaños y anchos máximos independientes */
     --ingles-subtitulo-fs: 2rem;
@@ -5790,40 +5789,30 @@ body {
     --ingles-titulo-fs: 4rem;
     --ingles-titulo-max: 45rem;
 
-    --ingles-parrafo-fs: 1.45rem;
-    --ingles-parrafo-max: 46rem;
+    --ingles-parrafo-fs: 2rem;
+    --ingles-parrafo-max: 55rem;
 
-    --ingles-texto-fs: 1.25rem;
-    --ingles-texto-max: 46rem;
+    --ingles-texto-fs: 2.1rem;
+    --ingles-texto-max: 55rem;
 
-    --ingles-lista-fs: 1.15rem;
+    --ingles-lista-fs: 1.8rem;
 }
 
 /* =============================================
-   Capa 1 - Fondo dividido (Izquierda vacía + Derecha imagen)
+   Capa 1 - Imagen de fondo (Dicta la altura de toda la sección)
    ============================================= */
 .ingles-fondo {
-    display: flex;
     width: 100%;
-}
-
-/* Lado izquierdo: vacío (fondo blanco) */
-.ingles-fondo-izq {
-    width: var(--ingles-split-izq);
-    background-color: #ffffff;
-}
-
-/* Lado derecho: contiene la imagen que DICTA LA ALTURA DE LA SECCIÓN */
-.ingles-fondo-der {
-    width: var(--ingles-split-der);
+    display: block;
 }
 
 .ingles-bg {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
+    /* object-fit no recorta la imagen aquí porque está en flujo normal, 
+       pero se prepara para cuando lo haga en móvil */
     object-fit: cover;
-    object-position: center;
 }
 
 /* =============================================
@@ -5836,7 +5825,6 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;          /* Centrado vertical del contenido */
     z-index: 2;
 }
 
@@ -5845,7 +5833,7 @@ body {
     width: var(--ingles-split-izq);
     height: 100%;
     display: flex;
-    align-items: center;
+    align-items: center; /* Centra los textos verticalmente respecto a toda la sección */
 }
 
 .ingles-textos-wrapper {
@@ -5855,11 +5843,12 @@ body {
     flex-direction: column;
     align-items: flex-start;       /* Alineado a la izquierda */
     text-align: left;
+    margin-left: 2rem;
 }
 
 /* Mitad Derecha: Vacía para dejar ver la imagen de fondo */
 .ingles-mitad-der {
-    width: var(--ingles-split-der);
+    width: calc(100% - var(--ingles-split-izq));
     height: 100%;
 }
 
@@ -5874,6 +5863,8 @@ body {
     letter-spacing: 0.05em;
     max-width: var(--ingles-subtitulo-max);
     margin-bottom: var(--ingles-gap-sub-titulo);
+    text-align: left;
+    width: 100%;
 }
 
 .ingles-titulo {
@@ -5884,50 +5875,58 @@ body {
     line-height: 1.1;
     max-width: var(--ingles-titulo-max);
     margin-bottom: var(--ingles-gap-titulo-parrafo);
+    text-align: left;
+    width: 100%;
 }
 
 .ingles-parrafo {
     font-family: var(--fuente-principal);
     color: var(--color-texto);
-    font-weight: 450;
+    font-weight: 500;
     font-size: var(--ingles-parrafo-fs);
     line-height: 1.4;
     max-width: var(--ingles-parrafo-max);
     margin-bottom: var(--ingles-gap-parrafo-texto);
+    text-align: left;
+    width: 100%;
 }
 
 .ingles-texto {
     font-family: var(--fuente-principal);
     color: #000000;
-    font-weight: 600;
+    font-weight: 650;
     font-size: var(--ingles-texto-fs);
     line-height: 1.3;
     max-width: var(--ingles-texto-max);
     margin-bottom: var(--ingles-gap-texto-lista);
+    text-align: left;
+    width: 100%;
 }
 
+/* Lista con viñeta de puntos alineada por defecto */
 .ingles-lista {
     list-style-type: disc;        
-    list-style-position: inside;  
+    list-style-position: outside;  
+    margin-left: 1.5rem;          /* Espacio para la viñeta */
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
     text-align: left;
+    width: 100%;
 }
 
 .ingles-lista li {
     font-family: var(--fuente-principal);
     color: #000000;
-    font-weight: 450;
+    font-weight: 750;
     font-size: var(--ingles-lista-fs);
-    line-height: 1.3;
+    line-height: 1;
     text-align: left;
 }
 
 
 /* =============================================
    BLOQUE: RESPONSIVE MÓVIL (≤ 768px)
-   Sección apilada: Imagen arriba, textos abajo centrados (lista izq)
    ============================================= */
 @media (max-width: 768px) {
 
@@ -5937,30 +5936,27 @@ body {
         background-color: #ffffff;
     }
 
-    /* Capa 1: La imagen pasa arriba ocupando un alto proporcional controlado */
+    /* ------------------------------------------------- */
+    /* Capa 1: La imagen pasa arriba                     */
+    /* ------------------------------------------------- */
     .ingles-fondo {
         position: relative;
         display: block;
         width: 100%;
     }
 
-    .ingles-fondo-izq {
-        display: none;
-    }
-
-    .ingles-fondo-der {
-        width: 100%;
-    }
-
     .ingles-bg {
         width: 100%;
-        height: 45vh;
+        /* Altura fija para móvil, object-fit recorta lo que sobra */
+        height: 40vh;
         min-height: 18rem;
         object-fit: cover;
-        object-position: center center;
+        object-position: center right; /* Enfoca el centro-derecha de la imagen donde están los niños */
     }
 
-    /* Capa 2: El contenido deja de ser absoluto y fluye de manera natural abajo */
+    /* ------------------------------------------------- */
+    /* Capa 2: Contenido fluye de manera natural abajo   */
+    /* ------------------------------------------------- */
     .ingles-contenido {
         position: static;
         width: 100%;
@@ -5979,43 +5975,38 @@ body {
     }
 
     .ingles-textos-wrapper {
-        padding: 2.5rem 6% 3.5rem 6%;
+        padding: 3rem 6% 4rem 6%;
         align-items: center;       
         text-align: center;        
     }
 
-    .ingles-subtitulo {
-        text-align: center;
-        max-width: 100%;
-        font-weight: 600;
-    }
-
-    .ingles-titulo {
-        text-align: center;
-        max-width: 100%;
-        font-size: 1.8rem;
-    }
-
-    .ingles-parrafo {
-        text-align: justify;
-        text-align-last: center;
-        max-width: 100%;
-    }
-
+    /* Textos centrados y sin justificar según lo solicitado */
+    .ingles-subtitulo,
+    .ingles-titulo,
+    .ingles-parrafo,
     .ingles-texto {
         text-align: center;
         max-width: 100%;
     }
 
-    /* La lista se mantiene alineada a la izquierda como pediste */
+    .ingles-subtitulo { font-size: 1.3rem; }
+    .ingles-titulo { font-size: 2.2rem; }
+    .ingles-parrafo { font-size: 1.15rem; }
+    .ingles-texto { font-size: 1.15rem; }
+
+    /* ------------------------------------------------- */
+    /* La lista se mantiene alineada a la izquierda      */
+    /* ------------------------------------------------- */
     .ingles-lista {
         align-self: flex-start;    
         text-align: left;          
-        margin-left: 8%;          
+        margin-left: 2rem;       /* Separación del borde izquierdo */  
         width: auto;
+        max-width: 100%;
     }
 
     .ingles-lista li {
         text-align: left;
+        font-size: 1.05rem;
     }
 }
