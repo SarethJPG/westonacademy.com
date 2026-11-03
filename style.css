@@ -2775,7 +2775,8 @@ body {
 #nosotros,
 #programas,
 #instalaciones,
-#admisiones {
+#admisiones
+#contacto {
     scroll-margin-top: var(--altura-navbar);
 }
 
