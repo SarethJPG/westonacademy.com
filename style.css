@@ -1369,7 +1369,7 @@ body {
     --diferencias-gap-columnas: 1rem;          /* Gap entre las 4 columnas de grupos */
     --diferencias-gap-grupo-interno: 0.7rem;   /* Gap interno de cada grupo (icono, título, párrafo) */
     --diferencias-max-subtitulo: 70rem;        /* Ancho máx del subtítulo */
-    --diferencias-max-titulo: 80rem;           /* Ancho máx del título principal */
+    --diferencias-max-titulo: 50rem;           /* Ancho máx del título principal */
     --diferencias-max-titulo-grupo: 12rem;     /* Ancho máx del título de cada grupo */
     --diferencias-max-parrafo-grupo: 13rem;    /* Ancho máx del párrafo de cada grupo */
     --diferencias-icono-size: 6rem;            /* Tamaño de los iconos */
@@ -1448,7 +1448,7 @@ body {
 .diferencias-titulo {
     font-family: var(--fuente-principal);
     color: #3663a7;
-    font-size: 4.1rem;
+    font-size: 3rem;
     line-height: 1.15;
     text-align: left;
     max-width: var(--diferencias-max-titulo);
